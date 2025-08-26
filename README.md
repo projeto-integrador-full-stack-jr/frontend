@@ -1,12 +1,44 @@
-# React + Vite
+# MentorIA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sobre o projeto
+O MentorIA é uma iniciativa inovadora e disruptiva que busca transformar o
+mercado da educação e apoiar profissionais em início ou meio de carreira. Através
+de mentorias personalizadas geradas por Inteligência Artificial (IA), adaptadas ao
+perfil atual e aos objetivos futuros do usuário, a plataforma oferece um caminho
+realista e estruturado para alcançar o sucesso profissional.
+Inspirado pela palestra do Jorge Audy sobre inovação, o MentorIA nasce como uma
+alternativa ao mercado saturado de “coaching vazio”, oferecendo planos práticos,
+mensuráveis e personalizados, criados a partir de dados objetivos e estratégias
+comprovadas.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Tecnologias utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- [Vite](https://vitejs.dev/) - Bundler moderno que oferece build rápido e servidor de desenvolvimento instantâneo. Usado para inicializar, desenvolver e gerar o build do projeto.
+- [React](https://reactjs.org/) - Biblioteca JavaScript para construir interfaces de usuário reativas e componentes reutilizáveis.
+- [TailwindCSS](https://tailwindcss.com/) - Framework CSS utilitário que permite estilizar componentes rapidamente usando classes.
+- [JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)  - Linguagem de programação usada para lógica do front-end, manipulação de dados, interatividade e integração com APIs.
+- HTML5 & CSS3 - Linguagens de marcação e estilo usadas para estruturar o conteúdo da página e definir sua aparência visual, respectivamente.
+
+---
+
+## Como executar o projeto
+
+### 1. Clone o repositório
+```bash
+git clone https://github.com/projeto-integrador-full-stack-jr/frontend.git
+cd mentorIA
+```
+
+### 2. Instale as dependências
+```bash
+npm install
+```
+
+### 3. Execute o projeto em modo de desenvolvimento
+```bash
+npm run dev
+```
+Abra o navegador e acesse http://localhost:5173 (ou a porta que aparecer no terminal).
