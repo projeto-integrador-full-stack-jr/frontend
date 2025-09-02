@@ -1,5 +1,7 @@
 import logo from '../assets/logo.svg';
 import Button from '../components/Button';
+import About from '../sections/about';
+import Features from '../sections/Features';
 
 const LandingPage = () => {
   return (
@@ -38,25 +40,29 @@ const LandingPage = () => {
           <Button label="Criar Conta" style="primary" />
         </div>
       </header>
-      <main className="flex h-screen items-center justify-start px-20">
-        <div>
-          <div className="w-2/3">
-            <h1 className="text-7xl leading-tight font-extrabold text-[#0046BC]">
-              Mentoria objetiva <br /> para a sua{' '}
-              <span className="font-serif">evolução profissional 🚀</span>
-            </h1>
-            <p className="w-3/4 pt-6 text-sm font-light text-zinc-400">
-              Com recursos intuitivos, dashboards claros e acompanhamento pe
-              jornrsonalizado, você tem tudo em um só lugar para evoluir na sua
-              jornada.
-            </p>
-          </div>
+      <main>
+        <section className="flex h-screen items-center justify-start px-20">
+          <div>
+            <div className="w-2/3">
+              <h1 className="text-7xl leading-tight font-extrabold text-[#0046BC]">
+                Mentoria objetiva <br /> para a sua{' '}
+                <span className="font-serif">evolução profissional 🚀</span>
+              </h1>
+              <p className="w-3/4 pt-6 text-sm font-light text-zinc-400">
+                Com recursos intuitivos, dashboards claros e acompanhamento pe
+                jornrsonalizado, você tem tudo em um só lugar para evoluir na
+                sua jornada.
+              </p>
+            </div>
 
-          <div className="mt-10 flex gap-4">
-            <Button label="Saiba Mais" style="outline" />
-            <Button label="Começar Agora" style="primary" />
+            <div className="mt-10 flex gap-4">
+              <Button label="Saiba Mais" style="outline" />
+              <Button label="Começar Agora" style="primary" />
+            </div>
           </div>
-        </div>
+        </section>
+        <About />
+        <Features />
       </main>
       <footer className="py-4 text-center text-zinc-400">
         <p>
