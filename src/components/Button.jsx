@@ -9,7 +9,7 @@ const styles = {
 const Button = ({ label, onClick, style }) => {
   return (
     <button
-      className={`sm:text cursor-pointer rounded-xl px-8 py-2 lg:px-12 lg:py-3 ${styles[style]} `}
+      className={`cursor-pointer rounded-xl px-6 py-2 text-sm lg:px-12 lg:py-3 lg:text-lg ${styles[style]} `}
       onClick={onClick}
     >
       {label}
