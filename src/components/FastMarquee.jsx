@@ -6,6 +6,7 @@ import google from '../assets/google.svg';
 import nubank from '../assets/nubank.svg';
 import sicredi from '../assets/sicredi.svg';
 import south_system from '../assets/south_system.svg';
+import plus_prati from '../assets/+prati.svg';
 
 const companies = [
   {
@@ -39,16 +40,16 @@ const companies = [
     link: 'https://southsystem.com.br/',
   },
   {
-    name: '/Codifica',
-    image: codifica,
-    link: 'https://www.codificaedu.com.br/',
+    name: '+PraTi',
+    image: plus_prati,
+    link: 'https://www.maisprati.com.br/',
   },
 ];
 
 const FastMarquee = () => {
   return (
-    <div className="mx-8 my-10 lg:mx-20">
-      <div className="flex flex-col lg:flex-row lg:items-baseline lg:justify-between">
+    <div className="my-10">
+      <div className="flex flex-col px-8 lg:mx-20 lg:flex-row lg:items-baseline lg:justify-between lg:px-0">
         <h1 className="b-20 text-2xl font-extrabold text-[#3F3D56] lg:w-1/4 lg:text-3xl">
           Veja as empresas onde alguns dos mentoradosIA trabalham
         </h1>
@@ -59,13 +60,13 @@ const FastMarquee = () => {
       </div>
       <Marquee pauseOnHover={true} speed={20}>
         {companies.map((company) => (
-          <div key={company.name} className="px-16">
+          <div key={company.name} className="overflow-hidden px-16 py-10">
             <a href={company.link} target="_blank" rel="noreferrer">
               <img
                 src={company.image}
                 alt={company.name}
                 title={company.name}
-                className="h-50 w-40 cursor-pointer transition duration-300 ease-in-out hover:scale-105"
+                className="w-40 cursor-pointer transition duration-300 ease-in-out hover:scale-105"
               />
             </a>
           </div>
