@@ -3,6 +3,7 @@ import Button from '../components/Button';
 import About from '../sections/about';
 import Features from '../sections/Features';
 import FastMarquee from '../components/FastMarquee';
+import Email from '../sections/Email';
 
 const LandingPage = () => {
   return (
@@ -63,6 +64,8 @@ const LandingPage = () => {
         </section>
         <About />
         <Features />
+
+        <Email />
         <FastMarquee />
       </main>
       <footer className="py-4 text-center text-zinc-400">
