@@ -24,8 +24,8 @@ const cards = [
 
 const Features = () => {
   return (
-    <section className="min-h-screen">
-      <div className="mt-25 min-w-1/2 px-8 lg:mt-0 lg:w-1/2 lg:px-20">
+    <section className="my-30 lg:my-50">
+      <div className="min-w-1/2 px-8 lg:mt-0 lg:w-1/2 lg:px-20">
         <div className="mb-12 w-fit rounded-full bg-[#2C49FA] px-12 py-1 text-sm text-white lg:text-lg">
           Pronto para o mercado
         </div>
