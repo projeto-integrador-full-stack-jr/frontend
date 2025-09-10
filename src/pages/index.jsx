@@ -4,6 +4,8 @@ import About from '../sections/about';
 import Features from '../sections/Features';
 import FastMarquee from '../components/FastMarquee';
 import Email from '../sections/Email';
+import Footer from '../components/Footer';
+import Faq from '../components/Faq';
 
 const LandingPage = () => {
   return (
@@ -64,15 +66,11 @@ const LandingPage = () => {
         </section>
         <About />
         <Features />
-
         <Email />
         <FastMarquee />
+        <Faq />
       </main>
-      <footer className="py-4 text-center text-zinc-400">
-        <p>
-          © {new Date().getFullYear()} mentorIA. Todos os direitos reservados.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 };

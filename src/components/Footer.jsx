@@ -1,0 +1,93 @@
+import React from 'react';
+import logo from '../assets/logo_footer.png';
+import instagram from '../assets/instagram_before.svg';
+import linkedin from '../assets/linkedin_before.svg';
+import youtube from '../assets/youtube_before.svg';
+import x from '../assets/x_before.svg';
+import facebook from '../assets/facebook_before.svg';
+
+const socials = [
+  {
+    icon: instagram,
+    link: 'https://www.instagram.com/',
+  },
+  {
+    icon: linkedin,
+    link: 'https://www.linkedin.com/',
+  },
+  {
+    icon: youtube,
+    link: 'https://www.youtube.com/',
+  },
+  {
+    icon: x,
+    link: 'https://twitter.com/',
+  },
+  {
+    icon: facebook,
+    link: 'https://www.facebook.com/',
+  },
+];
+
+const Footer = () => {
+  return (
+    <footer className="flex min-h-70 w-full flex-col items-center bg-[#2C49FA] text-white lg:flex-row lg:justify-between lg:px-20">
+      <div className="flex flex-col">
+        <img
+          src={logo}
+          alt="logo"
+          className="w-60 cursor-pointer"
+          onClick={''}
+        />
+        <p className="pt-10 text-sm font-light text-white/50">
+          © {new Date().getFullYear()} mentorIA. Todos os direitos reservados.
+        </p>
+      </div>
+      <div>
+        <form className="pt-4">
+          <label htmlFor="email">
+            Preencha seu e-mail para receber atualizações
+          </label>
+          <div className="flex flex-row justify-center pt-2">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Digite seu email..."
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              className="w-3/5 rounded-l-lg border-2 border-white px-4 py-2 text-lg placeholder:bg-[#2C49FA] lg:w-95"
+              required
+            />
+            <button
+              type="submit"
+              className="cursor-pointer rounded-r-lg bg-white px-4 py-2 text-[#2C49FA] hover:bg-[#f4f4f4]"
+            >
+              Inscrever-se
+            </button>
+          </div>
+        </form>
+
+        <div className="flex flex-row items-center justify-between py-7">
+          <a href="#" className="font-light text-white/50 hover:text-white/30">
+            Política de Privacidade
+          </a>
+
+          <div className="flex gap-2">
+            {socials.map((social) => (
+              <a href={social.link} target="_blank" rel="noreferrer">
+                <img
+                  src={social.icon}
+                  alt={social.link}
+                  width={25}
+                  className="transition duration-100 ease-in-out hover:scale-110"
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

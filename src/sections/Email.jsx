@@ -15,7 +15,7 @@ const Email = () => {
           </p>
         </div>
 
-        <form className="pt-4">
+        <form className="pt-4 lg:mr-12">
           <label htmlFor="email">E-mail</label>
           <div className="flex flex-row justify-center pt-2">
             <input
@@ -24,7 +24,7 @@ const Email = () => {
               id="email"
               placeholder="Digite seu email..."
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              className="w-3/5 rounded-l-xl border-2 border-white px-4 py-2 text-lg placeholder:bg-[#2C49FA] lg:w-95"
+              className="w-3/5 rounded-l-xl border-2 border-white px-4 py-2 text-lg placeholder:bg-[#2C49FA] lg:w-90"
               required
             />
             <button
