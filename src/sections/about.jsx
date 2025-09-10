@@ -10,21 +10,18 @@ const about = () => {
         <h1 className="pb-20 text-5xl font-extrabold text-[#3F3D56] lg:mt-30">
           Sobre o mentorIA
         </h1>
-        <p className="pb-12 text-lg">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. Lorem Ipsum is simply dummy
-          text of the printing and typesetting industry. Lorem Ipsum has been
-          the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type
-          specimen book.
+        <p className="pb-4 text-lg">
+          Na MentorIA, você recebe uma orientação profissional direta e
+          personalizada, criada a partir das suas respostas sobre experiência,
+          objetivos de carreira e conhecimentos atuais.
         </p>
         <p className="text-lg">
-          orem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          Com o apoio de inteligência artificial, nosso sistema gera um plano de
+          mentoria objetivo, com passos práticos e sugestões relevantes para sua
+          evolução, oferecendo direcionamento claro e alinhado às suas metas
+          profissionais. Além disso, você pode salvar suas mentorias e
+          acompanhar sua evolução ao longo do tempo, sempre com foco no que
+          realmente importa: o seu crescimento profissional.
         </p>
       </div>
 

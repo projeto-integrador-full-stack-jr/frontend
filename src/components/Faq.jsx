@@ -41,7 +41,7 @@ const Faq = () => {
       <h1 className="pb-12 text-4xl font-bold text-[#3F3D56]">
         Dúvidas Frequentes
       </h1>
-      <div className="flex w-full max-w-2xl flex-col gap-4">
+      <div className="flex w-full max-w-2xl flex-col gap-4 p-5 lg:p-0">
         {texts.map((text, index) => (
           <Accordion
             key={index}
