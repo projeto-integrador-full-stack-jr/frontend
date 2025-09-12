@@ -2,7 +2,9 @@ import React from 'react';
 
 const styles = {
   primary: 'bg-[#2C49FA] hover:bg-[#102FF9] text-white font-semibold',
-  outline: 'bg-[#2C49FA]/5 font-light text-[#2C49FA] hover:bg-[#C3CBFD] ',
+  secondary: 'bg-[#2C49FA]/5 font-semi text-[#2C49FA] hover:bg-[#C3CBFD] ',
+  outline:
+    'after:block after:h-0.5 after:w-0 after:bg-[#2C49FA] after:transition-all after:duration-300 hover:after:w-full text-[#2C49FA] font-semibold',
 };
 
 const Button = ({ label, onClick, style }) => {

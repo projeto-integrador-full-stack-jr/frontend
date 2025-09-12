@@ -1,14 +1,23 @@
-import logo from '../assets/logo.svg';
-import Button from '../components/Button';
-import About from '../sections/about';
-import Features from '../sections/Features';
-import FastMarquee from '../components/FastMarquee';
-import Email from '../sections/Email';
-import Footer from '../components/Footer';
-import Faq from '../components/Faq';
+// imgs
 import choose from '../assets/choose.svg';
 import user_account from '../assets/user-account.svg';
 import hire from '../assets/hire.svg';
+import avatar from '../assets/avatar.png';
+import resume from '../assets/resume.png';
+import resume_result from '../assets/resume_result.png';
+
+// components
+import Header from '../components/Header';
+import FastMarquee from '../components/FastMarquee';
+import Button from '../components/Button';
+import Footer from '../components/Footer';
+
+// sections
+import Email from '../components/Email';
+import About from '../sections/About';
+import Features from '../sections/Features';
+import Contact from '../sections/Contact';
+import Faq from '../sections/Faq';
 
 const imgs = [
   {
@@ -31,64 +40,46 @@ const imgs = [
 const LandingPage = () => {
   return (
     <div className="min-h-screen w-full">
-      <header className="flex justify-center border-b border-gray-300 px-4 py-6 lg:mx-20 lg:items-center lg:justify-between">
-        <img
-          src={logo}
-          alt="Logo mentorIA"
-          className="w-50 cursor-pointer"
-          onClick={''}
-        />
-
-        <ul className="hidden lg:flex lg:gap-4 lg:text-black">
-          <li className="hover:text-black/70">
-            <a href="#home">Início</a>
-          </li>
-          <li className="hover:text-black/70">
-            <a href="#about">Sobre</a>
-          </li>
-          <li className="hover:text-black/70">
-            <a href="#features">Funcionalidades</a>
-          </li>
-          <li className="hover:text-black/70">
-            <a href="#support">Suporte</a>
-          </li>
-          <li className="hover:text-black/70">
-            <a href="#faq">Dúvidas</a>
-          </li>
-          <li className="hover:text-black/70">
-            <a href="#contact">Contato</a>
-          </li>
-        </ul>
-
-        <div className="hidden lg:flex lg:gap-4">
-          <Button label="Entrar" style="outline" />
-          <Button label="Criar Conta" style="primary" />
-        </div>
-      </header>
+      <Header />
       <main>
-        <section className="flex h-screen items-center justify-start px-6 lg:px-20">
-          <div>
+        <section id="home" className="flex h-screen items-center justify-start">
+          <div className="px-6 lg:px-20">
             <div className="min-w-1/2 lg:w-2/3">
-              <div></div>
               <h1 className="bg-gradient-to-r from-[#2C49FA] via-[#8192FC] to-[#8594f5] bg-clip-text text-6xl leading-tight font-extrabold text-transparent sm:text-5xl lg:text-8xl">
                 Mentoria objetiva <br /> para a sua evolução profissional{'  '}
                 <span className="text-black">🚀</span>
               </h1>
-              <p className="min-w-3/4 pt-6 text-lg font-light text-zinc-500 lg:w-3/4">
-                Conte com orientação direta para alcançar seus objetivos
+              <p className="min-w-3/4 pt-6 text-xl font-light text-zinc-500 lg:w-3/4">
+                Conte com orientação direta <br /> para alcançar seus objetivos
                 profissionais.
               </p>
             </div>
 
-            <div className="mt-6 flex gap-4 lg:mt-10">
+            <div className="mt-6 flex gap-4 lg:mt-6">
               <Button label="Eu quero uma mentoria" style="primary" />
-              <Button label="Saiba Mais" style="outline" />
+              <Button label="Saiba Mais" style="secondary" />
+            </div>
+            <div className="flex items-center gap-5 pt-12">
+              <img src={avatar} alt="avatares" />
+              <p className="text-lg leading-5 font-light">
+                Mais de +1000 usuários <br /> evoluíram profissionalmente
+              </p>
             </div>
           </div>
+          <img
+            src={resume}
+            alt=""
+            className="absolute top-120 right-40 h-150"
+          />
+          <img
+            src={resume_result}
+            alt=""
+            className="absolute top-80 right-0 h-full"
+          />
         </section>
         <About />
         <Features />
-        <Email />
+        <Contact />
         <section className="lg:my-30">
           <div className="pb-12 text-center">
             <h2 className="pb-4 text-4xl font-extrabold text-[#3F3D56] lg:text-5xl">
@@ -103,7 +94,7 @@ const LandingPage = () => {
           <div className="grid grid-rows-3 gap-5 lg:grid-cols-3 lg:grid-rows-1">
             {imgs.map((img) => (
               <div className="place-items-center p-12 text-center">
-                <h1 className="pb-4 text-2xl font-bold">{img.title}</h1>
+                <h2 className="pb-4 text-2xl font-bold">{img.title}</h2>
                 <p className="pb-6 font-light">{img.text}</p>
                 <img src={img.img} width={300} />
               </div>

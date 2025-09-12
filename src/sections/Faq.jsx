@@ -1,11 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
 
 const texts = [
   {
@@ -37,10 +36,10 @@ const texts = [
 
 const Faq = () => {
   return (
-    <div className="flex flex-col items-center gap-4 pb-35">
-      <h1 className="pb-12 text-4xl font-bold text-[#3F3D56]">
+    <div id="faq" className="flex flex-col items-center gap-4 pb-35">
+      <h2 className="pb-12 text-4xl font-bold text-[#3F3D56]">
         Dúvidas Frequentes
-      </h1>
+      </h2>
       <div className="flex w-full max-w-2xl flex-col gap-4 p-5 lg:p-0">
         {texts.map((text, index) => (
           <Accordion

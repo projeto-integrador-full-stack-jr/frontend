@@ -29,9 +29,9 @@ const Features = () => {
         <div className="mb-12 w-fit rounded-full bg-[#2C49FA] px-12 py-1 text-sm text-white lg:text-lg">
           Pronto para o mercado
         </div>
-        <h1 className="pb-12 text-5xl font-extrabold text-[#3F3D56]">
+        <h2 className="pb-12 text-5xl font-extrabold text-[#3F3D56]">
           Por que usar o mentorIA
-        </h1>
+        </h2>
         <p className="pb-12 text-lg">
           O MentorIA foi criado para eliminar a frustração de buscar crescimento
           na carreira sem ter clareza dos próximos passos. Mais do que um
@@ -40,7 +40,7 @@ const Features = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 grid-rows-3 gap-8 px-4 lg:mx-30 lg:grid-cols-3 lg:grid-rows-1 lg:p-5 lg:px-0 lg:pt-0">
+      <div className="grid grid-cols-1 grid-rows-3 gap-8 divide-x-1 divide-solid divide-black/10 px-4 lg:mx-30 lg:grid-cols-3 lg:grid-rows-1 lg:p-5 lg:px-0 lg:pt-0">
         {cards.map((card) => (
           <Cards title={card.title} icon={card.icon} text={card.text} />
         ))}

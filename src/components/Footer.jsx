@@ -5,6 +5,7 @@ import linkedin from '../assets/linkedin_before.svg';
 import youtube from '../assets/youtube_before.svg';
 import x from '../assets/x_before.svg';
 import facebook from '../assets/facebook_before.svg';
+import Email from './Email';
 
 const socials = [
   {
@@ -31,7 +32,10 @@ const socials = [
 
 const Footer = () => {
   return (
-    <footer className="flex min-h-70 w-full flex-col items-center bg-[#2C49FA] text-white lg:flex-row lg:justify-between lg:px-20">
+    <footer
+      id="contact"
+      className="flex min-h-70 w-full flex-col items-center bg-[#2C49FA] text-white lg:flex-row lg:justify-between lg:px-20"
+    >
       <div className="flex flex-col">
         <img
           src={logo}
@@ -44,28 +48,11 @@ const Footer = () => {
         </p>
       </div>
       <div>
-        <form className="pt-4">
-          <label htmlFor="email">
-            Preencha seu e-mail para receber atualizações
-          </label>
-          <div className="flex flex-row justify-center pt-2">
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Digite seu email..."
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              className="w-3/5 rounded-l-lg border-2 border-white px-4 py-2 text-lg placeholder:bg-[#2C49FA] lg:w-95"
-              required
-            />
-            <button
-              type="submit"
-              className="cursor-pointer rounded-r-lg bg-white px-4 py-2 text-[#2C49FA] hover:bg-[#f4f4f4]"
-            >
-              Inscrever-se
-            </button>
-          </div>
-        </form>
+        <Email
+          label={'Preencha seu e-mail para receber atualizações'}
+          button_label={'Inscrever-se'}
+          placeholder={'Digite seu e-mail...'}
+        />
 
         <div className="flex flex-row items-center justify-between py-7">
           <a href="#" className="font-light text-white/50 hover:text-white/30">
