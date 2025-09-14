@@ -13,7 +13,6 @@ import Button from '../components/Button';
 import Footer from '../components/Footer';
 
 // sections
-import Email from '../components/Email';
 import About from '../sections/About';
 import Features from '../sections/Features';
 import Contact from '../sections/Contact';
