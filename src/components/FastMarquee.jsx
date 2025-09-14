@@ -2,7 +2,7 @@ import React from 'react';
 import Marquee from 'react-fast-marquee';
 import codifica from '../assets/codifica.svg';
 import trindtech from '../assets/trindtech.svg';
-import google from '../assets/google.svg';
+import google from '../assets/google_logo.svg';
 import nubank from '../assets/nubank.svg';
 import sicredi from '../assets/sicredi.svg';
 import south_system from '../assets/south_system.svg';

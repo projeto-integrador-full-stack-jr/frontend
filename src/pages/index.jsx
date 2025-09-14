@@ -57,7 +57,7 @@ const LandingPage = () => {
 
             <div className="mt-6 flex gap-4 lg:mt-6">
               <Button label="Eu quero uma mentoria" style="primary" />
-              <Button label="Saiba Mais" style="secondary" />
+              <Button label="Saiba Mais" variant="secondary" />
             </div>
             <div className="flex items-center gap-5 pt-12">
               <img src={avatar} alt="avatares" />
