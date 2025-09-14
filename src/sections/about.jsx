@@ -24,7 +24,6 @@ const About = () => {
           realmente importa: o seu crescimento profissional.
         </p>
       </div>
-
       <img
         src={robot}
         alt="robot"
