@@ -24,8 +24,8 @@ const cards = [
 
 const Features = () => {
   return (
-    <section className="my-30 lg:my-50">
-      <div className="min-w-1/2 px-8 lg:mt-0 lg:w-1/2 lg:px-20">
+    <section className="my-30 lg:my-50 lg:px-78">
+      <div className="min-w-1/2 px-8 lg:mt-0 lg:w-1/2 lg:px-0">
         <div className="mb-12 w-fit rounded-full bg-[#2C49FA] px-12 py-1 text-sm text-white lg:text-lg">
           Pronto para o mercado
         </div>
@@ -40,7 +40,7 @@ const Features = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 grid-rows-3 gap-8 divide-x-1 divide-solid divide-black/10 px-4 lg:mx-30 lg:grid-cols-3 lg:grid-rows-1 lg:p-5 lg:px-0 lg:pt-0">
+      <div className="grid grid-cols-1 grid-rows-3 gap-8 divide-x-1 divide-solid divide-black/10 px-4 lg:mx-20 lg:grid-cols-3 lg:grid-rows-1 lg:p-5 lg:px-0 lg:pt-0">
         {cards.map((card) => (
           <Cards title={card.title} icon={card.icon} text={card.text} />
         ))}

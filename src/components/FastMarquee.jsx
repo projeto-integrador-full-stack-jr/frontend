@@ -49,7 +49,7 @@ const companies = [
 const FastMarquee = () => {
   return (
     <div className="my-10">
-      <div className="flex flex-col px-8 lg:mx-20 lg:flex-row lg:items-baseline lg:justify-between lg:px-0">
+      <div className="flex flex-col px-8 lg:mx-78 lg:flex-row lg:items-baseline lg:justify-between lg:px-0">
         <h1 className="b-20 text-2xl font-extrabold text-[#3F3D56] lg:w-1/4 lg:text-3xl">
           Veja as empresas onde alguns dos mentoradosIA trabalham
         </h1>

@@ -5,10 +5,10 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="my-14 flex min-h-80 w-full items-center justify-between bg-[#2C49FA] p-8 text-white"
+      className="my-12 flex min-h-80 w-full items-center justify-between bg-[#2C49FA] text-white"
     >
-      <div className="flex flex-col justify-between lg:flex-row">
-        <div className="flex flex-col lg:w-1/2 lg:px-14">
+      <div className="flex flex-col justify-between px-8 py-8 lg:flex-row lg:px-78">
+        <div className="flex flex-col lg:w-1/2">
           <h2 className="text-4xl font-extrabold">
             Faça parte da nossa <br /> comunidade de mentoria
           </h2>
