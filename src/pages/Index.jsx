@@ -56,7 +56,7 @@ const LandingPage = () => {
             </div>
 
             <div className="mt-6 flex gap-4 lg:mt-6">
-              <Link to={''}>
+              <Link to={'/profile'}>
                 <Button label="Eu quero uma mentoria" style="primary" />
               </Link>
               <Link to={''}>
