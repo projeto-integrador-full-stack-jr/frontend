@@ -1,7 +1,7 @@
 import './main.css';
 import LandingPage from './pages';
 import PageLogin from './pages/login/AuthLayout.jsx';
-import Profile from './pages/Profile.jsx';
+import Settings from './pages/Settings.jsx';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth" element={<PageLogin />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Settings />} />
     </Routes>
   );
 }
