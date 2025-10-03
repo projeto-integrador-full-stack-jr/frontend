@@ -9,7 +9,7 @@ const buttonStyles = {
   secondary:
     'bg-[#2C49FA]/5 font-semi text-[#2C49FA] hover:bg-[#C3CBFD]  px-5 py-2 rounded-md font-medium',
   outline:
-    'after:block after:h-0.5 after:w-0 after:bg-[#2C49FA] after:transition-all after:duration-300 hover:after:w-full text-[#2C49FA] font-medium px-5 py-2 rounded-md',
+    'relative inline-block text-[#2C49FA] font-medium px-5 py-2 rounded-md after:block after:h-0.5 after:w-0 after:bg-[#2C49FA] after:transition-all after:duration-300 hover:after:w-full',
 };
 
 const Header = () => {
@@ -42,7 +42,7 @@ const Header = () => {
         ) : (
           <Link
             to="/"
-            className={`${buttonStyles.secondary} flex items-center justify-center`}
+            className={`${buttonStyles.outline} flex items-center justify-center`}
           >
             página anterior
           </Link>

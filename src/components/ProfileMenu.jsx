@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import logo from '../assets/logo.svg';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 import {
@@ -19,67 +18,59 @@ const menuOptions = [
 ];
 
 const ProfileMenu = () => {
-  const [isOpen, setIsOpen] = React.useState(false); // menu inicia fechado
-  const menuRef = useRef(null); // referencia de quem é o menu
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null); // referência para saber quem é o menu
 
-  // fecha menu com um clique
+  // fecha o menu ao clicar fora
   useEffect(() => {
-    function handleCloseMenu(event) {
-      // se o clique for fora do elemento menu e estiver aberto
+    const handleCloseMenu = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
       }
-    }
-    // aqui chama a evento no clique
-    document.addEventListener('mousedown', handleCloseMenu);
-    return () => {
-      // limpa o evento
-      document.removeEventListener('mousedown', handleCloseMenu);
     };
+    // adiciona o event listener
+    document.addEventListener('mousedown', handleCloseMenu);
+    return () => document.removeEventListener('mousedown', handleCloseMenu); // limpa o event listener
   }, []);
+
+  const menuWidth = isOpen ? 'w-50 lg:w-95 lg:p-8' : 'w-22 lg:p-3';
 
   return (
     <aside
       ref={menuRef}
-      className={`fixed flex h-full flex-col justify-between overflow-hidden border-2 bg-white p-4 transition-all duration-300 ease-in-out ${isOpen ? 'w-70 lg:w-1/4 lg:p-8' : 'w-22 lg:p-3'} `}
+      className={`relative flex h-full flex-col justify-between overflow-hidden border-r border-gray-100 p-4 transition-all duration-300 ease-in-out ${menuWidth}`}
     >
-      <div>
-        <div className="flex flex-col items-center pb-14">
-          <img
-            src={logo}
-            alt="Logo"
-            className={isOpen ? 'w-40 lg:w-50' : 'hidden'}
-          />
-        </div>
-
+      <div className="flex flex-grow flex-col">
         <nav className="flex flex-col gap-4 pt-10">
-          {menuOptions.map((option) => (
-            <Link key={option.link} to={option.link}>
+          {menuOptions.map(({ label, link, icon }) => (
+            <Link key={link} to={link}>
               <Button
-                label={isOpen ? option.label : ''}
-                icon={option.icon}
+                label={isOpen ? label : ''}
+                icon={icon}
                 variant="tertiary"
-                title={option.label}
+                title={label}
               />
             </Link>
           ))}
 
           {!isOpen && (
-            <Link onClick={() => setIsOpen(isOpen)} to="/">
-              <Button title={'Sair'} icon={<LogOut />} variant="tertiary" />
+            <Link to="/">
+              <Button title="Sair" icon={<LogOut />} variant="tertiary" />
             </Link>
           )}
         </nav>
       </div>
 
-      <Link onClick={() => setIsOpen(!isOpen)} to={isOpen ? '/' : ''}>
-        <Button
-          label={isOpen ? 'Sair' : ''}
-          title={isOpen ? 'Sair' : 'Abrir menu'}
-          icon={isOpen ? <LogOut /> : <ChevronLast />}
-          variant={isOpen ? 'danger' : 'tertiary'}
-        />
-      </Link>
+      <div className="mt-auto">
+        <Link onClick={() => setIsOpen(!isOpen)} to={isOpen ? '/' : ''}>
+          <Button
+            label={isOpen ? 'Sair' : ''}
+            title={isOpen ? 'Sair' : 'Abrir menu'}
+            icon={isOpen ? <LogOut /> : <ChevronLast />}
+            variant={isOpen ? 'danger' : 'tertiary'}
+          />
+        </Link>
+      </div>
     </aside>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const InputField = ({ label, type = 'text', placeholder }) => {
+const InputField = ({ label, type = 'text', placeholder, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
 
@@ -14,6 +14,7 @@ const InputField = ({ label, type = 'text', placeholder }) => {
           type={isPassword && showPassword ? 'text' : type}
           placeholder={placeholder}
           className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          onChange={onChange}
         />
         {isPassword && (
           <button
