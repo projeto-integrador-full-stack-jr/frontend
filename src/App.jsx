@@ -5,13 +5,13 @@ import Settings from './pages/Settings.jsx';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/auth" element={<PageLogin />} />
-      <Route path="/profile" element={<Settings />} />
-    </Routes>
-  );
+    return (
+        <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<PageLogin />} />
+            <Route path="/profile" element={<Settings />} />
+        </Routes>
+    );
 }
 
 export default App;
