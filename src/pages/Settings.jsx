@@ -67,20 +67,24 @@ const Settings = () => {
         </div>
 
         <main className="flex w-full flex-col items-center justify-center p-4">
-          <h1 className="self-start pb-14 text-4xl font-extrabold text-[#3F3D56] lg:self-auto lg:pr-54 lg:text-5xl">
+          <h1 className="self-start pb-14 text-3xl font-extrabold text-[#3F3D56] lg:self-auto lg:pr-54 lg:text-5xl">
             Configurações
           </h1>
 
-          <section className="flex gap-6">
+          <section className="flex gap-6 lg:flex-row">
             <img
               src={avatar}
               alt="Foto de perfil"
               className="h-30 w-30 rounded-3xl object-cover lg:h-36 lg:w-36"
             />
 
-            <article className="flex flex-col">
-              <h2 className="text-lg font-semibold">Codifica Edu</h2>
-              <p className="font-light text-black/50">{currentEmail}</p>
+            <article>
+              <h2 className="text-base font-semibold lg:text-lg">
+                Codifica Edu
+              </h2>
+              <p className="text-sm font-light text-black/50 lg:text-lg">
+                {currentEmail}
+              </p>
 
               <div className="mt-11 flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-6">
                 <Button label="Upload de imagem" />
@@ -95,7 +99,10 @@ const Settings = () => {
             <Modal />
           </section>
 
-          <form onSubmit={handleSubmit} className="mt-12 w-80 lg:w-2/7">
+          <form
+            onSubmit={handleSubmit}
+            className="mt-12 w-full items-start lg:w-2/7"
+          >
             <InputField
               label="E-mail"
               placeholder="codificaedu@codifica.com"
@@ -118,7 +125,7 @@ const Settings = () => {
               onChange={(e) => setPasswordConfirmed(e.target.value)}
             />
 
-            <div className="mt-8 flex items-baseline gap-10">
+            <div className="mt-8 flex flex-col items-baseline gap-10 lg:flex-row">
               <Snackbar message={message} variant={variant}>
                 <Button
                   label="Atualizar perfil"
@@ -132,7 +139,7 @@ const Settings = () => {
                 {/* obs.: ver o pode ser feito aqui */}
                 <button
                   type="button"
-                  className="cursor-pointer text-red-500 hover:text-red-700"
+                  className="cursor-pointer px-4 text-red-500 hover:text-red-700"
                 >
                   Deletar conta
                 </button>

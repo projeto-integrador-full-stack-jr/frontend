@@ -10,9 +10,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 750,
+  width: {
+    xs: '90%',
+    sm: 500,
+    md: 750,
+  },
+  p: { xs: 3, sm: 4, md: 6 },
   bgcolor: '#FFFF',
-  p: 6,
   borderRadius: '16px',
   border: '2px solid #D9D9D9',
 };
