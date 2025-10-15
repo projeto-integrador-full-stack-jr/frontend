@@ -9,7 +9,7 @@ const buttonStyles = {
   secondary:
     'bg-[#2C49FA]/5 font-semi text-[#2C49FA] hover:bg-[#C3CBFD]  px-5 py-2 rounded-md font-medium',
   outline:
-    'after:block after:h-0.5 after:w-0 after:bg-[#2C49FA] after:transition-all after:duration-300 hover:after:w-full text-[#2C49FA] font-medium px-5 py-2 rounded-md',
+    'relative inline-block text-[#2C49FA] font-medium px-5 py-2 rounded-md after:block after:h-0.5 after:w-0 after:bg-[#2C49FA] after:transition-all after:duration-300 hover:after:w-full',
 };
 
 const Header = () => {
@@ -17,16 +17,20 @@ const Header = () => {
   const isHome = location.pathname === '/';
 
   return (
-    <header className="flex items-center justify-center border-b border-gray-100 px-4 py-4">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
+    <header className="flex items-center border-b border-gray-100 px-4 py-4 lg:justify-center">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center lg:justify-between">
         <Link to="/">
-          <img src={logo} alt="Logo mentorIA" className="w-40 cursor-pointer" />
+          <img
+            src={logo}
+            alt="Logo mentorIA"
+            className="w-50 cursor-pointer lg:w-40"
+          />
         </Link>
 
         {isHome ? (
           <>
             <Navmenu />
-            <div className="flex gap-2">
+            <div className="hidden gap-2 lg:flex">
               <Link to="/auth" className={buttonStyles.outline}>
                 Fazer login
               </Link>
@@ -38,7 +42,7 @@ const Header = () => {
         ) : (
           <Link
             to="/"
-            className={`${buttonStyles.secondary} flex items-center justify-center`}
+            className={`${buttonStyles.outline} flex items-center justify-center`}
           >
             página anterior
           </Link>

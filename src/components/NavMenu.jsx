@@ -6,7 +6,7 @@ const navStyles = {
 
 const Navmenu = () => {
   return (
-    <nav className="flex gap-5">
+    <nav className="hidden gap-5 lg:flex">
       <Link to="#home" className={navStyles.style}>
         Início
       </Link>

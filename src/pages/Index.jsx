@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
 // imgs
 import choose from '../assets/choose.svg';
 import user_account from '../assets/user-account.svg';
 import hire from '../assets/hire.svg';
 import avatar from '../assets/avatar.png';
-import resume from '../assets/resume.png';
-import resume_result from '../assets/resume_result.png';
+// import resume from '../assets/resume.png';
+// import resume_result from '../assets/resume_result.png';
 
 // components
 import Header from '../components/Header';
@@ -42,9 +43,9 @@ const LandingPage = () => {
       <Header />
       <main>
         <section id="home" className="flex h-screen items-center justify-start">
-          <div className="px-6 lg:px-20">
+          <div className="px-6 lg:px-78">
             <div className="min-w-1/2 lg:w-2/3">
-              <h1 className="bg-gradient-to-r from-[#2C49FA] via-[#8192FC] to-[#8594f5] bg-clip-text text-6xl leading-tight font-extrabold text-transparent sm:text-5xl lg:text-8xl">
+              <h1 className="bg-gradient-to-r from-[#2C49FA] via-[#8192FC] to-[#8594f5] bg-clip-text text-6xl leading-tight font-extrabold text-transparent sm:text-5xl lg:text-7xl">
                 Mentoria objetiva <br /> para a sua evolução profissional{'  '}
                 <span className="text-black">🚀</span>
               </h1>
@@ -55,8 +56,12 @@ const LandingPage = () => {
             </div>
 
             <div className="mt-6 flex gap-4 lg:mt-6">
-              <Button label="Eu quero uma mentoria" style="primary" />
-              <Button label="Saiba Mais" variant="secondary" />
+              <Link to={'/'}>
+                <Button label="Eu quero uma mentoria" variant="primary" />
+              </Link>
+              <Link to={''}>
+                <Button label="Saiba Mais" variant="secondary" />
+              </Link>
             </div>
             <div className="flex items-center gap-5 pt-12">
               <img src={avatar} alt="avatares" />
@@ -65,21 +70,11 @@ const LandingPage = () => {
               </p>
             </div>
           </div>
-          <img
-            src={resume}
-            alt=""
-            className="absolute top-120 right-40 h-150"
-          />
-          <img
-            src={resume_result}
-            alt=""
-            className="absolute top-80 right-0 h-full"
-          />
         </section>
         <About />
         <Features />
         <Contact />
-        <section className="lg:my-30">
+        <section className="px-8 lg:my-30 lg:px-70">
           <div className="pb-12 text-center">
             <h2 className="pb-4 text-4xl font-extrabold text-[#3F3D56] lg:text-5xl">
               Como utilizar a mentorIA ?

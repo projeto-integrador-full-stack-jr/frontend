@@ -6,7 +6,7 @@ const About = () => {
     <section id="about" className="relative flex min-h-screen items-center">
       <div className="absolute top-0 left-0 h-40 w-full bg-[#2C49FA]"></div>
 
-      <div className="mt-60 min-w-1/2 px-8 sm:mt-90 lg:mt-0 lg:w-1/2 lg:px-20">
+      <div className="mt-60 max-w-7xl px-8 sm:mt-60 lg:mt-0 lg:px-78">
         <h2 className="pb-20 text-5xl font-extrabold text-[#3F3D56] lg:mt-30">
           Sobre o mentorIA
         </h2>

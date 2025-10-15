@@ -34,9 +34,9 @@ const Footer = () => {
   return (
     <footer
       id="contact"
-      className="flex min-h-70 w-full flex-col items-center bg-[#2C49FA] text-white lg:flex-row lg:justify-between lg:px-20"
+      className="grid min-h-70 w-full grid-cols-1 items-center bg-[#2C49FA] p-6 text-white lg:flex lg:flex-row lg:items-center lg:justify-between lg:px-78"
     >
-      <div className="flex flex-col">
+      <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
         <img
           src={logo}
           alt="logo"
@@ -47,7 +47,8 @@ const Footer = () => {
           © {new Date().getFullYear()} mentorIA. Todos os direitos reservados.
         </p>
       </div>
-      <div>
+
+      <div className="order-1 lg:order-2">
         <Email
           label={'Preencha seu e-mail para receber atualizações'}
           button_label={'Inscrever-se'}
