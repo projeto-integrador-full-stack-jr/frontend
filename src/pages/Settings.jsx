@@ -82,7 +82,7 @@ const Settings = () => {
               <h2 className="text-base font-semibold lg:text-lg">
                 Codifica Edu
               </h2>
-              <p className="text-sm font-light text-black/50 lg:text-lg">
+              <p className="text-smfont-light text-black/50 lg:text-lg">
                 {currentEmail}
               </p>
 
