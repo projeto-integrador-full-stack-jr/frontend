@@ -4,6 +4,7 @@ import PageLogin from './pages/login/AuthLayout.jsx';
 import Settings from './pages/Settings.jsx';
 import Overview from './pages/Overview.jsx';
 import { Routes, Route } from 'react-router-dom';
+import StepByStepForm from './components/StepByStepForm.jsx';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/auth" element={<PageLogin />} />
       <Route path="/profile" element={<Settings />} />
       <Route path="/overview" element={<Overview />} />
+      <Route path="/criar-perfil" element={<StepByStepForm />} />
     </Routes>
   );
 }
