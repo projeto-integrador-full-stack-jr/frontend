@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Tabs from '../components/Tabs';
+import { Flame } from 'lucide-react';
 // import clsx from 'clsx';
 
 const Overview = () => {
+  const [currentPage, setCurrentPage] = useState('tab2');
+
   return (
     <>
       <div className="flex min-h-screen flex-col justify-between">
@@ -40,8 +43,16 @@ const Overview = () => {
                   sometimes by accident, sometimes on purpose (injected humour
                   and the like).
                 </p>
-                <div>
-                  <Tabs />
+                <div className="lg:mx-28">
+                  <Tabs
+                    currentPage={currentPage}
+                    label1={'Editar perfil'}
+                    label2={'Gerar mentoria'}
+                    variant={'secondary'}
+                    icon={<Flame />}
+                    iconPosition="left"
+                    onSwitchPage={setCurrentPage}
+                  />
                 </div>
               </div>
             </article>

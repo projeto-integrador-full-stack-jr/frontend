@@ -6,7 +6,7 @@ import Logo from '../../assets/logo.svg';
 import { Link } from 'react-router-dom';
 
 const AuthLayout = () => {
-  const [currentPage, setCurrentPage] = useState('login');
+  const [currentPage, setCurrentPage] = useState('tab1');
 
   return (
     <main className="flex min-h-screen font-sans">
@@ -26,7 +26,13 @@ const AuthLayout = () => {
         </header>
 
         <div className="mt-6 w-full max-w-md">
-          <Tabs currentPage={currentPage} onSwitchPage={setCurrentPage} />
+          <Tabs
+            currentPage={currentPage}
+            label1={'Login'}
+            label2={'Criar uma conta'}
+            variant={'primary'}
+            onSwitchPage={setCurrentPage}
+          />
           {currentPage === 'login' ? (
             <LoginPage onSwitchPage={setCurrentPage} />
           ) : (
