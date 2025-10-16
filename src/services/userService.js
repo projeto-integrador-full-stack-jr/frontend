@@ -1,13 +1,21 @@
 import api from './api';
 
-export const getUsers = async () => {
-    try {
-        const res = await api.get('/usuarios');
-        console.log(res.data);
-        return res.data;
-    } catch (err) {
-        console.error('Erro ao buscar usuários:', err);
-        throw err;
-    }
+const userService = {
+    createUser: async ({ email, senha }) => {
+        const response = await api.post('/usuarios', {
+            email,
+            senha,
+        });
+        return response.data;
+    },
+
+    getUser: async ({ email, senha }) => {
+        const response = await api.post('/login', {
+            email,
+            senha,
+        });
+        return response.data;
+    },
 };
-getUsers();
+
+export default userService;

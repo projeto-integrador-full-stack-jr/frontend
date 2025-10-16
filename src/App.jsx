@@ -1,14 +1,11 @@
 import './main.css';
-import LandingPage from './pages';
+import LandingPage from './pages/Index.jsx';
 import PageLogin from './pages/login/AuthLayout.jsx';
 import Settings from './pages/Settings.jsx';
+import Mentoring from './pages/Mentoring.jsx';
+import Overview from './pages/Overview.jsx';
 import { Routes, Route } from 'react-router-dom';
-import './services/api.js';
-import './services/userService.js';
-import './services/goalService.js';
-import './services/noteService.js';
-import './services/profileService.js';
-import './services/resumeService.js';
+import StepByStepForm from './components/StepByStepForm.jsx';
 
 function App() {
     return (
@@ -16,8 +13,10 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/auth" element={<PageLogin />} />
             <Route path="/profile" element={<Settings />} />
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/criar-perfil" element={<StepByStepForm />} />
+            <Route path="/mentoria" element={<Mentoring />} />
         </Routes>
     );
 }
-
 export default App;

@@ -8,6 +8,31 @@ body {
     font-family: 'Outfit', sans-serif;
 }
 
+.container {
+  background-color: #fcfcfc;
+  padding: 40px 40px;
+  position: relative;
+  top: -25px;
+  z-index: -1000;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  border-radius: 0 0 24px 24px;
+  border: 1px dashed #d8ddff;
+}
+
+.container p {
+  font-size: 14px;
+  line-height: 150%;
+  color: #6b728e;
+  font-weight: 300;
+}
+.container h2 {
+  font-size: 24px;
+  line-height: 150%;
+  margin: 16px 0;
+  font-weight: bold;
+  color: #2c49fa;
+}
+
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);

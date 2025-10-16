@@ -3,8 +3,39 @@ import InputField from '../../components/InputField';
 import onSwitchPage from '../login/AuthLayout';
 import Button from '../../components/Button';
 import LogoGoogle from '../../assets/google.svg';
+import { useState } from 'react';
+import userService from '../../services/userService';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            // chamando o método do service, passando os dados do form
+            const result = await userService.createUser({ email, senha });
+            setMessage('Usuário criado com sucesso!');
+            console.log(result);
+
+            const { token, user } = result;
+
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user));
+
+            setMessage('Login efetuado com sucesso!');
+            console.log('Token:', token);
+            console.log('Usuário:', user);
+            navigate('/criar-perfil');
+        } catch (error) {
+            console.error(error);
+            setMessage('Erro ao criar usuário.');
+        }
+    };
     return (
         <>
             <div className="mb-7 text-left">
@@ -44,22 +75,32 @@ const RegisterPage = () => {
                     label="E-mail"
                     type="email"
                     placeholder="seu.email@exemplo.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                 />
                 <InputField
                     label="Senha"
                     type="password"
                     placeholder="••••••••"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
                 />
                 <InputField
                     label="Confirmar senha"
                     type="password"
                     placeholder="••••••••"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
                 />
                 <div className="mt-6">
                     <Button
                         label="Fazer Login"
                         variant="primary"
                         className="w-full bg-gray-800 hover:bg-gray-700"
+                        onClick={handleSubmit}
                     />
                 </div>
             </form>

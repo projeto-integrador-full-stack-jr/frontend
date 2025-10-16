@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LoginPage from './LoginPage';
+import LoginPage from './LoginPage.jsx';
 import RegisterPage from './RegisterPage';
 import Tabs from '../../components/Tabs';
 import Logo from '../../assets/logo.svg';
