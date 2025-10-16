@@ -26,8 +26,7 @@ const LoginPage = ({ onSwitchPage }) => {
             localStorage.setItem('token', token);
             toast.success('Login efetuado com sucesso');
 
-            // opcional: buscar dados do usuário
-            const user = await userService.getUser();
+            // const user = await userService.getUser();
             localStorage.setItem('user', JSON.stringify(user));
 
             navigate('/profile');

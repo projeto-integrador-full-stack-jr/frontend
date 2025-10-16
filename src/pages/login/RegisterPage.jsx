@@ -17,7 +17,6 @@ const RegisterPage = () => {
         e.preventDefault();
 
         try {
-            // chamando o método do service, passando os dados do form
             const result = await userService.createUser({ email, senha });
             setMessage('Usuário criado com sucesso!');
             console.log(result);
