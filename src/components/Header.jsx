@@ -17,7 +17,7 @@ const Header = () => {
   const isHome = location.pathname === '/';
 
   return (
-    <header className="flex items-center border-b border-gray-100 px-4 py-4 lg:justify-center">
+    <header className="z-[1000] flex items-center border-b border-gray-100 px-4 py-4 lg:justify-center">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-center lg:justify-between">
         <Link to="/">
           <img
