@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Navmenu from './NavMenu';
 import logo from '../assets/logo.svg';
 import { useLocation } from 'react-router';
+import UserProfileDropdown from './UserProfileDropdown';
 
 const buttonStyles = {
   primary:
