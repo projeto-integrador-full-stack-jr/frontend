@@ -6,8 +6,11 @@ import LogoGoogle from '../../assets/google.svg';
 import { useState } from 'react';
 import userService from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
+    const notifyError = () => toast.error();
+    const notifySuccess = () => toast.success();
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [message, setMessage] = useState('');
@@ -18,17 +21,7 @@ const RegisterPage = () => {
 
         try {
             const result = await userService.createUser({ email, senha });
-            setMessage('Usuário criado com sucesso!');
-            console.log(result);
-
-            const { token, user } = result;
-
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify(user));
-
-            setMessage('Login efetuado com sucesso!');
-            console.log('Token:', token);
-            console.log('Usuário:', user);
+            toast.success('Conta criada com sucesso');
             navigate('/criar-perfil');
         } catch (error) {
             console.error(error);
@@ -46,30 +39,7 @@ const RegisterPage = () => {
                 </p>
             </div>
 
-            <button className="flex w-full cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
-                <img
-                    src={LogoGoogle}
-                    alt="Google logo"
-                    width={20}
-                    className="mr-2"
-                />
-                Acessar com Google
-            </button>
-
-            <div className="my-6 flex items-center">
-                <hr className="flex-grow border-t border-gray-200" />
-                <span className="mx-4 text-xs font-medium text-gray-400">
-                    OU
-                </span>
-                <hr className="flex-grow border-t border-gray-200" />
-            </div>
-
             <form>
-                <InputField
-                    label="Nome e sobrenome"
-                    type="text"
-                    placeholder="Seu nome completo"
-                />
                 <InputField
                     label="E-mail"
                     type="email"
@@ -96,9 +66,9 @@ const RegisterPage = () => {
                 />
                 <div className="mt-6">
                     <Button
-                        label="Fazer Login"
+                        label="Criar conta"
                         variant="primary"
-                        className="w-full bg-gray-800 hover:bg-gray-700"
+                        className="flex w-full items-center justify-center bg-blue-600 text-center text-white hover:bg-gray-700"
                         onClick={handleSubmit}
                     />
                 </div>
