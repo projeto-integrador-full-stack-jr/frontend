@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import LogoGoogle from '../../assets/google.svg';
 import InputField from '../../components/InputField';
 import Button from '../../components/Button';
 import userService from '../../services/userService';
+import { AuthContext } from '../../contexts/auth/AuthProvider';
 
 const LoginPage = ({ onSwitchPage }) => {
     const [email, setEmail] = useState('');
@@ -12,23 +13,35 @@ const LoginPage = ({ onSwitchPage }) => {
     const navigate = useNavigate();
     const notifyError = () => toast.error();
     const notifySuccess = () => toast.success();
+    const { user, setUser } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!email || !senha) {
+            toast.error('Preencha todos os campos corretamente');
+            return;
+        }
+
         try {
             const { token } = await userService.getUser({ email, senha });
-
             localStorage.setItem('token', token);
+
+            const response = await userService.getMe();
+            setUser(response);
+
             toast.success('Login efetuado com sucesso');
-            navigate('/configuracoes');
+
+            const routeAfterLogin = response.acesso === 'ADMIN' ? '/admin' : '/mentoria';
+
+            setTimeout(() => {
+                navigate(routeAfterLogin);
+            }, 2000);
         } catch (error) {
-            if (email === '' || senha === '') {
-                toast.error('Preencha todos os campos corretamente');
-            } else if (error.response?.status === 403) {
-                toast.error(
-                    'Não foi possível acessar: e-mail não cadastrado ou senha incorreta.'
-                );
+            if (error.response?.status === 403) {
+                toast.error('E-mail não cadastrado ou senha incorreta.');
+            } else {
+                toast.error('Erro ao fazer login. Tente novamente.');
             }
         }
     };
@@ -36,27 +49,16 @@ const LoginPage = ({ onSwitchPage }) => {
     return (
         <div className="flex w-full flex-col justify-between">
             <div className="mb-7 text-left">
-                <h3 className="text-2xl font-bold text-gray-800">
-                    Acesse sua conta
-                </h3>
-                <p className="mt-2 text-gray-500">
-                    Entre e continue aproveitando nossos serviços.
-                </p>
+                <h3 className="text-2xl font-bold text-gray-800">Acesse sua conta</h3>
+                <p className="mt-2 text-gray-500">Entre e continue aproveitando nossos serviços.</p>
             </div>
             <button className="flex w-full cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
-                <img
-                    src={LogoGoogle}
-                    alt="Google logo"
-                    width={20}
-                    className="mr-2"
-                />
+                <img src={LogoGoogle} alt="Google logo" width={20} className="mr-2" />
                 Entrar com Google
             </button>
             <div className="my-6 flex items-center">
                 <hr className="flex-grow border-t border-gray-200" />
-                <span className="mx-4 text-xs font-medium text-gray-400">
-                    OU
-                </span>
+                <span className="mx-4 text-xs font-medium text-gray-400">OU</span>
                 <hr className="flex-grow border-t border-gray-200" />
             </div>
 
@@ -78,10 +80,7 @@ const LoginPage = ({ onSwitchPage }) => {
                     required
                 />
                 <div className="mb-4 text-right">
-                    <a
-                        href="#"
-                        className="text-sm font-semibold text-blue-600 hover:underline"
-                    >
+                    <a href="#" className="text-sm font-semibold text-blue-600 hover:underline">
                         Esqueci minha senha
                     </a>
                 </div>

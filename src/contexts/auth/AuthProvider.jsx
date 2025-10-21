@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import userService from '../../services/userService'; // ajusta o caminho conforme sua estrutura
+import userService from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
@@ -11,15 +11,15 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchUser = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setLoading(false);
+                return;
+            }
+
             try {
-                const token = localStorage.getItem('token');
-                if (!token) {
-                    setLoading(false);
-                    return;
-                }
                 const response = await userService.getMe();
                 setUser(response);
-                console.log(response);
             } catch (error) {
                 console.error('Erro ao buscar usuário logado:', error);
                 localStorage.removeItem('token');
@@ -31,11 +31,19 @@ export const AuthProvider = ({ children }) => {
         fetchUser();
     }, []);
 
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
+        } else {
+            localStorage.removeItem('user');
+        }
+    }, [user]);
+
     const logout = () => {
-        localStorage.removeItem('user');
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setUser(null);
-        navigate('/');
+        navigate('/auth');
     };
 
     const updateUserContext = (updatedUser) => {
