@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 const buttonVariants = {
     primary:
-        'bg-[#2C49FA] hover:bg-[#102FF9] text-white font-medium px-5 py-2 rounded-md',
+        'bg-[#2C49FA] hover:bg-[#102FF9] text-white font-medium px-5 py-2 rounded-md ',
     secondary:
         'bg-[#2C49FA]/5 font-semi text-[#2C49FA] hover:bg-[#C3CBFD] px-5 py-2 rounded-md font-medium',
     outline:
@@ -27,7 +27,7 @@ const Button = ({
         <button
             {...props}
             className={clsx(
-                'flex cursor-pointer items-center gap-2 rounded-lg text-sm lg:text-lg',
+                'flex cursor-pointer items-center gap-2 rounded-lg text-xs transition-colors duration-300 ease-in-out lg:text-base',
                 buttonVariants[variant],
                 icon ? 'px-4' : 'px-6',
                 className

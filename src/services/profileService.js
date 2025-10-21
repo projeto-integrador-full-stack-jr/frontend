@@ -1,13 +1,20 @@
 import api from './api';
 
-export const getProfiles = async () => {
-    try {
-        const res = await api.get('/perfis');
-        console.log(res.data);
-        return res.data;
-    } catch (err) {
-        console.error('Erro ao buscar perfis:', err);
-        throw err;
-    }
+const profileService = {
+    getProfile: async () => {
+        const response = await api.get(`/perfis/meu`);
+        return response.data;
+    },
+
+    deleteProfile: async () => {
+        const response = await api.delete(`/perfis/meu`);
+        return response.data;
+    },
+
+    updateProfile: async () => {
+        const response = await api.post(`/perfis/meu`);
+        return response.data;
+    },
 };
-getProfiles();
+
+export default profileService;

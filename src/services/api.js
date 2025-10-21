@@ -1,17 +1,16 @@
 import axios from 'axios';
 
-// Instância do Axios
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
 });
 
-// Interceptor para adicionar o token automaticamente
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token'); // futuramente pode ser cookie HttpOnly
+        const token = localStorage.getItem('token');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -20,7 +19,6 @@ api.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Interceptor global para log de erros
 api.interceptors.response.use(
     (response) => response,
     (error) => {
