@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
-    const notifyError = () => toast.error();
-    const notifySuccess = () => toast.success();
+    const notifyError = () => toast.error('');
+    const notifySuccess = () => toast.success('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [message, setMessage] = useState('');

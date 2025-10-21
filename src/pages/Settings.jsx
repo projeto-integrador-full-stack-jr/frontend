@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import ProfileMenu from '../components/ProfileMenu';
@@ -7,61 +7,75 @@ import Header from '../components/Header';
 import avatar from '../assets/profile.jpg';
 import Modal from '../components/Modal';
 import Snackbar from '../components/Snackbar';
+import userService from '../services/userService';
+import { useAuth } from '../contexts/auth/useAuth';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Settings = () => {
-    // obs.: depois mudar para pegar o valor do backend
-    const [currentEmail, setCurrentEmail] = useState(
-        'codificaedu@codifica.com'
-    );
-    const [currentPassword, setCurrentPassword] = useState('123@codifica');
+    const { user, setUser, logout } = useAuth();
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('');
+    const notifyError = () => toast.error('');
+    const notifySuccess = () => toast.success('');
 
-    const [newEmail, setNewEmail] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [passwordConfirmed, setPasswordConfirmed] = useState('');
+    const handleUpdateEmail = async (e) => {
+        e.preventDefault();
+        if (!email) return alert('Digite um e-mail válido.');
+        setLoading(true);
 
-    // snackbar states
-    const [message, setMessage] = useState('');
-    const [variant, setVariant] = useState('');
-
-    function handleSubmit(event) {
-        event.preventDefault(); // evita o refresh/reload
-
-        if (!newEmail || !newPassword || !passwordConfirmed) {
-            // se algum campo estiver vazio
-
-            return (
-                setMessage('Por favor, preencha todos os campos corretamente!'),
-                setVariant('error')
-            );
+        try {
+            const data = await userService.updateUser(email);
+            toast.success('E-mail atualizado com sucesso!');
+            setUser(data);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Erro ao atualizar e-mail. Tente novamente.');
+        } finally {
+            setLoading(false);
         }
+    };
+    // function handleSubmit(event) {
+    //     event.preventDefault(); // evita o refresh/reload
 
-        if (!/\S+@\S+\.\S+/.test(newEmail)) {
-            // se o email não é válido
-            return (
-                setMessage('Por favor, insira um e-mail válido!'),
-                setVariant('error')
-            );
-        }
+    //     if (!newEmail || !newPassword || !passwordConfirmed) {
+    //         // se algum campo estiver vazio
 
-        if (newPassword !== passwordConfirmed) {
-            // se as senhas não são iguais
-            return (
-                setMessage('As senhas não coincidem!'),
-                setVariant('error')
-            );
-        }
+    //         return (
+    //             setMessage('Por favor, preencha todos os campos corretamente!'),
+    //             setVariant('error')
+    //         );
+    //     }
 
-        setCurrentEmail(newEmail);
-        setCurrentPassword(newPassword);
+    //     if (!/\S+@\S+\.\S+/.test(newEmail)) {
+    //         // se o email não é válido
+    //         return (
+    //             setMessage('Por favor, insira um e-mail válido!'),
+    //             setVariant('error')
+    //         );
+    //     }
 
-        setMessage('Perfil atualizado com sucesso!');
-        setVariant('success');
-        // aqui faria a chamada para o backend para atualizar os dados
+    //     if (newPassword !== passwordConfirmed) {
+    //         // se as senhas não são iguais
+    //         return (
+    //             setMessage('As senhas não coincidem!'),
+    //             setVariant('error')
+    //         );
+    //     }
 
-        setNewEmail('');
-        setNewPassword('');
-        setPasswordConfirmed('');
-    }
+    //     setCurrentEmail(newEmail);
+    //     setCurrentPassword(newPassword);
+
+    //     setMessage('Perfil atualizado com sucesso!');
+    //     setVariant('success');
+    //     // aqui faria a chamada para o backend para atualizar os dados
+
+    //     setNewEmail('');
+    //     setNewPassword('');
+    //     setPasswordConfirmed('');
+    // }
 
     return (
         <>
@@ -71,89 +85,102 @@ const Settings = () => {
                     <ProfileMenu />
                 </div>
 
-                <main className="flex w-full flex-col items-center justify-center p-4">
-                    <h1 className="self-start pb-14 text-4xl font-extrabold text-[#3F3D56] lg:self-auto lg:pr-54 lg:text-5xl">
-                        Configurações
-                    </h1>
+                <main className="flex w-full flex-col items-center justify-center">
+                    <div className="flex flex-col justify-start">
+                        <h3 className="text-4xl font-extrabold text-[#3F3D56] lg:self-auto lg:text-5xl">
+                            Configurações
+                        </h3>
 
-                    <section className="flex gap-6">
-                        <img
-                            src={avatar}
-                            alt="Foto de perfil"
-                            className="h-30 w-30 rounded-3xl object-cover lg:h-36 lg:w-36"
-                        />
+                        <div className="mt-20 flex w-full items-end justify-center gap-2">
+                            <img
+                                src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png"
+                                alt="Foto de perfil"
+                                className="h-30 w-30 rounded-3xl object-cover lg:h-30 lg:w-30"
+                            />
 
-                        <article className="flex flex-col">
-                            <h2 className="text-lg font-semibold">
-                                Codifica Edu
-                            </h2>
-                            <p className="font-light text-black/50">
-                                {currentEmail}
-                            </p>
-
-                            <div className="mt-11 flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-6">
-                                <Button label="Upload de imagem" />
+                            <article className="mb-2 flex w-full flex-col">
+                                <p className="text-xs text-zinc-400">
+                                    Nome: {user?.usuarioNome}
+                                </p>
+                                <p className="text-xs text-zinc-400">
+                                    Id: {user?.id}
+                                </p>
+                                <p className="text-sm text-zinc-400">
+                                    Seu e-mail: {user?.email}
+                                </p>
                                 <button
-                                    type="button"
-                                    className="cursor-pointer text-red-500 hover:text-red-700"
+                                    className="mt-5 cursor-pointer rounded-md bg-red-500 px-5 py-2 text-sm font-medium text-white"
+                                    onClick={logout}
                                 >
-                                    Remover Imagem
+                                    Sair
                                 </button>
-                            </div>
-                        </article>
-                        <Modal />
-                    </section>
+                            </article>
+                        </div>
 
-                    <form
-                        onSubmit={handleSubmit}
-                        className="mt-12 w-80 lg:w-2/7"
-                    >
-                        <InputField
-                            label="E-mail"
-                            placeholder="codificaedu@codifica.com"
-                            type="email"
-                            value={newEmail}
-                            onChange={(e) => setNewEmail(e.target.value)}
-                        />
-                        <InputField
-                            label="Senha"
-                            type="password"
-                            placeholder="*********************"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                        <InputField
-                            label="Confirmar senha"
-                            type="password"
-                            placeholder="*********************"
-                            value={passwordConfirmed}
-                            onChange={(e) =>
-                                setPasswordConfirmed(e.target.value)
-                            }
-                        />
-
-                        <div className="mt-8 flex items-baseline gap-10">
-                            <Snackbar message={message} variant={variant}>
+                        <form
+                            onSubmit={handleUpdateEmail}
+                            className="mt-12 w-full"
+                        >
+                            <InputField
+                                label="E-mail"
+                                placeholder="codificaedu@codifica.com"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <InputField
+                                label="Senha"
+                                type="password"
+                                placeholder="*********************"
+                                // value={newPassword}
+                                // onChange={(e) => setNewPassword(e.target.value)}
+                            />
+                            <InputField
+                                label="Confirmar senha"
+                                type="password"
+                                placeholder="*********************"
+                                // value={passwordConfirmed}
+                                // onChange={(e) =>
+                                //     setPasswordConfirmed(e.target.value)
+                                // }
+                            />
+                            <div className="mt-10 flex">
                                 <Button
-                                    label="Atualizar perfil"
+                                    label={'Atualizar dados'}
                                     variant="primary"
-                                    type="submit"
-                                    className="!bg-[#00C569] hover:!bg-[#00a455]"
+                                    onClick={handleUpdateEmail}
+                                    disabled={loading}
+                                    className="!bg-[#00C569] text-sm hover:!bg-[#00a455]"
                                 />
-                            </Snackbar>
+                                <Button
+                                    variant="ghost"
+                                    label={'Excluir minha conta'}
+                                    onClick={handleUpdateEmail}
+                                    disabled={loading}
+                                    className="text-sm text-red-500"
+                                />
+                            </div>
+                        </form>
+                        <div className="mt-8 flex items-baseline gap-10">
+                            <Snackbar></Snackbar>
 
                             <Modal>
                                 {/* obs.: ver o pode ser feito aqui */}
-                                <button
-                                    type="button"
-                                    className="cursor-pointer text-red-500 hover:text-red-700"
-                                >
-                                    Deletar conta
-                                </button>
                             </Modal>
                         </div>
-                    </form>
+                    </div>
                 </main>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
             </div>
         </>
     );

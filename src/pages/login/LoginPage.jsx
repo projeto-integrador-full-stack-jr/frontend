@@ -21,7 +21,7 @@ const LoginPage = ({ onSwitchPage }) => {
 
             localStorage.setItem('token', token);
             toast.success('Login efetuado com sucesso');
-            navigate('/mentoria');
+            navigate('/configuracoes');
         } catch (error) {
             if (email === '' || senha === '') {
                 toast.error('Preencha todos os campos corretamente');

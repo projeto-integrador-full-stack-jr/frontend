@@ -6,17 +6,23 @@ import Mentoring from './pages/Mentoring.jsx';
 import Overview from './pages/Overview.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StepByStepForm from './components/StepByStepForm.jsx';
+import { AuthProvider } from './contexts/auth/AuthProvider.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
     return (
-        <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/auth" element={<PageLogin />} />
-            <Route path="/profile" element={<Settings />} />
-            <Route path="/overview" element={<Overview />} />
-            <Route path="/criar-perfil" element={<StepByStepForm />} />
-            <Route path="/mentoria" element={<Mentoring />} />
-        </Routes>
+        <BrowserRouter>
+            <AuthProvider>
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/auth" element={<PageLogin />} />
+                    <Route path="/configuracoes" element={<Settings />} />
+                    <Route path="/overview" element={<Overview />} />
+                    <Route path="/criar-perfil" element={<StepByStepForm />} />
+                    <Route path="/mentoria" element={<Mentoring />} />
+                </Routes>
+            </AuthProvider>
+        </BrowserRouter>
     );
 }
 export default App;
