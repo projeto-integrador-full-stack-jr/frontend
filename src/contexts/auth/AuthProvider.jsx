@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
                 }
                 const response = await userService.getMe();
                 setUser(response);
+                console.log(response);
             } catch (error) {
                 console.error('Erro ao buscar usuário logado:', error);
                 localStorage.removeItem('token');
