@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const token = localStorage.getItem('token');
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
@@ -22,10 +23,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.error(
-            'Erro na requisição:',
-            error.response?.data || error.message
-        );
+        console.error('Erro na requisição:', error.response?.data || error.message);
         return Promise.reject(error);
     }
 );

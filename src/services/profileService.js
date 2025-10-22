@@ -1,5 +1,6 @@
 import api from './api';
 
+const token = localStorage.getItem('token');
 const profileService = {
     getProfile: async () => {
         const response = await api.get(`/perfis/meu`);
@@ -11,8 +12,12 @@ const profileService = {
         return response.data;
     },
 
-    updateProfile: async () => {
-        const response = await api.post(`/perfis/meu`);
+    updateProfile: async (data) => {
+        const response = await api.put(`/perfis/meu`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
         return response.data;
     },
 };

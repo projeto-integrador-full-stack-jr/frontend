@@ -1,13 +1,17 @@
 import api from './api';
 
-export const getSummaries = async () => {
-    try {
-        const res = await api.get('/resumos');
-        console.log(res.data);
-        return res.data;
-    } catch (err) {
-        console.error('Erro ao buscar resumos:', err);
-        throw err;
-    }
+const token = localStorage.getItem('token');
+const resumeService = {
+    createResume: async () => {
+        const response = await api.post(`/resumos/meus`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+        return response.data;
+    },
 };
-getSummaries();
+
+export default resumeService;

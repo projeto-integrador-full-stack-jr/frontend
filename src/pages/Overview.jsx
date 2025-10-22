@@ -1,56 +1,108 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Tabs from '../components/Tabs';
-// import clsx from 'clsx';
+import profileService from '../services/profileService';
+import { Bot, CalendarDays, BriefcaseBusiness, CircleUserRound } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useResume } from '../contexts/resume/ResumeContext';
+import resumeService from '../services/resumeService';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Overview = () => {
-  return (
-    <>
-      <div className="flex min-h-screen flex-col justify-between">
-        <Header />
-        <main className="flex-1">
-          <section className="relative">
-            <article className="p-4">
-              <div className="mx-auto -mt-4 flex h-full w-full max-w-4xl flex-col gap-8 rounded-b-4xl bg-[#F4F7F9] p-6 text-[#6D7895] lg:p-10">
-                <div className="flex justify-between pt-20">
-                  <div className="flex flex-col">
-                    <h1 className="pb-2 text-xl font-bold text-[#2D3139]">
-                      Codifica Edu
-                    </h1>
-                    <h2 className="">Estágiario em Suporte</h2>
-                  </div>
+    const [profile, setProfile] = useState(null);
+    const { resumeData, setResumeData } = useResume();
 
-                  <div className="flex flex-col text-right">
-                    <p className="pb-2">2-5 anos de carreira</p>
-                    <p>CISO (Chief Information Security Officer)</p>
-                  </div>
-                </div>
+    const navigate = useNavigate();
 
-                <p>
-                  t is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English.
-                  Many desktop publishing packages and web page editors now use
-                  Lorem Ipsum as their default model text, and a search for
-                  'lorem ipsum' will uncover many web sites still in their
-                  infancy. Various versions have evolved over the years,
-                  sometimes by accident, sometimes on purpose (injected humour
-                  and the like).
-                </p>
-                <div>
-                  <Tabs />
-                </div>
-              </div>
-            </article>
-          </section>
-        </main>
-        <Footer />
-      </div>
-    </>
-  );
+    useEffect(() => {
+        async function loadProfile() {
+            try {
+                const data = await profileService.getProfile();
+                setProfile(data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        loadProfile();
+    }, []);
+
+    // const generateResume = async () => {
+    //     try {
+    //         if (!profile) return;
+    //         const data = await resumeService.createResume(profile);
+    //         setResumeData(data);
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.error('Erro ao gerar resumo:', error);
+    //         toast.error('Erro ao gerar mentoria');
+    //     }
+    // };
+
+    return (
+        <div className="flex min-h-screen flex-col justify-between">
+            <Header />
+            <main className="flex-1">
+                <section className="relative">
+                    <article className="p-4">
+                        <div className="mx-auto -mt-4 flex h-full w-full max-w-4xl flex-col gap-8 rounded-b-4xl bg-[#F4F7F9] p-6 text-[#6D7895] lg:p-10">
+                            <div className="flex justify-between pt-20">
+                                <div className="flex flex-col">
+                                    <div className="flex items-center justify-center">
+                                        <CircleUserRound className="mr-2 text-blue-600" />
+                                        <p className="text-xl font-bold text-[#2D3139]"> {profile?.nomeUsuario}</p>
+                                    </div>
+                                    <h2 className="">{profile?.carreira}</h2>
+                                </div>
+
+                                <div className="flex flex-col items-start">
+                                    <div className="flex items-center justify-center text-center">
+                                        <CalendarDays size={16} className="mr-2 text-blue-600" />
+                                        <p className="text-sm break-words text-zinc-900">{profile?.experiencia}</p>
+                                    </div>
+                                    <div className="flex items-center justify-center">
+                                        <BriefcaseBusiness size={16} className="mr-2 text-blue-600" />
+                                        <p className="text-sm text-zinc-900">{profile?.cargo}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="border-t-1 py-10">
+                                <p className="block">{profile?.objetivoPrincipal}</p>
+                            </div>
+
+                            <div className="mb-6 flex w-full items-center rounded-lg bg-gray-100 p-1">
+                                <button
+                                    type="button"
+                                    className="w-1/2 cursor-pointer rounded-md py-2.5 text-center text-sm font-semibold transition-colors"
+                                >
+                                    Voltar
+                                </button>
+
+                                <button
+                                    onClick={navigate('/mentoria')}
+                                    type="button"
+                                    className="flex w-1/2 cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
+                                >
+                                    Gerar mentoria com IA <Bot size={24} className="ml-2" />
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </main>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
+        </div>
+    );
 };
 
 export default Overview;

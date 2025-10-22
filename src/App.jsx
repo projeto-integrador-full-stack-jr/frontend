@@ -8,6 +8,7 @@ import UserManagement from './pages/Admin/admin.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StepByStepForm from './components/StepByStepForm.jsx';
 import { AuthProvider } from './contexts/auth/AuthProvider.jsx';
+import { ResumeProvider } from './contexts/resume/ResumeContext.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import PublicRoute from './routes/PublicRoute.jsx';
@@ -17,27 +18,29 @@ function App() {
     return (
         <BrowserRouter>
             <AuthProvider>
-                <Routes>
-                    {/* --->>> ROTAS PÚBLICA @ACESSO NULL <<<---  */}
-                    <Route element={<PublicRoute />}>
-                        <Route path="/auth" element={<PageLogin />} />
-                        <Route path="/" element={<LandingPage />} />
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                    </Route>
+                <ResumeProvider>
+                    <Routes>
+                        {/* --->>> ROTAS PÚBLICA @ACESSO NULL <<<---  */}
+                        <Route element={<PublicRoute />}>
+                            <Route path="/auth" element={<PageLogin />} />
+                            <Route path="/" element={<LandingPage />} />
+                            <Route path="*" element={<Navigate to="/" replace />} />
+                        </Route>
 
-                    {/* --->>> ROTAS PRIVADA @ACESSO USER <<<---  */}
-                    <Route element={<PrivateRoute roles={['USER']} />}>
-                        <Route path="/mentoria" element={<Mentoring />} />
-                        <Route path="/configuracoes" element={<Settings />} />
-                        <Route path="/criar-perfil" element={<StepByStepForm />} />
-                        <Route path="/overview" element={<Overview />} />
-                    </Route>
+                        {/* --->>> ROTAS PRIVADA @ACESSO USER <<<---  */}
+                        <Route element={<PrivateRoute roles={['USER']} />}>
+                            <Route path="/mentoria" element={<Mentoring />} />
+                            <Route path="/configuracoes" element={<Settings />} />
+                            <Route path="/criar-perfil" element={<StepByStepForm />} />
+                            <Route path="/overview" element={<Overview />} />
+                        </Route>
 
-                    {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
-                    <Route element={<PrivateRoute roles={['ADMIN']} />}>
-                        <Route path="/admin" element={<UserManagement />} />
-                    </Route>
-                </Routes>
+                        {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
+                        <Route element={<PrivateRoute roles={['ADMIN']} />}>
+                            <Route path="/admin" element={<UserManagement />} />
+                        </Route>
+                    </Routes>
+                </ResumeProvider>
             </AuthProvider>
         </BrowserRouter>
     );
