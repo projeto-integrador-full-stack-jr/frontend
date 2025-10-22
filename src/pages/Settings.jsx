@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import avatar from '../assets/profile.jpg';
 import Modal from '../components/Modal';
 import Snackbar from '../components/Snackbar';
-import userService from '../services/userService';
+import profileService from '../services/profileService';
 import { useAuth } from '../contexts/auth/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -24,7 +24,7 @@ const Settings = () => {
         setLoading(true);
 
         try {
-            const data = await userService.updateUser(email);
+            const data = await profileService.getProfile();
             toast.success('E-mail atualizado com sucesso!');
             setUser(data);
             if (data.token) {
@@ -99,15 +99,9 @@ const Settings = () => {
                             />
 
                             <article className="mb-2 flex w-full flex-col">
-                                <p className="text-xs text-zinc-400">
-                                    Nome: {user?.usuarioNome}
-                                </p>
-                                <p className="text-xs text-zinc-400">
-                                    Id: {user?.id}
-                                </p>
-                                <p className="text-sm text-zinc-400">
-                                    Seu e-mail: {user?.email}
-                                </p>
+                                <p className="text-xs text-zinc-400">Nome: {user?.nomeUsuario}</p>
+                                <p className="text-xs text-zinc-400">Id: {user?.id}</p>
+                                <p className="text-sm text-zinc-400">Seu e-mail: {user?.email}</p>
                                 <button
                                     className="mt-5 cursor-pointer rounded-md bg-red-500 px-5 py-2 text-sm font-medium text-white"
                                     onClick={logout}
@@ -117,10 +111,7 @@ const Settings = () => {
                             </article>
                         </div>
 
-                        <form
-                            onSubmit={handleUpdateEmail}
-                            className="mt-12 w-full"
-                        >
+                        <form onSubmit={handleUpdateEmail} className="mt-12 w-full">
                             <InputField
                                 label="E-mail"
                                 placeholder="codificaedu@codifica.com"
@@ -164,9 +155,7 @@ const Settings = () => {
                         <div className="mt-8 flex items-baseline gap-10">
                             <Snackbar></Snackbar>
 
-                            <Modal>
-                                {/* obs.: ver o pode ser feito aqui */}
-                            </Modal>
+                            <Modal>{/* obs.: ver o pode ser feito aqui */}</Modal>
                         </div>
                     </div>
                 </main>
