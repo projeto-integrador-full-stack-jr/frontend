@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
-import profileService from '../services/profileService';
 import { Bot, CalendarDays, BriefcaseBusiness, CircleUserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../contexts/resume/ResumeContext';
-import resumeService from '../services/resumeService';
-import { toast, ToastContainer } from 'react-toastify';
+import { UserServices, AdminServices } from '@services';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Overview = () => {
     const [profile, setProfile] = useState(null);
@@ -17,7 +15,7 @@ const Overview = () => {
     useEffect(() => {
         async function loadProfile() {
             try {
-                const data = await profileService.getProfile();
+                const data = await UserServices.profileService.getProfile();
                 setProfile(data);
             } catch (error) {
                 console.error(error);
@@ -79,7 +77,7 @@ const Overview = () => {
                                 </button>
 
                                 <button
-                                    onClick={navigate('/mentoria')}
+                                    onClick={() => navigate('/mentoria')}
                                     type="button"
                                     className="flex w-1/2 cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
                                 >

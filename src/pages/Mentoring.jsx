@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import resumeService from '../services/resumeService';
 import { CalendarDays, BriefcaseBusiness, CircleUserRound } from 'lucide-react';
 import LoadingScreen from '../components/Loading';
 import { useResume } from '../contexts/resume/ResumeContext';
-
+import { UserServices } from '@services';
 const Mentoring = () => {
     const [profile, setProfile] = useState(null);
     const { resumeData, setResumeData } = useResume();
@@ -13,8 +12,9 @@ const Mentoring = () => {
     useEffect(() => {
         async function createResume() {
             try {
-                const data = await resumeService.createResume();
+                const data = await UserServices.summaryService.createSummary();
                 localStorage.getItem('userProfile');
+                localStorage.getItem('token');
                 setProfile(data);
                 setResumeData(data);
             } catch (error) {

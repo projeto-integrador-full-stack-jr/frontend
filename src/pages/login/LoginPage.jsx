@@ -4,8 +4,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import LogoGoogle from '../../assets/google.svg';
 import InputField from '../../components/InputField';
 import Button from '../../components/Button';
-import userService from '../../services/userService';
 import { AuthContext } from '../../contexts/auth/AuthProvider';
+import useAuth from '../../services/auth/authService';
+import { UserServices, AdminServices } from '@services';
 
 const LoginPage = ({ onSwitchPage }) => {
     const [email, setEmail] = useState('');
@@ -24,10 +25,10 @@ const LoginPage = ({ onSwitchPage }) => {
         }
 
         try {
-            const { token } = await userService.getUser({ email, senha });
+            const { token } = await useAuth.loginUser({ email, senha });
             localStorage.setItem('token', token);
 
-            const response = await userService.getMe();
+            const response = await UserServices.userService.getUser();
             setUser(response);
 
             toast.success('Login efetuado com sucesso');

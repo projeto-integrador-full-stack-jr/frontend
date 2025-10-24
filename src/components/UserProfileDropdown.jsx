@@ -6,17 +6,17 @@ import { AuthContext } from '../contexts/auth/AuthProvider';
 
 const UserProfileDropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { user, setUser } = useAuth();
+    const { user, setUser, logout } = useAuth();
     const toggleDropdown = () => setIsOpen(!isOpen);
-    const { logout } = useContext(AuthContext);
 
     const linksDropdown = [
-        { label: 'Editar perfil', href: '/' },
+        { label: 'Início', href: '/' },
         { label: 'Configurações', href: '/configuracoes' },
-        { label: 'Metas', href: '/minhas-metas' },
-        { label: 'Notas', href: '/minhas-notas' },
+        { label: 'Metas', href: '/metas' },
+        { label: 'Notas', href: '/notas' },
         { label: 'Mentoria', href: '/mentoria' },
-        { label: 'Logout', href: '#logout', onClick: logout },
+        { label: 'Mentoria', href: '/mentoria' },
+        { label: 'Sair', href: '/', onClick: logout },
     ];
 
     return (
@@ -28,7 +28,7 @@ const UserProfileDropdown = () => {
                 <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-blue-700 bg-blue-50 outline-none">
                     <User size={18} className="text-blue-700" />
                 </div>
-                <p className="font-semibold text-blue-700">{user.email}</p>
+                <p className="font-semibold text-blue-700">{user?.nomeUsuario}</p>
                 <ChevronDown className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </div>
 

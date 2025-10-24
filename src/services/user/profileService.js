@@ -1,6 +1,5 @@
-import api from './api';
+import api from '../api';
 
-const token = localStorage.getItem('token');
 const profileService = {
     getProfile: async () => {
         const response = await api.get(`/perfis/meu`);
