@@ -11,7 +11,7 @@ const summaryService = {
         return response.data;
     },
 
-    getAllSummaries: async () => {
+    getSummaries: async () => {
         const response = await api.get(`/resumos/meus`);
         return response.data;
     },

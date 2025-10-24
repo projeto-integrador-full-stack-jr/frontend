@@ -11,12 +11,8 @@ const profileService = {
         return response.data;
     },
 
-    updateProfile: async (data) => {
-        const response = await api.put(`/perfis/meu`, data, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+    updateProfile: async (formData) => {
+        const response = await api.put(`/perfis/meu`, formData);
         return response.data;
     },
 };

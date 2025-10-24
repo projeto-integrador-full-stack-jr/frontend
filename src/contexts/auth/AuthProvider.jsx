@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
     const getUserProfile = async () => {
         try {
             const response = await UserServices.profileService.getProfile();
-            console.log(response);
             return response;
         } catch (error) {
             console.error('Erro ao carregar perfil:', error);
@@ -31,10 +30,15 @@ export const AuthProvider = ({ children }) => {
             const userData = await UserServices.userService.getUser();
             const profileData = await getUserProfile();
 
+            if (!profileData) {
+                return null;
+            }
+
             const mergedUser = { ...userData, ...profileData };
 
             setUser(mergedUser);
             localStorage.setItem('user', JSON.stringify(mergedUser));
+            return mergedUser;
         } catch (error) {
             console.error('Erro ao buscar dados do usuário:', error);
             localStorage.removeItem('token');

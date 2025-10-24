@@ -29,6 +29,7 @@ function App() {
 
                         {/* --->>> ROTAS PRIVADA @ACESSO USER <<<---  */}
                         <Route element={<PrivateRoute roles={['USER']} />}>
+                            <Route path="/" element={<LandingPage />} />
                             <Route path="/mentoria" element={<Mentoring />} />
                             <Route path="/configuracoes" element={<Settings />} />
                             <Route path="/criar-perfil" element={<StepByStepForm />} />
