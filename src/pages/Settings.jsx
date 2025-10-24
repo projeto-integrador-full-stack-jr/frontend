@@ -7,9 +7,10 @@ import Header from '../components/Header';
 import avatar from '../assets/profile.jpg';
 import Modal from '../components/Modal';
 import Snackbar from '../components/Snackbar';
-import profileService from '../services/profileService';
 import { useAuth } from '../contexts/auth/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
+import { UserServices } from '@services';
+import { User2 } from 'lucide-react';
 
 const Settings = () => {
     const { user, setUser, logout } = useAuth();
@@ -24,7 +25,7 @@ const Settings = () => {
         setLoading(true);
 
         try {
-            const data = await profileService.getProfile();
+            const data = await UserServices.profileService.getProfile();
             toast.success('E-mail atualizado com sucesso!');
             setUser(data);
             if (data.token) {
@@ -85,29 +86,21 @@ const Settings = () => {
                     <ProfileMenu />
                 </div>
 
-                <main className="flex w-full flex-col items-center justify-center">
-                    <div className="flex flex-col justify-start">
+                <main className="flex w-full flex-col items-center justify-center px-5">
+                    <div className="flex max-w-md flex-col justify-start">
                         <h3 className="text-4xl font-extrabold text-[#3F3D56] lg:self-auto lg:text-5xl">
                             Configurações
                         </h3>
 
-                        <div className="mt-20 flex w-full items-end justify-center gap-2">
-                            <img
-                                src="https://icones.pro/wp-content/uploads/2021/02/icone-utilisateur-bleu.png"
-                                alt="Foto de perfil"
-                                className="h-30 w-30 rounded-3xl object-cover lg:h-30 lg:w-30"
-                            />
+                        <div className="mt-20 flex w-full items-start justify-center gap-2">
+                            <div className="rounded-md bg-blue-600 p-4">
+                                <User2 size={32} className="text-zinc-100" />
+                            </div>
 
-                            <article className="mb-2 flex w-full flex-col">
-                                <p className="text-xs text-zinc-400">Nome: {user?.nomeUsuario}</p>
-                                <p className="text-xs text-zinc-400">Id: {user?.id}</p>
-                                <p className="text-sm text-zinc-400">Seu e-mail: {user?.email}</p>
-                                <button
-                                    className="mt-5 cursor-pointer rounded-md bg-red-500 px-5 py-2 text-sm font-medium text-white"
-                                    onClick={logout}
-                                >
-                                    Sair
-                                </button>
+                            <article className="flex w-full flex-col">
+                                <p className="text-md text-zinc-950">Nome: {user?.nomeUsuario}</p>
+                                <p className="text-md text-zinc-950">E-mail: {user?.email}</p>
+                                <p className="text-xs text-zinc-400">Usuário Id: {user?.id}</p>
                             </article>
                         </div>
 

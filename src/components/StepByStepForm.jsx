@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import Header from './Header';
 import { Flame } from 'lucide-react';
-import profileService from '../services/profileService';
-import resumeService from '../services/resumeService';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { UserServices } from '@services';
 
 const styleLabel = 'mb-4 block text-center text-2xl font-light text-zinc-500';
 const styleInput =
@@ -45,7 +44,7 @@ export default function StepByStepForm() {
     };
     const createProfile = async () => {
         try {
-            const response = await profileService.updateProfile(formData);
+            const response = await UserServices.profileService.updateProfile(formData);
             toast.success('Perfil criado com sucesso');
             console.log(formData);
             localStorage.setItem('userProfile', JSON.stringify(response));

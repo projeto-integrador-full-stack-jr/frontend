@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import userService from '../../services/userService';
 import { useAuth } from '../../contexts/auth/useAuth';
 import { Trash2, Loader2, Eye } from 'lucide-react';
 import Header from '../../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
+import { AdminServices } from '../../services';
 
 export default function UserManagement() {
     const { user } = useAuth();
@@ -20,7 +20,7 @@ export default function UserManagement() {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await userService.getAllUsers();
+            const response = await AdminServices.userService.getUser();
 
             setUsers(response);
         } catch (error) {
@@ -34,7 +34,7 @@ export default function UserManagement() {
     const handleDelete = async (userId) => {
         try {
             setDeleting(userId);
-            await userService.deleteUser(userId);
+            await AdminServices.userService.deleteUser(userId);
             setUsers((prev) => prev.filter((u) => u.id !== userId));
             toast.success('Usuário excluído com sucesso!');
         } catch (error) {
@@ -86,8 +86,8 @@ export default function UserManagement() {
                                                 <span
                                                     className={`rounded-full px-2 py-1 text-xs font-medium ${
                                                         u.acesso === 'ADMIN'
-                                                            ? 'bg-blue-100 text-blue-700'
-                                                            : 'bg-gray-100 text-gray-700'
+                                                            ? 'bg-blue-100 text-red-600'
+                                                            : 'bg-gray-100 text-blue-600'
                                                     }`}
                                                 >
                                                     {u.acesso}

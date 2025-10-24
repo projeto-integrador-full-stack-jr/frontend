@@ -6,14 +6,12 @@ const InputField = ({ label, type = 'text', placeholder, onChange }) => {
 
     return (
         <div className="mb-4">
-            <label className="mb-2 block text-sm font-medium text-gray-700">
-                {label}
-            </label>
+            <label className="mb-1 block text-sm font-medium text-gray-700">{label}</label>
             <div className="relative">
                 <input
                     type={isPassword && showPassword ? 'text' : type}
                     placeholder={placeholder}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="w-full rounded-lg border border-gray-200 px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:placeholder:text-zinc-300"
                     onChange={onChange}
                 />
                 {isPassword && (
@@ -21,9 +19,7 @@ const InputField = ({ label, type = 'text', placeholder, onChange }) => {
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-500"
-                        aria-label={
-                            showPassword ? 'Ocultar senha' : 'Mostrar senha'
-                        }
+                        aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

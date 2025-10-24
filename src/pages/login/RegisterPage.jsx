@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import InputField from '../../components/InputField';
 import Button from '../../components/Button';
 import LogoGoogle from '../../assets/google.svg';
-import userService from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AuthContext } from '../../contexts/auth/AuthProvider';
 import { useContext } from 'react';
+import useAuth from '../../services/auth/authService.js';
+import { UserServices } from '@services';
 
 const RegisterPage = ({ onSwitchPage }) => {
     const [email, setEmail] = useState('');
@@ -24,14 +25,15 @@ const RegisterPage = ({ onSwitchPage }) => {
         }
 
         try {
-            await userService.createUser({ email, senha });
+            await useAuth.createUser({ email, senha });
             toast.success('Conta criada com sucesso!');
 
-            const loginResponse = await userService.getUser({ email, senha });
+            const loginResponse = await useAuth.loginUser({ email, senha });
             localStorage.setItem('token', loginResponse.token);
-            localStorage.setItem('user', JSON.stringify(loginResponse.user));
-            const response = await userService.getMe();
-            setUser(response);
+
+            const userData = await UserServices.userService.getUser();
+            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
 
             setTimeout(() => {
                 navigate('/criar-perfil');

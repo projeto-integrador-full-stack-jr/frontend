@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
-import profileService from '../services/profileService';
 import { Bot, CalendarDays, BriefcaseBusiness, CircleUserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../contexts/resume/ResumeContext';
-import resumeService from '../services/resumeService';
-import { toast, ToastContainer } from 'react-toastify';
+import { UserServices, AdminServices } from '@services';
+import { ToastContainer, toast } from 'react-toastify';
+import LoadingScreen from '../components/Loading';
 
 const Overview = () => {
     const [profile, setProfile] = useState(null);
     const { resumeData, setResumeData } = useResume();
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         async function loadProfile() {
             try {
-                const data = await profileService.getProfile();
+                const data = await UserServices.profileService.getProfile();
                 setProfile(data);
             } catch (error) {
                 console.error(error);
@@ -26,17 +26,23 @@ const Overview = () => {
         loadProfile();
     }, []);
 
-    // const generateResume = async () => {
-    //     try {
-    //         if (!profile) return;
-    //         const data = await resumeService.createResume(profile);
-    //         setResumeData(data);
-    //         console.log(data);
-    //     } catch (error) {
-    //         console.error('Erro ao gerar resumo:', error);
-    //         toast.error('Erro ao gerar mentoria');
-    //     }
-    // };
+    const createResume = async () => {
+        setLoading(true);
+        try {
+            const data = await UserServices.summaryService.createSummary();
+            setResumeData(data);
+            toast.success('Resumo gerado com sucesso!');
+            navigate('/meu-resumo');
+            return data;
+        } catch (error) {
+            console.error('Erro ao gerar resumo:', error);
+            toast.error('Falha ao gerar resumo');
+        }
+    };
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
     return (
         <div className="flex min-h-screen flex-col justify-between">
@@ -79,7 +85,9 @@ const Overview = () => {
                                 </button>
 
                                 <button
-                                    onClick={navigate('/mentoria')}
+                                    onClick={async () => {
+                                        await createResume();
+                                    }}
                                     type="button"
                                     className="flex w-1/2 cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
                                 >

@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
-import userService from '../../services/userService';
-import profileService from '../../services/profileService';
 import { useNavigate } from 'react-router-dom';
+import { UserServices } from '../../services';
 
 export const AuthContext = createContext();
 
@@ -12,8 +11,8 @@ export const AuthProvider = ({ children }) => {
 
     const getUserProfile = async () => {
         try {
-            const response = await profileService.getProfile('/perfis/meu');
-            return response.data;
+            const response = await UserServices.profileService.getProfile();
+            return response;
         } catch (error) {
             console.error('Erro ao carregar perfil:', error);
             return null;
@@ -28,13 +27,18 @@ export const AuthProvider = ({ children }) => {
         }
 
         try {
-            const userData = await userService.getMe();
+            const userData = await UserServices.userService.getUser();
             const profileData = await getUserProfile();
+
+            if (!profileData) {
+                return null;
+            }
 
             const mergedUser = { ...userData, ...profileData };
 
             setUser(mergedUser);
             localStorage.setItem('user', JSON.stringify(mergedUser));
+            return mergedUser;
         } catch (error) {
             console.error('Erro ao buscar dados do usuário:', error);
             localStorage.removeItem('token');
@@ -45,6 +49,18 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const storedUser = localStorage.getItem('user');
+
+        if (token && storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                setUser(parsedUser);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
         getProfileUser();
     }, []);
 
