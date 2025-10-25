@@ -17,7 +17,7 @@ const goalService = {
     },
 
     deleteGoal: async (id) => {
-        const response = await api.delete(`/metas/minhas${id}`);
+        const response = await api.delete(`/metas/minhas/${id}`);
         return response.data;
     },
 };

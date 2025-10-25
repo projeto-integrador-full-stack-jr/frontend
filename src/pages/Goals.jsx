@@ -68,9 +68,24 @@ const Goals = () => {
         try {
             const goals = await UserServices.goalService.getGoals();
             console.log(goals);
+            console.log(goals);
+
             setGoals(goals);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Excluir meta do usuário
+    const deleteGoal = async (metaId) => {
+        setLoading(true);
+        try {
+            await UserServices.goalService.deleteGoal(metaId);
+            setGoals((prev) => prev.filter((goal) => goal.metaId !== metaId));
+        } catch (error) {
+            console.error('Erro ao excluir meta:', error);
         } finally {
             setLoading(false);
         }
@@ -168,7 +183,7 @@ const Goals = () => {
                                                 icon={<Trash size={14} />}
                                                 title="Excluir"
                                                 label={'Excluir'}
-                                                onClick={handleOpenModal}
+                                                onClick={() => deleteGoal(goal.metaId)}
                                                 className="flex w-full items-center justify-center bg-red-50 font-semibold text-red-600 hover:bg-red-100"
                                             />
                                         </div>
