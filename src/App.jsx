@@ -4,6 +4,7 @@ import PageLogin from './pages/login/AuthLayout.jsx';
 import Settings from './pages/Settings.jsx';
 import Mentoring from './pages/Mentoring.jsx';
 import Overview from './pages/Overview.jsx';
+import Goals from './pages/Goals.jsx';
 import UserManagement from './pages/Admin/admin.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StepByStepForm from './components/StepByStepForm.jsx';
@@ -34,6 +35,7 @@ function App() {
                             <Route path="/configuracoes" element={<Settings />} />
                             <Route path="/criar-perfil" element={<StepByStepForm />} />
                             <Route path="/overview" element={<Overview />} />
+                            <Route path="/metas" element={<Goals />} />
                         </Route>
 
                         {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 const AuthLayout = () => {
     const [currentPage, setCurrentPage] = useState('login');
-
     return (
         <main className="flex min-h-screen font-sans">
             <div className="hidden min-h-screen bg-blue-600 lg:block lg:w-1/2" />
@@ -17,17 +16,16 @@ const AuthLayout = () => {
                     <Link to="/">
                         <img src={Logo} alt="Logo mentoria" width={150} />
                     </Link>
-                    <Link
-                        to="/"
-                        className="flex items-center justify-center hover:border-none"
-                    >
+                    <Link to="/" className="flex items-center justify-center hover:border-none">
                         página anterior
                     </Link>
                 </header>
-
                 <div className="mt-6 w-full max-w-md">
                     <Tabs
                         currentPage={currentPage}
+                        label1={'Login'}
+                        label2={'Criar uma conta'}
+                        variant={'primary'}
                         onSwitchPage={setCurrentPage}
                     />
                     {currentPage === 'login' ? (
@@ -37,9 +35,7 @@ const AuthLayout = () => {
                     )}
                 </div>
                 <div>
-                    <p className="pb-2 text-sm text-zinc-400">
-                        © 2025 mentorIA. Todos os direitos reservados.
-                    </p>
+                    <p className="pb-2 text-sm text-zinc-400">© 2025 mentorIA. Todos os direitos reservados.</p>
                 </div>
             </div>
         </main>
