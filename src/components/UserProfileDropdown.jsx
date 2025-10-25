@@ -40,7 +40,7 @@ const UserProfileDropdown = () => {
                                 <Link
                                     to={link.href}
                                     onClick={link.onClick ? link.onClick : undefined}
-                                    className={`text-md block px-4 py-3 text-gray-800 hover:bg-blue-700 hover:text-gray-100 ${index === 0 ? 'rounded-tl-md rounded-tr-md' : ''} ${
+                                    className={`block px-3 py-2 text-sm text-zinc-600 hover:bg-blue-700 hover:text-gray-100 ${index === 0 ? 'rounded-tl-md rounded-tr-md' : ''} ${
                                         link.isLogout
                                             ? 'hover rounded-br-md rounded-bl-md border-t-2 text-center font-bold text-red-600 hover:bg-red-600 hover:text-zinc-50'
                                             : ''

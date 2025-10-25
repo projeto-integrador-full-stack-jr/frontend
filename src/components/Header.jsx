@@ -3,7 +3,7 @@ import Navmenu from './NavMenu';
 import logo from '../assets/logo.svg';
 import { useLocation } from 'react-router';
 import UserProfileDropdown from './UserProfileDropdown';
-
+import Tabs from './Tabs';
 const buttonStyles = {
     primary: 'bg-[#2C49FA] hover:bg-[#102FF9] text-white font-medium px-5 py-2 rounded-md',
     secondary: 'bg-[#2C49FA]/5 font-semi text-[#2C49FA] hover:bg-[#C3CBFD]  px-5 py-2 rounded-md font-medium',
@@ -30,7 +30,7 @@ const Header = () => {
                                 <Link to="/auth" className={buttonStyles.outline}>
                                     Fazer login
                                 </Link>
-                                <Link to="/auth" className={buttonStyles.primary}>
+                                <Link className={buttonStyles.primary} onClick={() => onSwitchPage('register')}>
                                     Cadastrar
                                 </Link>
                             </div>

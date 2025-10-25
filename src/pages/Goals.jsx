@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import ProfileMenu from '../components/ProfileMenu';
 import Button from '../components/Button';
 import { UserServices } from '@services';
+import { ToastContainer, toast } from 'react-toastify';
 
 // MUI Modal imports
 import Box from '@mui/material/Box';
@@ -43,7 +44,7 @@ const Goals = () => {
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => {
         setOpenModal(false);
-        setNewGoal({ title: '', deadline: '', status: 'PENDENTE' });
+        setNewGoal({ titulo: '', prazo: '', statusMeta: 'PENDENTE' });
     };
 
     const handleSaveGoal = async () => {
@@ -53,12 +54,20 @@ const Goals = () => {
         handleCloseModal();
     };
 
-    const handleCreateGoal = async () => {
+    // Criar meta
+    const handleCreateGoal = async (e) => {
+        e.preventDefault();
+        if (newGoal.title === '' || newGoal.deadline === '' || newGoal.statusMeta === '') {
+            toast.error('Preencha todos os campos antes de salvar a meta.');
+        }
         try {
             const goals = await UserServices.goalService.createGoal(newGoal);
-            console.log('Passou aqui');
+            setGoals((prevGoals) => [...prevGoals, goals]);
+            setNewGoal({ title: '', deadline: '', statusMeta: '' });
+            toast.success('Meta criada com sucesso!');
         } catch (error) {
             console.error(error);
+            toast.error(error.response?.data?.message);
         } finally {
         }
     };
@@ -67,9 +76,6 @@ const Goals = () => {
     const fetchGoals = async () => {
         try {
             const goals = await UserServices.goalService.getGoals();
-            console.log(goals);
-            console.log(goals);
-
             setGoals(goals);
         } catch (error) {
             console.error(error);
@@ -84,8 +90,10 @@ const Goals = () => {
         try {
             await UserServices.goalService.deleteGoal(metaId);
             setGoals((prev) => prev.filter((goal) => goal.metaId !== metaId));
+            toast.success('Meta excluída com sucesso');
         } catch (error) {
             console.error('Erro ao excluir meta:', error);
+            toast.error('Erro ao excluir meta');
         } finally {
             setLoading(false);
         }
@@ -105,7 +113,7 @@ const Goals = () => {
                     <div className="mx-auto max-w-7xl">
                         <div className="mb-6 flex flex-col items-start justify-between space-y-10 md:flex-row">
                             <div>
-                                <h1 className="mb-4 text-3xl font-extrabold text-[#3F3D56] sm:mb-0">Suas metas</h1>
+                                <h1 className="mb-4 text-3xl font-extrabold text-zinc-600 sm:mb-0">Suas metas</h1>
                                 <p className="text-md font-light text-zinc-400">
                                     Acompanhe suas metas, veja o progresso e mantenha-se organizado
                                 </p>
@@ -115,7 +123,7 @@ const Goals = () => {
                                 variant="secondary"
                                 icon={<Plus />}
                                 onClick={handleOpenModal}
-                                className={!goals ? 'hidden' : ''}
+                                className={goals.length === 0 ? 'hidden' : ''}
                             />
                         </div>
 
@@ -148,16 +156,19 @@ const Goals = () => {
                                                     Status:{' '}
                                                     <span
                                                         className={clsx(
-                                                            'ml-1 rounded-full border-2 px-3 py-[2px] text-sm font-medium',
+                                                            'ml-1 rounded-full border-1 px-3 py-[2px] text-sm font-medium',
                                                             {
-                                                                CONCLUIDO: 'border-cyan-300 bg-green-200',
-                                                                EM_ANDAMENTO: 'border-b-orange-600 bg-yellow-200',
-                                                                PENDENTE: 'border-red-100 bg-red-50 text-red-600',
+                                                                CONCLUIDO:
+                                                                    'border-green-50 bg-green-200 text-[#04364A]',
+                                                                EM_ANDAMENTO:
+                                                                    'border-[#F25912] bg-[#FFECDB] text-[#F25912]',
+                                                                PENDENTE:
+                                                                    'border-[#CB0404] bg-[#FFE6E1] text-[#CB0404]',
                                                             }[goal.statusMeta] || 'bg-red-200'
                                                         )}
                                                     >
                                                         {{
-                                                            CONCLUIDA: 'Concluída',
+                                                            CONCLUIDO: 'Concluída',
                                                             EM_ANDAMENTO: 'Em andamento',
                                                             PENDENTE: 'Pendente',
                                                         }[goal.statusMeta] || 'Pendente'}
@@ -218,25 +229,30 @@ const Goals = () => {
                                 type="text"
                                 placeholder="Título da meta"
                                 value={newGoal.title}
-                                onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
+                                onChange={(e) => setNewGoal({ ...newGoal, titulo: e.target.value })}
                                 className="rounded border p-2"
                                 required
                             />
                             <input
                                 type="date"
                                 value={newGoal.deadline}
-                                onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })}
+                                onChange={(e) =>
+                                    setNewGoal({
+                                        ...newGoal,
+                                        prazo: e.target.value + 'T23:59:59Z',
+                                    })
+                                }
                                 className="rounded border p-2"
                                 required
                             />
                             <select
                                 value={newGoal.status}
-                                onChange={(e) => setNewGoal({ ...newGoal, status: e.target.value })}
+                                onChange={(e) => setNewGoal({ ...newGoal, statusMeta: e.target.value })}
                                 className="rounded border p-2"
                             >
                                 <option value="PENDENTE">Pendente</option>
                                 <option value="EM_ANDAMENTO">Em andamento</option>
-                                <option value="CONCLUIDA">Concluída</option>
+                                {/* <option value="CONCLUIDO">Concluída</option> */}
                             </select>
 
                             <div className="mt-4 flex justify-end gap-2">
@@ -247,6 +263,17 @@ const Goals = () => {
                     </Box>
                 </Fade>
             </Modal>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </>
     );
 };
