@@ -11,7 +11,6 @@ const Overview = () => {
     const [profile, setProfile] = useState(null);
     const { resumeData, setResumeData } = useResume();
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
 
     useEffect(() => {
