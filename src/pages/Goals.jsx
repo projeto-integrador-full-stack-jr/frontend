@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-import { Plus, PencilLine } from 'lucide-react';
+import { Plus, PencilLine, Calendar, Loader, PlusIcon, Trash } from 'lucide-react';
 import Header from '../components/Header';
 import ProfileMenu from '../components/ProfileMenu';
 import Button from '../components/Button';
@@ -30,13 +30,15 @@ const style = {
 };
 
 const Goals = () => {
+    const [goals, setGoals] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [openModal, setOpenModal] = useState(false);
+
     const [newGoal, setNewGoal] = useState({
         titulo: '',
         prazo: '',
         statusMeta: '',
     });
-
-    const [openModal, setOpenModal] = useState(false);
 
     const handleOpenModal = () => setOpenModal(true);
     const handleCloseModal = () => {
@@ -44,12 +46,12 @@ const Goals = () => {
         setNewGoal({ title: '', deadline: '', status: 'PENDENTE' });
     };
 
-    // const handleSaveGoal = async () => {
-    //     if (!newGoal.title || !newGoal.deadline) return; // validação simples
+    const handleSaveGoal = async () => {
+        if (!newGoal.title || !newGoal.deadline) return;
 
-    //     setGoals((prev) => [...prev, { ...newGoal, id: prev.length + 1 }]);
-    //     handleCloseModal();
-    // };
+        setGoals((prev) => [...prev, { ...newGoal, id: prev.length + 1 }]);
+        handleCloseModal();
+    };
 
     const handleCreateGoal = async () => {
         try {
@@ -61,6 +63,7 @@ const Goals = () => {
         }
     };
 
+    // Buscar as metas do usuário
     const fetchGoals = async () => {
         try {
             const goals = await UserServices.goalService.getGoals();
@@ -76,67 +79,101 @@ const Goals = () => {
     useEffect(() => {
         fetchGoals();
     }, []);
+
     return (
         <>
             <Header />
             <div className="flex h-screen w-full">
                 <ProfileMenu />
 
-                <main className="flex-1 overflow-y-auto p-6">
+                <main className="overflow min-h-screen flex-1 p-6 py-30">
                     <div className="mx-auto max-w-7xl">
-                        <div className="mb-6 flex flex-col items-start justify-between space-y-10">
+                        <div className="mb-6 flex flex-col items-start justify-between space-y-10 md:flex-row">
                             <div>
                                 <h1 className="mb-4 text-3xl font-extrabold text-[#3F3D56] sm:mb-0">Suas metas</h1>
-                                <h5>Acompanhe suas metas, veja o progresso e mantenha-se organizado</h5>
+                                <p className="text-md font-light text-zinc-400">
+                                    Acompanhe suas metas, veja o progresso e mantenha-se organizado
+                                </p>
                             </div>
                             <Button
                                 label={'Crie uma nova meta'}
                                 variant="secondary"
                                 icon={<Plus />}
                                 onClick={handleOpenModal}
+                                className={!goals ? 'hidden' : ''}
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                            {goals && goals.length > 0 ? (
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                            {!goals || goals.length === 0 ? (
+                                <div className="col-span-full flex flex-col items-center justify-center py-20 text-center text-gray-500">
+                                    <p className="text-lg font-medium">Você ainda não criou nenhuma meta.</p>
+                                    <p className="mb-6 text-sm">Comece agora e acompanhe seu progresso!</p>
+                                    <Button
+                                        label="Crie sua primeira meta"
+                                        variant="secondary"
+                                        icon={<Plus />}
+                                        onClick={handleOpenModal}
+                                    />
+                                </div>
+                            ) : (
                                 goals.map((goal) => (
                                     <div
                                         key={goal.id}
-                                        className="flex flex-col rounded-lg border bg-white p-6 shadow transition-shadow duration-200 hover:shadow-lg"
+                                        className="flex flex-col rounded-lg border bg-white p-5 shadow transition-shadow duration-200 hover:shadow-lg"
                                     >
                                         <div className="mb-4 flex items-start justify-between">
-                                            <h2 className="text-lg font-semibold text-blue-600">{goal.titulo}</h2>
+                                            <h2 className="text-xl font-bold text-zinc-900">{goal.titulo}</h2>
+                                        </div>
+
+                                        <div className="space-y-1 pb-2">
+                                            <div className="flex items-center justify-start gap-1">
+                                                <Loader size={12} />
+                                                <p className="text-sm text-gray-900">
+                                                    Status:{' '}
+                                                    <span
+                                                        className={clsx(
+                                                            'ml-1 rounded-full border-2 px-3 py-[2px] text-sm font-medium',
+                                                            {
+                                                                CONCLUIDO: 'border-cyan-300 bg-green-200',
+                                                                EM_ANDAMENTO: 'border-b-orange-600 bg-yellow-200',
+                                                                PENDENTE: 'border-red-100 bg-red-50 text-red-600',
+                                                            }[goal.statusMeta] || 'bg-red-200'
+                                                        )}
+                                                    >
+                                                        {{
+                                                            CONCLUIDA: 'Concluída',
+                                                            EM_ANDAMENTO: 'Em andamento',
+                                                            PENDENTE: 'Pendente',
+                                                        }[goal.statusMeta] || 'Pendente'}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div className="flex items-center justify-start gap-1">
+                                                <Calendar size={12} />
+                                                <p className="text-sm text-gray-500">Prazo: {goal.prazo}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center justify-between gap-2 border-t pt-2">
                                             <Button
                                                 variant="secondary"
-                                                icon={<PencilLine />}
-                                                title={'Editar'}
+                                                icon={<PencilLine size={14} />}
+                                                title="Editar"
+                                                label={'Editar'}
                                                 onClick={handleOpenModal}
+                                                className="flex w-full items-center justify-center bg-blue-50 font-semibold text-blue-600 hover:bg-blue-100"
+                                            />
+                                            <Button
+                                                variant="secondary"
+                                                icon={<Trash size={14} />}
+                                                title="Excluir"
+                                                label={'Excluir'}
+                                                onClick={handleOpenModal}
+                                                className="flex w-full items-center justify-center bg-red-50 font-semibold text-red-600 hover:bg-red-100"
                                             />
                                         </div>
-                                        <p className="mb-2 text-gray-700">Prazo: {goal.prazo}</p>
-                                        <p className="text-gray-700">
-                                            Status:{' '}
-                                            <span
-                                                className={clsx(
-                                                    'rounded-full border-2 px-4 py-1 text-sm font-medium',
-                                                    {
-                                                        CONCLUIDA: 'border-cyan-300 bg-green-200',
-                                                        EM_ANDAMENTO: 'border-b-orange-600 bg-yellow-200',
-                                                        PENDENTE: 'border-red-300 bg-red-200 text-red-600',
-                                                    }[goal.statusMeta] || 'bg-red-200'
-                                                )}
-                                            >
-                                                {{
-                                                    CONCLUIDA: 'Concluída',
-                                                    EM_ANDAMENTO: 'Em andamento',
-                                                    PENDENTE: 'Pendente',
-                                                }[goal.status] || 'Pendente'}
-                                            </span>
-                                        </p>
                                     </div>
                                 ))
-                            ) : (
-                                <>Você não possui metas criadas</>
                             )}
                         </div>
                     </div>
@@ -156,7 +193,7 @@ const Goals = () => {
                 }}
             >
                 <Fade in={openModal}>
-                    <Box sx={style} className="bg-black">
+                    <Box sx={style} className="">
                         <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
                             Criar Nova Meta
                         </Typography>
@@ -188,20 +225,8 @@ const Goals = () => {
                             </select>
 
                             <div className="mt-4 flex justify-end gap-2">
-                                <button
-                                    type="button"
-                                    onClick={handleCloseModal}
-                                    className="cursor-pointer rounded bg-gray-300 px-4 py-2 hover:bg-gray-400"
-                                >
-                                    Cancelar
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={handleCreateGoal}
-                                    className="cursor-pointer rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-                                >
-                                    Criar
-                                </button>
+                                <Button label={'Cancelar'} onClick={handleCloseModal} variant="outline" />
+                                <Button label={'Criar meta'} onClick={handleCreateGoal} />
                             </div>
                         </form>
                     </Box>

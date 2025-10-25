@@ -1,8 +1,8 @@
 import api from '../api';
 
 const goalService = {
-    createGoal: async () => {
-        const response = await api.post(`/metas/minhas`);
+    createGoal: async (newGoal) => {
+        const response = await api.post(`/metas/minhas`, newGoal);
         return response.data;
     },
 

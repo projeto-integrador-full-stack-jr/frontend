@@ -17,26 +17,28 @@ const Header = () => {
 
     return (
         <header className="flex items-center border-b border-gray-100 px-4 py-4">
-            <div className="mx-auto flex w-full max-w-7xl items-center justify-between">
-                <Link to="/">
-                    <img src={logo} alt="Logo mentorIA" className="w-50 cursor-pointer lg:w-40" />
-                </Link>
+            <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
+                <div className="flex w-full max-w-7xl items-center justify-between">
+                    <Link to="/">
+                        <img src={logo} alt="Logo mentorIA" className="w-50 cursor-pointer lg:w-40" />
+                    </Link>
 
-                {isHome ? (
-                    <>
-                        <Navmenu />
-                        <div className="hidden gap-2 lg:flex">
-                            <Link to="/auth" className={buttonStyles.outline}>
-                                Fazer login
-                            </Link>
-                            <Link to="/auth" className={buttonStyles.primary}>
-                                Cadastrar
-                            </Link>
-                        </div>
-                    </>
-                ) : (
-                    <UserProfileDropdown />
-                )}
+                    {isHome ? (
+                        <>
+                            <Navmenu />
+                            <div className="hidden gap-2 lg:flex">
+                                <Link to="/auth" className={buttonStyles.outline}>
+                                    Fazer login
+                                </Link>
+                                <Link to="/auth" className={buttonStyles.primary}>
+                                    Cadastrar
+                                </Link>
+                            </div>
+                        </>
+                    ) : (
+                        <UserProfileDropdown />
+                    )}
+                </div>
             </div>
         </header>
     );

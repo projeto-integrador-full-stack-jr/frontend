@@ -11,12 +11,12 @@ const UserProfileDropdown = () => {
 
     const linksDropdown = [
         { label: 'Início', href: '/' },
-        { label: 'Configurações', href: '/configuracoes' },
+        { label: 'Resumos', href: '/mentoria' },
         { label: 'Metas', href: '/metas' },
         { label: 'Notas', href: '/notas' },
-        { label: 'Mentoria', href: '/mentoria' },
-        { label: 'Mentoria', href: '/mentoria' },
-        { label: 'Sair', href: '/', onClick: logout },
+        { label: 'Editar perfil', href: '/' },
+        { label: 'Configurações', href: '/configuracoes' },
+        { label: 'Sair', href: '/', onClick: logout, isLogout: true },
     ];
 
     return (
@@ -33,20 +33,19 @@ const UserProfileDropdown = () => {
             </div>
 
             {isOpen && (
-                <div className="absolute right-0 z-50 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
+                <div className="absolute right-0 z-50 mt-2 w-50 rounded-md border border-gray-200 bg-white shadow-lg">
                     <ul className="flex flex-col">
                         {linksDropdown.map((link, index) => (
                             <li key={link.label}>
                                 <Link
                                     to={link.href}
                                     onClick={link.onClick ? link.onClick : undefined}
-                                    className={`block px-4 py-2 text-sm text-gray-800 hover:bg-blue-700 hover:text-gray-100 ${index === 0 ? 'rounded-tl-md rounded-tr-md' : ''} ${
+                                    className={`text-md block px-4 py-3 text-gray-800 hover:bg-blue-700 hover:text-gray-100 ${index === 0 ? 'rounded-tl-md rounded-tr-md' : ''} ${
                                         link.isLogout
-                                            ? 'hover rounded-br-md rounded-bl-md border-t-2 font-bold text-red-600 hover:bg-red-700 hover:text-zinc-100'
+                                            ? 'hover rounded-br-md rounded-bl-md border-t-2 text-center font-bold text-red-600 hover:bg-red-600 hover:text-zinc-50'
                                             : ''
                                     }`}
                                 >
-                                    {' '}
                                     {link.label}
                                 </Link>
                             </li>

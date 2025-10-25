@@ -1,14 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Button from './Button';
 import { Link } from 'react-router-dom';
-import {
-    Wrench,
-    CheckCheck,
-    Album,
-    CircleUserRound,
-    LogOut,
-    ChevronLast,
-} from 'lucide-react';
+import { Wrench, CheckCheck, Album, CircleUserRound, LogOut, ChevronLast } from 'lucide-react';
 
 const menuOptions = [
     { label: 'Editar perfil', link: '/profile', icon: <CircleUserRound /> },
@@ -44,22 +37,13 @@ const ProfileMenu = () => {
                 <nav className="flex flex-col gap-4 pt-10">
                     {menuOptions.map(({ label, link, icon }) => (
                         <Link key={link} to={link}>
-                            <Button
-                                label={isOpen ? label : ''}
-                                icon={icon}
-                                variant="tertiary"
-                                title={label}
-                            />
+                            <Button label={isOpen ? label : ''} icon={icon} variant="tertiary" title={label} />
                         </Link>
                     ))}
 
                     {!isOpen && (
                         <Link to="/">
-                            <Button
-                                title="Sair"
-                                icon={<LogOut />}
-                                variant="tertiary"
-                            />
+                            <Button title="Sair" icon={<LogOut />} variant="tertiary" />
                         </Link>
                     )}
                 </nav>
