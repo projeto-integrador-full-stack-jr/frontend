@@ -20,7 +20,7 @@ export default function UserManagement() {
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await AdminServices.userService.getUser();
+            const response = await AdminServices.userService.getUsers();
 
             setUsers(response);
         } catch (error) {

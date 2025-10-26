@@ -2,11 +2,7 @@ import api from '../api';
 
 const userService = {
     getUsers: async () => {
-        const response = await api.get('/usuarios/listar', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const response = await api.get('/usuarios/listar');
         return response.data;
     },
 
