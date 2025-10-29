@@ -9,7 +9,7 @@ const buttonVariants = {
   outline:
     'after:block after:h-0.5 after:w-0 after:bg-[#2C49FA] after:transition-all after:duration-300 hover:after:w-full text-[#2C49FA] font-medium px-5 py-2 rounded-md',
   danger:
-    'bg-[#EA4335] hover:bg-[#CB2415] text-white font-medium px-5 py-3 rounded-md w-full',
+    'bg-[#EA4335] hover:bg-[#CB2415] text-white font-medium px-5 py-2 rounded-md ',
   tertiary:
     'bg-white text-[#2C49FA] hover:bg-[#2C49FA] hover:text-white font-medium px-5 py-3 rounded-md w-full',
 };

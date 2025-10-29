@@ -21,19 +21,22 @@ const style = {
   border: '2px solid #D9D9D9',
 };
 
-export default function BasicModal({ children }) {
-  const [open, setOpen] = React.useState(false);
+export default function BasicModal({ trigger, children }) {
+  const [openModal, setOpenModal] = React.useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   return (
     <>
-      <div onClick={handleOpen}>{children}</div>
+      <div onClick={handleOpenModal}>{trigger}</div>
 
       <Modal
-        open={open}
-        // onClose={handleClose}
+        open={openModal}
+        onClose={(event, reason) => {
+          if (reason === 'backdropClick' || reason === 'escapeKeyDown') return; // impede fechar clicando fora ou ESC
+          handleCloseModal();
+        }}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -45,43 +48,11 @@ export default function BasicModal({ children }) {
           },
         }}
       >
-        <Fade in={open}>
+        <Fade in={openModal}>
           <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              sx={{
-                mb: 2,
-                fontSize: '1.8rem',
-                fontWeight: 'bold',
-                color: '#3F3D56',
-              }}
-            >
-              Tem certeza de que deseja deletar sua conta?
-            </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{
-                mb: 4,
-                color: '#939393',
-                fontSize: '1rem',
-                fontWeight: 'semi-bold',
-              }}
-            >
-              Essa ação é permanente e todos os seus dados serão removidos de
-              forma definitiva.
-            </Typography>
-            <div className="flex justify-end gap-4">
-              <button className="cursor-pointer px-4 py-2 font-semibold text-[#939393] hover:text-[#555]">
-                Deletar conta
-              </button>
-              <button
-                onClick={handleClose}
-                className="cursor-pointer rounded-md bg-red-500 px-8 py-3 text-white hover:bg-red-700"
-              >
-                Cancelar
-              </button>
-            </div>
+            {typeof children === 'function'
+              ? children({ handleCloseModal: handleCloseModal })
+              : children}
           </Box>
         </Fade>
       </Modal>
