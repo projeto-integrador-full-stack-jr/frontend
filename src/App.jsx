@@ -5,6 +5,7 @@ import Settings from './pages/Settings.jsx';
 import Mentoring from './pages/Mentoring.jsx';
 import Overview from './pages/Overview.jsx';
 import Goals from './pages/Goals.jsx';
+import ResumePages from './pages/SummarysPage.jsx';
 import UserManagement from './pages/Admin/admin.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StepByStepForm from './components/StepByStepForm.jsx';
@@ -36,6 +37,7 @@ function App() {
                             <Route path="/criar-perfil" element={<StepByStepForm />} />
                             <Route path="/overview" element={<Overview />} />
                             <Route path="/metas" element={<Goals />} />
+                            <Route path="/resumos" element={<ResumePages />} />
                         </Route>
 
                         {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
