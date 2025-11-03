@@ -6,6 +6,7 @@ import Mentoring from './pages/Mentoring.jsx';
 import Overview from './pages/Overview.jsx';
 import Goals from './pages/Goals.jsx';
 import ResumePages from './pages/SummarysPage.jsx';
+import EditProfile from './pages/EditProfile.jsx';
 import UserManagement from './pages/Admin/admin.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StepByStepForm from './components/StepByStepForm.jsx';
@@ -38,6 +39,7 @@ function App() {
                             <Route path="/overview" element={<Overview />} />
                             <Route path="/metas" element={<Goals />} />
                             <Route path="/resumos" element={<ResumePages />} />
+                            <Route path="/editar-perfil" element={<EditProfile />} />
                         </Route>
 
                         {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
