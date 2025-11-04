@@ -28,7 +28,7 @@ const UserProfileDropdown = () => {
                 <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-blue-700 bg-blue-50 outline-none">
                     <User size={18} className="text-blue-700" />
                 </div>
-                <p className="font-semibold text-blue-700">{user?.nomeUsuario}</p>
+                <p className="font-semibold text-blue-700">{user?.nomeUsuario ? user?.nomeUsuario : user?.email}</p>
                 <ChevronDown className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
             </div>
 

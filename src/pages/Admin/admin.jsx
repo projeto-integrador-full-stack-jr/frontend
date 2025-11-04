@@ -21,11 +21,12 @@ export default function UserManagement() {
         try {
             setLoading(true);
             const response = await AdminServices.userService.getUsers();
+            console.log(response);
 
             setUsers(response);
         } catch (error) {
             console.error('Erro ao buscar usuários:', error);
-            toast.success(`Erro ao buscar`);
+            toast.error(`Erro ao buscar`);
         } finally {
             setLoading(false);
         }

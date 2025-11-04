@@ -11,8 +11,8 @@ const userService = {
         return response.data;
     },
 
-    deleteUser: async (id) => {
-        const response = await api.delete(`/usuarios/${id}`);
+    deleteUser: async () => {
+        const response = await api.delete(`/usuarios/eu`);
         return response.data;
     },
 };
