@@ -7,11 +7,7 @@ const userService = {
     },
 
     updateUser: async (email, senha) => {
-        const response = await api.put(
-            '/usuarios/eu',
-            { email, senha },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const response = await api.put('/usuarios/eu', { email, senha });
         return response.data;
     },
 

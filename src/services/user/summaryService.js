@@ -6,8 +6,8 @@ const summaryService = {
         return response.data;
     },
 
-    deleteSummary: async (id) => {
-        const response = await api.delete(`/resumos/meus/${id}`);
+    deleteSummary: async (resumeId) => {
+        const response = await api.delete(`/resumos/meus/${resumeId}`);
         return response.data;
     },
 

@@ -11,10 +11,10 @@ const UserProfileDropdown = () => {
 
     const linksDropdown = [
         { label: 'Início', href: '/' },
-        { label: 'Resumos', href: '/mentoria' },
+        { label: 'Resumos', href: '/resumos' },
         { label: 'Metas', href: '/metas' },
         { label: 'Notas', href: '/notas' },
-        { label: 'Editar perfil', href: '/' },
+        { label: 'Editar perfil', href: '/editar-perfil' },
         { label: 'Configurações', href: '/configuracoes' },
         { label: 'Sair', href: '/', onClick: logout, isLogout: true },
     ];
