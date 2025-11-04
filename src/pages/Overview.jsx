@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import { Bot, CalendarDays, BriefcaseBusiness, CircleUserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../contexts/resume/ResumeContext';
-import { UserServices, AdminServices } from '@services';
+import { UserServices } from '@services';
 import { ToastContainer, toast } from 'react-toastify';
 import LoadingScreen from '../components/Loading';
 
