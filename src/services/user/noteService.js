@@ -1,8 +1,8 @@
 import api from '../api';
 
-const noteService  = {
-    createNote: async () => {
-        const response = await api.post(`/notas/minhas`);
+const noteService = {
+    createNote: async (newNote) => {
+        const response = await api.post(`/notas/minhas`, newNote);
         return response.data;
     },
 
@@ -11,15 +11,15 @@ const noteService  = {
         return response.data;
     },
 
-    editNote: async (id) => {
-        const response = await api.post(`/notas/minhas/${id}`);
+    editNote: async (id, data) => {
+        const response = await api.put(`/notas/minhas/${id}`, data);
         return response.data;
     },
 
     deleteNote: async (id) => {
-        const response = await api.delete(`/notas/minhas${id}`);
+        const response = await api.delete(`/notas/minhas/${id}`);
         return response.data;
     },
 };
 
-export default noteService ;
+export default noteService;
