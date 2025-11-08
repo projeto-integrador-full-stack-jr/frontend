@@ -11,8 +11,8 @@ const noteService = {
         return response.data;
     },
 
-    editNote: async (id) => {
-        const response = await api.post(`/notas/minhas/${id}`);
+    editNote: async (id, data) => {
+        const response = await api.put(`/notas/minhas/${id}`, data);
         return response.data;
     },
 

@@ -30,6 +30,7 @@ const NotesPage = () => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [openModal, setOpenModal] = useState(false);
+    const [editingNote, setEditingNote] = useState(null);
     const [newNote, setNewNote] = useState({ titulo: '', conteudo: '' });
     const navigate = useNavigate();
 
@@ -44,9 +45,20 @@ const NotesPage = () => {
         }
     };
 
-    const handleOpenModal = () => setOpenModal(true);
+    const handleOpenModal = (note = null) => {
+        if (note) {
+            setEditingNote(note);
+            setNewNote({ titulo: note.titulo, conteudo: note.conteudo });
+        } else {
+            setEditingNote(null);
+            setNewNote({ titulo: '', conteudo: '' });
+        }
+        setOpenModal(true);
+    };
+
     const handleCloseModal = () => {
         setOpenModal(false);
+        setEditingNote(null);
         setNewNote({ titulo: '', conteudo: '' });
     };
 
@@ -54,8 +66,6 @@ const NotesPage = () => {
         e.preventDefault();
         try {
             await UserServices.noteService.createNote(newNote);
-
-            console.log(newNote);
             toast.success('Nota criada com sucesso!');
             handleCloseModal();
             fetchNotes();
@@ -65,11 +75,23 @@ const NotesPage = () => {
         }
     };
 
+    const handleEditNote = async (e) => {
+        e.preventDefault();
+        try {
+            await UserServices.noteService.editNote(editingNote.notaId, newNote);
+            toast.success('Nota editada com sucesso!');
+            handleCloseModal();
+            fetchNotes();
+        } catch (error) {
+            console.error('Erro ao editar nota:', error);
+            toast.error('Erro ao editar nota.');
+        }
+    };
+
     const deleteNote = async (id) => {
         try {
             await UserServices.noteService.deleteNote(id);
-            setNotes((prev) => prev.filter((note) => note.id !== id));
-            fetchNotes();
+            setNotes((prev) => prev.filter((note) => note.notaId !== id));
             toast.success('Nota excluída com sucesso!');
         } catch (error) {
             console.error('Erro ao excluir nota:', error);
@@ -109,9 +131,9 @@ const NotesPage = () => {
                     </div>
                     <Button
                         label="Criar uma nova nota"
-                        variant="secondary"
+                        variant="primary"
                         icon={<Plus />}
-                        onClick={handleOpenModal}
+                        onClick={() => handleOpenModal()}
                         className={notes.length === 0 ? 'hidden' : ''}
                     />
                 </div>
@@ -124,26 +146,26 @@ const NotesPage = () => {
                             label="Criar sua primeira nota"
                             variant="primary"
                             icon={<Plus />}
-                            onClick={handleOpenModal}
+                            onClick={() => handleOpenModal()}
                         />
                     </div>
                 ) : (
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                         {notes.map((note) => (
                             <div
-                                key={note?.id}
+                                key={note?.notaId}
                                 className="rounded-md border p-4 transition hover:border-blue-600 hover:shadow-md"
                             >
                                 <h2 className="font-semibold text-zinc-700">{note.titulo}</h2>
                                 <p className="mt-2 text-sm text-zinc-500">{note.conteudo}</p>
-                                <p className="mt-2 text-sm text-zinc-500">{note.notaId}</p>
+
                                 <div className="flex items-center justify-between gap-2 border-t pt-2">
                                     <Button
                                         variant="secondary"
                                         icon={<PencilLine size={14} />}
                                         title="Editar"
                                         label="Editar"
-                                        onClick={handleOpenModal}
+                                        onClick={() => handleOpenModal(note)}
                                         className="flex w-full items-center justify-center bg-blue-50 font-semibold text-blue-600 hover:bg-blue-100"
                                     />
                                     <Button
@@ -161,7 +183,7 @@ const NotesPage = () => {
                 )}
             </div>
 
-            {/* Modal de criação de nota */}
+            {/* Modal */}
             <Modal
                 open={openModal}
                 onClose={handleCloseModal}
@@ -183,10 +205,13 @@ const NotesPage = () => {
                             <div className="mr-2 rounded-md bg-blue-100 p-2">
                                 <NotebookText size={22} className="text-blue-600" />
                             </div>
-                            <p>Criar uma nota</p>
+                            <p>{editingNote ? 'Editar nota' : 'Criar nova nota'}</p>
                         </Typography>
 
-                        <form onSubmit={handleCreateNote} className="flex flex-col gap-3">
+                        <form
+                            onSubmit={editingNote ? handleEditNote : handleCreateNote}
+                            className="flex flex-col gap-3"
+                        >
                             <input
                                 type="text"
                                 placeholder="Título da nota"
@@ -209,23 +234,14 @@ const NotesPage = () => {
                                     variant="outline"
                                     className="text-red-600"
                                 />
-                                <Button label="Criar nota" type="submit" />
+                                <Button label={editingNote ? 'Salvar alterações' : 'Criar nota'} type="submit" />
                             </div>
                         </form>
                     </Box>
                 </Fade>
             </Modal>
 
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
+            <ToastContainer position="top-right" autoClose={3000} />
         </Layout>
     );
 };
