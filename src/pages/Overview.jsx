@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import { Bot, CalendarDays, BriefcaseBusiness, CircleUserRound } from 'lucide-react';
+import { Bot, CalendarClock, BriefcaseBusiness, CircleUserRound, Target } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../contexts/resume/ResumeContext';
 import { UserServices } from '@services';
@@ -40,7 +40,7 @@ const Overview = () => {
     };
 
     if (loading) {
-        return <LoadingScreen />;
+        return <LoadingScreen text={'Aguarde, estamos criando sua mentoria'} />;
     }
 
     return (
@@ -56,16 +56,20 @@ const Overview = () => {
                                         <CircleUserRound className="mr-2 text-blue-600" />
                                         <p className="text-xl font-bold text-[#2D3139]"> {profile?.nomeUsuario}</p>
                                     </div>
-                                    <h2 className="">{profile?.carreira}</h2>
+                                    <div className="flex items-center justify-items-start">
+                                        <BriefcaseBusiness size={16} className="mr-2 text-blue-600" />
+                                        <p className="mr-1 font-bold">Carreira: </p>
+                                        <p className="">{profile?.carreira}</p>
+                                    </div>
                                 </div>
 
                                 <div className="flex flex-col items-start">
                                     <div className="flex items-center justify-center text-center">
-                                        <CalendarDays size={16} className="mr-2 text-blue-600" />
+                                        <CalendarClock size={16} className="mr-2 text-blue-600" />
                                         <p className="text-sm break-words text-zinc-900">{profile?.experiencia}</p>
                                     </div>
                                     <div className="flex items-center justify-center">
-                                        <BriefcaseBusiness size={16} className="mr-2 text-blue-600" />
+                                        <Target size={16} className="mr-2 text-blue-600" />
                                         <p className="text-sm text-zinc-900">{profile?.cargo}</p>
                                     </div>
                                 </div>

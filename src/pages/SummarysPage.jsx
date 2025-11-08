@@ -110,7 +110,7 @@ const ResumePages = () => {
                         <p className="mb-4 text-lg font-medium">Você ainda não criou nenhum resumo</p>
                         <Button
                             label={!user?.perfilId ? 'Crie um perfil para ter um resumo' : 'Crie seu resumo'}
-                            variant="secondary"
+                            variant="primary"
                             onClick={() => (!user?.perfilId ? navigate('/criar-perfil') : navigate('/overview'))}
                         />
                     </div>
