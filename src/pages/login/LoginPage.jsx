@@ -57,6 +57,7 @@ const LoginPage = ({ onSwitchPage }) => {
                 <img src={LogoGoogle} alt="Google logo" width={20} className="mr-2" />
                 Entrar com Google
             </button>
+
             <div className="my-6 flex items-center">
                 <hr className="flex-grow border-t border-gray-200" />
                 <span className="mx-4 text-xs font-medium text-gray-400">OU</span>

@@ -11,6 +11,11 @@ const summaryService = {
         return response.data;
     },
 
+    getSummary: async (id) => {
+        const response = await api.get(`/resumos/meus/${id}`);
+        return response.data;
+    },
+
     getSummaries: async () => {
         const response = await api.get(`/resumos/meus`);
         return response.data;

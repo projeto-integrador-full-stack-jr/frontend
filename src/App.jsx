@@ -35,6 +35,7 @@ function App() {
                         <Route element={<PrivateRoute roles={['USER']} />}>
                             <Route path="/" element={<LandingPage />} />
                             <Route path="/mentoria" element={<Mentoring />} />
+                            <Route path="/mentoria/:id" element={<Mentoring />} />
                             <Route path="/configuracoes" element={<Settings />} />
                             <Route path="/criar-perfil" element={<StepByStepForm />} />
                             <Route path="/overview" element={<Overview />} />

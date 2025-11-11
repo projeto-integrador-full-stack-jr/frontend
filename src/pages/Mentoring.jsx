@@ -1,36 +1,42 @@
 import { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoadingScreen from '../components/Loading';
-import { toast } from 'react-toastify';
 import { UserServices } from '@services';
 import { AuthContext } from '../contexts/auth/AuthProvider';
 import { useResume } from '../contexts/resume/ResumeContext';
-import { useNavigate } from 'react-router-dom';
 
 const Mentoring = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const { setResumeData } = useResume();
     const { refreshProfile } = useContext(AuthContext);
 
-    const [lastResume, setLastResume] = useState(null);
+    const [resume, setResume] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const fetchLastResume = async () => {
+    const fetchResume = async () => {
         setLoading(true);
         try {
             const profile = await refreshProfile();
+
             if (!profile) {
                 setLoading(false);
-                navigate('/criar-perfil');
+                return navigate('/criar-perfil');
             }
 
-            const summariesData = await UserServices.summaryService.getSummaries();
+            let summary;
 
-            const last = summariesData.at(-1);
+            if (id) {
+                summary = await UserServices.summaryService.getSummary(id);
+            } else {
+                const summaries = await UserServices.summaryService.getSummaries();
+                summary = summaries.at(-1);
+            }
 
-            setLastResume(last);
-            setResumeData(last);
+            setResume(summary);
+            setResumeData(summary);
         } catch (error) {
             console.error(error);
         } finally {
@@ -39,19 +45,19 @@ const Mentoring = () => {
     };
 
     useEffect(() => {
-        fetchLastResume();
-    }, []);
+        fetchResume();
+    }, [id]);
 
-    if (loading) return <LoadingScreen />;
+    if (loading) return <LoadingScreen text={'Carregando resumo...'} />;
 
     return (
         <>
             <Header />
             <div className="conteudo-mentoria">
-                {lastResume ? (
+                {resume ? (
                     <div
                         className="prose prose-blue lg:prose-xl"
-                        dangerouslySetInnerHTML={{ __html: lastResume.conteudo }}
+                        dangerouslySetInnerHTML={{ __html: resume.conteudo }}
                     />
                 ) : (
                     <p>Nenhum resumo disponível.</p>
