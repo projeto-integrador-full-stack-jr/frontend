@@ -11,8 +11,8 @@ const goalService = {
         return response.data;
     },
 
-    editGoal: async (id) => {
-        const response = await api.post(`/metas/minhas/${id}`);
+    updateGoal: async (id, data) => {
+        const response = await api.put(`/metas/minhas/${id}`, data);
         return response.data;
     },
 

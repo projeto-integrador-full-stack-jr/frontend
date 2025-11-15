@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import { Trash } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import LoadingScreen from '../components/Loading';
 
 const ResumePages = () => {
     const [resumes, setResumes] = useState([]);
@@ -43,10 +44,7 @@ const ResumePages = () => {
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
-            console.log(parsedUser.email);
-            parsedUser.perfilId === 1 ? navigate('/criar-perfil') : console.log(parsedUser.perfilId);
         }
-
         fetchResumes();
     }, []);
 
@@ -54,7 +52,7 @@ const ResumePages = () => {
         return (
             <Layout>
                 <div className="flex h-full items-center justify-center">
-                    <p className="text-gray-500">Carregando...</p>
+                    <LoadingScreen text={'Buscando seus resumos...'} />
                 </div>
             </Layout>
         );
@@ -91,6 +89,7 @@ const ResumePages = () => {
                                         variant="primary"
                                         title="Ver mais do resumo"
                                         label={'Ver mais'}
+                                        onClick={() => navigate(`/mentoria/${resume.resumoId}`)}
                                         className="flex w-full items-center justify-center font-semibold text-zinc-50 hover:bg-blue-700"
                                     />
                                     <Button
