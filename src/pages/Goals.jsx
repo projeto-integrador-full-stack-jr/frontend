@@ -41,20 +41,16 @@ const Goals = () => {
         statusMeta: '',
     });
 
+    const [editingGoal, setEditingGoal] = useState(null);
+
     const handleOpenModal = () => setOpenModal(true);
+
     const handleCloseModal = () => {
         setOpenModal(false);
+        setEditingGoal(null);
         setNewGoal({ titulo: '', prazo: '', statusMeta: 'PENDENTE' });
     };
 
-    const handleSaveGoal = async () => {
-        if (!newGoal.title || !newGoal.deadline) return;
-
-        setGoals((prev) => [...prev, { ...newGoal, id: prev.length + 1 }]);
-        handleCloseModal();
-    };
-
-    // Criar meta
     const handleCreateGoal = async (e) => {
         e.preventDefault();
         if (newGoal.title === '' || newGoal.deadline === '' || newGoal.statusMeta === '') {
@@ -65,6 +61,7 @@ const Goals = () => {
             setGoals((prevGoals) => [...prevGoals, goals]);
             setNewGoal({ title: '', deadline: '', statusMeta: '' });
             toast.success('Meta criada com sucesso!');
+            handleCloseModal();
         } catch (error) {
             console.error(error);
             toast.error(error.response?.data?.message);
@@ -72,7 +69,21 @@ const Goals = () => {
         }
     };
 
-    // Buscar as metas do usuário
+    const handleEditGoal = async (e) => {
+        e.preventDefault();
+        try {
+            const updated = await UserServices.goalService.updateGoal(editingGoal.metaId, newGoal);
+
+            setGoals((prev) => prev.map((g) => (g.metaId === editingGoal.metaId ? updated : g)));
+
+            toast.success('Meta atualizada com sucesso!');
+            handleCloseModal();
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data?.message || 'Erro ao atualizar meta.');
+        }
+    };
+
     const fetchGoals = async () => {
         try {
             const goals = await UserServices.goalService.getGoals();
@@ -84,7 +95,6 @@ const Goals = () => {
         }
     };
 
-    // Excluir meta do usuário
     const deleteGoal = async (metaId) => {
         setLoading(true);
         try {
@@ -186,9 +196,18 @@ const Goals = () => {
                                                 icon={<PencilLine size={14} />}
                                                 title="Editar"
                                                 label={'Editar'}
-                                                onClick={handleOpenModal}
+                                                onClick={() => {
+                                                    setEditingGoal(goal);
+                                                    setNewGoal({
+                                                        titulo: goal.titulo,
+                                                        prazo: goal.prazo,
+                                                        statusMeta: goal.statusMeta,
+                                                    });
+                                                    setOpenModal(true);
+                                                }}
                                                 className="flex w-full items-center justify-center bg-blue-50 font-semibold text-blue-600 hover:bg-blue-100"
                                             />
+
                                             <Button
                                                 variant="secondary"
                                                 icon={<Trash size={14} />}
@@ -206,7 +225,6 @@ const Goals = () => {
                 </main>
             </div>
 
-            {/* Modal MUI */}
             <Modal
                 open={openModal}
                 onClose={handleCloseModal}
@@ -221,21 +239,21 @@ const Goals = () => {
                 <Fade in={openModal}>
                     <Box sx={style} className="">
                         <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-                            Criar Nova Meta
+                            {editingGoal ? 'Editar Meta' : 'Criar Nova Meta'}
                         </Typography>
 
                         <form className="flex flex-col gap-3">
                             <input
                                 type="text"
                                 placeholder="Título da meta"
-                                value={newGoal.title}
+                                value={newGoal.titulo}
                                 onChange={(e) => setNewGoal({ ...newGoal, titulo: e.target.value })}
                                 className="rounded border p-2"
                                 required
                             />
                             <input
                                 type="date"
-                                value={newGoal.deadline}
+                                value={newGoal.prazo?.split('T')[0] || ''}
                                 onChange={(e) =>
                                     setNewGoal({
                                         ...newGoal,
@@ -246,23 +264,27 @@ const Goals = () => {
                                 required
                             />
                             <select
-                                value={newGoal.status}
+                                value={newGoal.statusMeta}
                                 onChange={(e) => setNewGoal({ ...newGoal, statusMeta: e.target.value })}
                                 className="rounded border p-2"
                             >
                                 <option value="PENDENTE">Pendente</option>
                                 <option value="EM_ANDAMENTO">Em andamento</option>
-                                {/* <option value="CONCLUIDO">Concluída</option> */}
                             </select>
 
                             <div className="mt-4 flex justify-end gap-2">
                                 <Button label={'Cancelar'} onClick={handleCloseModal} variant="outline" />
-                                <Button label={'Criar meta'} onClick={handleCreateGoal} />
+
+                                <Button
+                                    label={editingGoal ? 'Salvar alterações' : 'Criar meta'}
+                                    onClick={editingGoal ? handleEditGoal : handleCreateGoal}
+                                />
                             </div>
                         </form>
                     </Box>
                 </Fade>
             </Modal>
+
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
