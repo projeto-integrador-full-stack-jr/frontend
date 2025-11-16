@@ -5,7 +5,7 @@ import linkedin from '../assets/linkedin_before.svg';
 import youtube from '../assets/youtube_before.svg';
 import x from '../assets/x_before.svg';
 import facebook from '../assets/facebook_before.svg';
-import Email from './Email';
+// import Email from './Email';
 
 const socials = [
     {
@@ -32,54 +32,31 @@ const socials = [
 
 const Footer = () => {
     return (
-        <footer
-            id="contact"
-            className="grid min-h-70 w-full grid-cols-1 items-center bg-[#2C49FA] p-6 text-white lg:flex lg:flex-row lg:items-center lg:justify-between lg:px-78"
-        >
-            <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
-                <img
-                    src={logo}
-                    alt="logo"
-                    className="w-60 cursor-pointer"
-                    onClick={''}
-                />
-                <p className="pt-10 text-sm font-light text-white/50">
-                    © {new Date().getFullYear()} mentorIA. Todos os direitos
-                    reservados.
-                </p>
-            </div>
+        <footer className="w-full bg-blue-600 py-10 text-white">
+            <div className="mx-auto flex max-w-7xl flex-col-reverse items-center justify-between gap-10 px-5 md:flex-row">
+                <div className="flex flex-col items-center justify-start gap-5 md:items-center">
+                    <img src={logo} alt="logo" className="w-50 cursor-pointer" onClick={''} />
+                    <p className="text-sm font-light text-zinc-200">
+                        © {new Date().getFullYear()} mentorIA. Todos os direitos reservados.
+                    </p>
+                </div>
 
-            <div className="order-1 lg:order-2">
-                <Email
-                    label={'Preencha seu e-mail para receber atualizações'}
-                    button_label={'Inscrever-se'}
-                    placeholder={'Digite seu e-mail...'}
-                />
-
-                <div className="flex flex-row items-center justify-between py-7">
-                    <a
-                        href="#"
-                        className="font-light text-white/50 hover:text-white/30"
-                    >
-                        Política de Privacidade
-                    </a>
-
+                <div className="flex flex-col items-center justify-center gap-5 md:flex-col">
                     <div className="flex gap-2">
                         {socials.map((social) => (
-                            <a
-                                href={social.link}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
+                            <a href={social.link} target="_blank" rel="noreferrer">
                                 <img
                                     src={social.icon}
                                     alt={social.link}
-                                    width={25}
+                                    width={24}
                                     className="transition duration-100 ease-in-out hover:scale-110"
                                 />
                             </a>
                         ))}
                     </div>
+                    <a href="#" className="font-light text-white/50 hover:text-white/30">
+                        Política de Privacidade
+                    </a>
                 </div>
             </div>
         </footer>

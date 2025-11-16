@@ -3,12 +3,13 @@ import { Cards } from '../components/Cards';
 import discover from '../assets/discover.svg';
 import read from '../assets/read.svg';
 import circle from '../assets/circle.svg';
+import { CircleCheckBig } from 'lucide-react';
 
 const cards = [
     {
         title: 'Evolua mais rápido com um plano sob medida.',
         icon: discover,
-        text: 'Na MentoriaIA você recebe um plano personalizado, criado de acordo com seu nível atual e seus objetivos de carreira. Assim, você elimina distrações, evita conteúdos desnecessários e foca no que realmente acelera sua evolução.',
+        text: 'Você recebe um plano personalizado, criado de acordo com seu nível atual e seus objetivos de carreira. Assim, você elimina distrações, evita conteúdos desnecessários e foca no que realmente acelera sua evolução.',
     },
     {
         title: 'Tenha apoio real, não só conteúdos soltos',
@@ -24,29 +25,27 @@ const cards = [
 
 const Features = () => {
     return (
-        <section className="my-30 lg:my-50 lg:px-78">
-            <div className="min-w-1/2 px-8 lg:mt-0 lg:w-1/2 lg:px-0">
-                <div className="mb-12 w-fit rounded-full bg-[#2C49FA] px-12 py-1 text-sm text-white lg:text-lg">
-                    Pronto para o mercado
+        <section className="mx-auto my-20 max-w-7xl px-5 py-20">
+            <div className="min-w-1/2">
+                <div className="items-left flex flex-col-reverse justify-between gap-4 md:flex-row">
+                    <h2 className="font-outfit text-5xl font-light text-blue-600">Por que usar o mentorIA ?</h2>
+                    <div className="flex h-8 w-fit items-center justify-center gap-3 rounded-full border border-blue-600 bg-blue-50 px-8 text-sm font-normal text-blue-600">
+                        <CircleCheckBig size={14} />
+                        <span className="text-xs">Pronto para o mercado</span>
+                    </div>
                 </div>
-                <h2 className="pb-12 text-5xl font-extrabold text-[#3F3D56]">
-                    Por que usar o mentorIA
-                </h2>
-                <p className="pb-12 text-lg">
-                    O MentorIA foi criado para eliminar a frustração de buscar
-                    crescimento na carreira sem ter clareza dos próximos passos.
-                    Mais do que um sistema, ele é o seu guia inteligente para
-                    acelerar sua evolução profissional.
-                </p>
+                <div className="text-regular my-20 flex items-center justify-center text-left md:gap-30">
+                    <p className="w-full text-left text-sm text-zinc-500 sm:text-center md:w-2/3">
+                        O MentorIA foi criado para eliminar a frustração de buscar crescimento na carreira sem ter
+                        clareza dos próximos passos. Mais do que um sistema, ele é o seu guia inteligente para acelerar
+                        sua evolução profissional.
+                    </p>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 grid-rows-3 gap-8 divide-x-1 divide-solid divide-black/10 px-4 lg:mx-20 lg:grid-cols-3 lg:grid-rows-1 lg:p-5 lg:px-0 lg:pt-0">
+            <div className="grid grid-cols-1 grid-rows-3 gap-5 lg:grid-cols-3 lg:grid-rows-1 lg:divide-x lg:divide-solid lg:divide-black/10 lg:px-0 lg:pt-0">
                 {cards.map((card) => (
-                    <Cards
-                        title={card.title}
-                        icon={card.icon}
-                        text={card.text}
-                    />
+                    <Cards title={card.title} icon={card.icon} text={card.text} />
                 ))}
             </div>
         </section>

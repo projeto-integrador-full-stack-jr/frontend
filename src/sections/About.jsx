@@ -1,35 +1,32 @@
-import React from 'react';
-import robot from '../assets/robot.svg';
+import MockupMacBook from '../assets/mockups/macbook.png';
 
 const About = () => {
     return (
-        <section id="about" className="relative flex min-h-screen items-center">
-            <div className="absolute top-0 left-0 h-40 w-full bg-[#2C49FA]"></div>
-
-            <div className="mt-60 max-w-7xl px-8 sm:mt-60 lg:mt-0 lg:px-78">
-                <h2 className="pb-20 text-5xl font-extrabold text-[#3F3D56] lg:mt-30">
-                    Sobre o mentorIA
-                </h2>
-                <p className="pb-4 text-lg">
-                    Na MentorIA, você recebe uma orientação profissional direta
-                    e personalizada, criada a partir das suas respostas sobre
-                    experiência, objetivos de carreira e conhecimentos atuais.
-                </p>
-                <p className="text-lg">
-                    Com o apoio de inteligência artificial, nosso sistema gera
-                    um plano de mentoria objetivo, com passos práticos e
-                    sugestões relevantes para sua evolução, oferecendo
-                    direcionamento claro e alinhado às suas metas profissionais.
-                    Além disso, você pode salvar suas mentorias e acompanhar sua
-                    evolução ao longo do tempo, sempre com foco no que realmente
-                    importa: o seu crescimento profissional.
-                </p>
+        <section id="about" className="relative flex flex-col items-center py-15 lg:py-15">
+            <div className="mx-auto max-w-7xl px-4">
+                <div>
+                    <h2 className="font-outfit text-5xl font-light text-blue-600">Sobre o mentorIA</h2>
+                    <h3 className="text-sm text-zinc-500">A plataforma que conecta você à evolução profissional.</h3>
+                </div>
+                <div className="items-center justify-center gap-10 text-zinc-500 md:flex md:w-full">
+                    <div className="space-y-8 sm:w-full md:w-full">
+                        <p className=" ">
+                            Na MentorIA, você recebe uma orientação profissional direta e personalizada, criada a partir
+                            das suas respostas sobre experiência, objetivos de carreira e conhecimentos atuais.
+                        </p>
+                        <p className=" ">
+                            Com o apoio de inteligência artificial, nosso sistema gera um plano de mentoria objetivo,
+                            com passos práticos e sugestões relevantes para sua evolução, oferecendo direcionamento
+                            claro e alinhado às suas metas profissionais. Além disso, você pode salvar suas mentorias e
+                            acompanhar sua evolução ao longo do tempo, sempre com foco no que realmente importa: o seu
+                            crescimento profissional.
+                        </p>
+                    </div>
+                    <div className="mt-20 w-full md:max-w-1/2">
+                        <img src={MockupMacBook} alt="" className=" " />
+                    </div>
+                </div>
             </div>
-            <img
-                src={robot}
-                alt="robot"
-                className="absolute -top-1 right-0 h-1/3 lg:-top-20 lg:h-full"
-            />
         </section>
     );
 };

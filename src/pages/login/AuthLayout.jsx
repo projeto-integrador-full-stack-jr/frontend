@@ -4,12 +4,22 @@ import RegisterPage from './RegisterPage';
 import Tabs from '../../components/Tabs';
 import Logo from '../../assets/logo.svg';
 import { Link } from 'react-router-dom';
+import video from '../../assets/videos/video.mp4';
 
 const AuthLayout = () => {
     const [currentPage, setCurrentPage] = useState('login');
     return (
         <main className="flex min-h-screen font-sans">
-            <div className="hidden min-h-screen bg-blue-600 lg:block lg:w-1/2" />
+            <div className="hidden min-h-screen bg-blue-600 lg:block lg:w-1/2">
+                <video
+                    className="absolute inset-0 min-h-screen object-cover lg:block lg:w-1/2"
+                    src={video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                />
+            </div>
 
             <div className="flex flex-1 flex-col items-center justify-between lg:w-1/2">
                 <header className="flex w-full items-center justify-between px-10 py-4">

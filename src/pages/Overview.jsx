@@ -79,10 +79,10 @@ const Overview = () => {
                                 <p className="block">{profile?.objetivoPrincipal}</p>
                             </div>
 
-                            <div className="mb-6 flex w-full items-center rounded-lg bg-gray-100 p-1">
+                            <div className="mb-6 w-full flex-col-reverse items-center rounded-lg bg-gray-100 p-1">
                                 <button
                                     type="button"
-                                    className="w-1/2 cursor-pointer rounded-md py-2.5 text-center text-sm font-semibold transition-colors"
+                                    className="w-full cursor-pointer rounded-md py-2.5 text-center text-sm font-semibold transition-colors"
                                 >
                                     Voltar
                                 </button>
@@ -92,7 +92,7 @@ const Overview = () => {
                                         await createResume();
                                     }}
                                     type="button"
-                                    className="flex w-1/2 cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
+                                    className="flex w-full cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
                                 >
                                     Gerar mentoria com IA <Bot size={24} className="ml-2" />
                                 </button>

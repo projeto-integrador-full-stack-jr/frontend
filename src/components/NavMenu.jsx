@@ -7,19 +7,22 @@ const navStyles = {
 const Navmenu = () => {
     return (
         <nav className="hidden gap-5 lg:flex">
-            <Link to="#home" className={navStyles.style}>
+            <Link to="#home" smooth={true} duration={500} className={navStyles.style}>
                 Início
             </Link>
-            <Link to="#about" className={navStyles.style}>
+            <Link to="about" smooth={true} duration={500} className={navStyles.style}>
                 Sobre
             </Link>
-            <Link to="#about" className={navStyles.style}>
+            <Link to="#about" smooth={true} duration={500} className={navStyles.style}>
                 Funcionalidades
             </Link>
-            <Link to="#faq" className={navStyles.style}>
+            <Link to=" " smooth={true} duration={500} className={navStyles.style}>
+                Depoimentos
+            </Link>
+            <Link to="#faq" smooth={true} duration={500} className={navStyles.style}>
                 Dúvidas
             </Link>
-            <Link to="#contact" className={navStyles.style}>
+            <Link to="#contact" smooth={true} duration={500} className={navStyles.style}>
                 Contato
             </Link>
         </nav>

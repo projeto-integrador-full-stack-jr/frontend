@@ -7,6 +7,7 @@ import nubank from '../assets/nubank.svg';
 import sicredi from '../assets/sicredi.svg';
 import south_system from '../assets/south_system.svg';
 import plus_prati from '../assets/+prati.svg';
+import Button from './Button';
 
 const companies = [
     {
@@ -48,33 +49,39 @@ const companies = [
 
 const FastMarquee = () => {
     return (
-        <div className="my-10">
-            <div className="flex flex-col px-8 lg:mx-78 lg:flex-row lg:items-baseline lg:justify-between lg:px-0">
-                <h1 className="b-20 text-2xl font-extrabold text-[#3F3D56] lg:w-1/4 lg:text-3xl">
-                    Veja as empresas onde alguns dos mentoradosIA trabalham
-                </h1>
-                <p className="pt-6 text-sm font-light text-zinc-400 lg:w-1/4 lg:text-lg">
-                    O aprendizado e a busca por evolução se transforma em
-                    oportunidades reais em empresas reconhecidas
-                </p>
+        <div className="my-20 w-full py-20">
+            <div className="mx-auto max-w-7xl">
+                <div className="mx-auto flex w-full flex-col space-y-10 px-8 lg:items-baseline lg:justify-between lg:px-0">
+                    <h1 className="font-outfit text-2xl leading-6 font-bold text-blue-600">
+                        Veja as empresas <br /> onde alguns dos mentorados trabalham
+                    </h1>
+                    <p className="text-sm text-zinc-500">
+                        O aprendizado e a busca por evolução se transforma em oportunidades reais em empresas
+                        reconhecidas
+                    </p>
+                </div>
+                <Marquee
+                    pauseOnHover={true}
+                    speed={40}
+                    className="mt-10 border-r border-b-0 border-l border-zinc-100 shadow-[inset_0px_0_1px_rgba(0,0,0,0.01),inset_-5px_0_20px_rgba(0,0,0,.01)]"
+                >
+                    {' '}
+                    {companies.map((company) => (
+                        <div key={company.name} className="overflow-hidden px-10">
+                            {' '}
+                            <a href={company.link} target="_blank" rel="noreferrer">
+                                {' '}
+                                <img
+                                    src={company.image}
+                                    alt={company.name}
+                                    title={company.name}
+                                    className="w-40 cursor-pointer transition duration-300 ease-in-out hover:scale-105"
+                                />{' '}
+                            </a>{' '}
+                        </div>
+                    ))}{' '}
+                </Marquee>
             </div>
-            <Marquee pauseOnHover={true} speed={20}>
-                {companies.map((company) => (
-                    <div
-                        key={company.name}
-                        className="overflow-hidden px-16 py-10"
-                    >
-                        <a href={company.link} target="_blank" rel="noreferrer">
-                            <img
-                                src={company.image}
-                                alt={company.name}
-                                title={company.name}
-                                className="w-40 cursor-pointer transition duration-300 ease-in-out hover:scale-105"
-                            />
-                        </a>
-                    </div>
-                ))}
-            </Marquee>
         </div>
     );
 };
