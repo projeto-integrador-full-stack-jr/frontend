@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import InputField from '../../components/InputField';
 import Button from '../../components/Button';
+import Snackbar from '../../components/Snackbar';
 import LogoGoogle from '../../assets/google.svg';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +9,7 @@ import { AuthContext } from '../../contexts/auth/AuthProvider';
 import { useContext } from 'react';
 import useAuth from '../../services/auth/authService.js';
 import { UserServices } from '@services';
+import LoadingScreen from '../../components/Loading.jsx';
 
 const RegisterPage = ({ onSwitchPage }) => {
     const [email, setEmail] = useState('');
@@ -15,19 +17,21 @@ const RegisterPage = ({ onSwitchPage }) => {
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const navigate = useNavigate();
     const { setUser } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
 
-        if (senha !== confirmarSenha) {
+        if (confirmarSenha != senha) {
             toast.error('As senhas não coincidem');
-            return;
+            console.log('senhas nao são iguais ');
         }
-
         try {
+            setLoading(true);
+            console.log('careregando');
             await useAuth.createUser({ email, senha });
-            toast.success('Conta criada com sucesso!');
-
+            toast.success('🎉 Conta criada com sucesso!');
             const loginResponse = await useAuth.loginUser({ email, senha });
             localStorage.setItem('token', loginResponse.token);
 
@@ -37,12 +41,17 @@ const RegisterPage = ({ onSwitchPage }) => {
 
             setTimeout(() => {
                 navigate('/criar-perfil');
-            }, 2000);
+            }, 1000);
         } catch (error) {
             console.error(error);
             toast.error(error?.response?.data?.message || 'Erro ao criar conta. Tente novamente.');
+        } finally {
+            setLoading(false);
         }
     };
+
+    const isFormValid =
+        email.trim() !== '' && senha.trim() !== '' && confirmarSenha.trim() !== '' && senha === confirmarSenha;
 
     return (
         <>
@@ -89,12 +98,17 @@ const RegisterPage = ({ onSwitchPage }) => {
                 />
 
                 <div className="mt-6">
-                    <Button
-                        label="Criar conta"
-                        variant="primary"
-                        className="flex w-full items-center justify-center bg-blue-600 text-center text-white hover:bg-gray-700"
-                        type="submit"
-                    />
+                    {loading ? (
+                        <LoadingScreen />
+                    ) : (
+                        <Button
+                            label={loading ? 'Criando sua conta' : 'Criar conta'}
+                            variant={!loading ? 'ghost' : 'primary'}
+                            disabled={!isFormValid}
+                            className={`flex w-full justify-center py-2 font-semibold text-white ${isFormValid ? 'bg-blue-600' : 'bg-gray-200 !text-gray-600 hover:bg-gray-200'} `}
+                            type="submit"
+                        />
+                    )}
                 </div>
             </form>
 

@@ -7,6 +7,7 @@ import Button from '../../components/Button';
 import { AuthContext } from '../../contexts/auth/AuthProvider';
 import useAuth from '../../services/auth/authService';
 import { UserServices, AdminServices } from '@services';
+import LoadingScreen from '../../components/Loading';
 
 const LoginPage = ({ onSwitchPage }) => {
     const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ const LoginPage = ({ onSwitchPage }) => {
     const notifyError = () => toast.error();
     const notifySuccess = () => toast.success();
     const { user, setUser } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ const LoginPage = ({ onSwitchPage }) => {
         }
 
         try {
+            setLoading(true);
             const { token } = await useAuth.loginUser({ email, senha });
             localStorage.setItem('token', token);
 
@@ -44,8 +47,12 @@ const LoginPage = ({ onSwitchPage }) => {
             } else {
                 toast.error('Erro ao fazer login. Tente novamente.');
             }
+        } finally {
+            setLoading(false);
         }
     };
+
+    const isFormValid = email.trim() !== '' && senha.trim() !== '';
 
     return (
         <div className="flex w-full flex-col justify-between">
@@ -86,12 +93,17 @@ const LoginPage = ({ onSwitchPage }) => {
                         Esqueci minha senha
                     </a>
                 </div>
-                <Button
-                    label={'Acessar'}
-                    variant="primary"
-                    className="flex w-full items-center justify-center bg-blue-600 text-center text-white hover:bg-gray-700"
-                    type="submit"
-                />
+                {loading ? (
+                    <LoadingScreen />
+                ) : (
+                    <Button
+                        label="Acessar"
+                        variant="primary"
+                        disabled={!isFormValid}
+                        className={`flex w-full justify-center py-2 font-semibold text-white ${isFormValid ? 'bg-blue-600' : 'bg-gray-200 !text-gray-600 hover:bg-gray-200'} `}
+                        type="submit"
+                    />
+                )}
             </form>
 
             <p className="mt-6 text-center text-sm text-gray-500">

@@ -2,12 +2,14 @@ import { useState } from 'react';
 import LoginPage from './LoginPage.jsx';
 import RegisterPage from './RegisterPage';
 import Tabs from '../../components/Tabs';
+import Header from '../../components/Header';
 import Logo from '../../assets/logo.svg';
 import { Link } from 'react-router-dom';
 import video from '../../assets/videos/video.mp4';
 
 const AuthLayout = () => {
     const [currentPage, setCurrentPage] = useState('login');
+
     return (
         <main className="flex min-h-screen font-sans">
             <div className="hidden min-h-screen bg-blue-600 lg:block lg:w-1/2">
@@ -22,15 +24,12 @@ const AuthLayout = () => {
             </div>
 
             <div className="flex flex-1 flex-col items-center justify-between lg:w-1/2">
-                <header className="flex w-full items-center justify-between px-10 py-4">
-                    <Link to="/">
-                        <img src={Logo} alt="Logo mentoria" width={150} />
-                    </Link>
-                    <Link to="/" className="flex items-center justify-center hover:border-none">
-                        página anterior
-                    </Link>
-                </header>
-                <div className="mt-6 w-full max-w-md">
+                <div className="flex w-full items-center justify-center border-b border-gray-200">
+                    <div className="w-full max-w-md">
+                        <Header className={'border-0'} />
+                    </div>
+                </div>
+                <div className="w-full max-w-md px-5">
                     <Tabs
                         currentPage={currentPage}
                         label1={'Login'}

@@ -1,11 +1,11 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserServices } from '../../services';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState();
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -90,4 +90,8 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     );
+};
+
+export const useAuth = () => {
+    return useContext(AuthContext);
 };
