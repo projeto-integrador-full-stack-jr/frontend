@@ -4,6 +4,7 @@ import { UserStar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { UserServices } from '@services';
+import LoadingScreen from './Loading';
 
 const styleLabel = 'mb-4 font-outfit block text-center text-2xl font-light text-zinc-950';
 const styleInput =
@@ -13,6 +14,7 @@ export default function StepByStepForm() {
     const navigate = useNavigate();
 
     const [currentStep, setCurrentStep] = useState(1);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         nomeUsuario: '',
@@ -89,6 +91,7 @@ export default function StepByStepForm() {
 
     const createProfile = async () => {
         try {
+            setLoading(true);
             const response = await UserServices.profileService.updateProfile(formData);
             localStorage.setItem('userProfile', JSON.stringify(response));
 
@@ -98,6 +101,7 @@ export default function StepByStepForm() {
             notifyError('Erro ao criar perfil');
             console.error('Erro ao carregar perfil:', error);
             return null;
+            setLoading(false);
         }
     };
 
@@ -209,40 +213,44 @@ export default function StepByStepForm() {
 
             <div className="flex min-h-screen items-center justify-center p-4">
                 <div className="w-full max-w-2xl">
-                    <div className="mb-6 rounded-lg p-8">
-                        <div className="mb-8">{getStepContent()}</div>
+                    {loading ? (
+                        <LoadingScreen />
+                    ) : (
+                        <div className="mb-6 rounded-lg p-8">
+                            <div className="mb-8">{getStepContent()}</div>
 
-                        <div className="flex gap-4 sm:flex">
-                            <button
-                                onClick={handleBack}
-                                disabled={currentStep === 1}
-                                className={
-                                    currentStep === 1
-                                        ? 'hidden'
-                                        : 'cursor-pointer rounded-lg bg-blue-50 px-6 py-3 text-sm font-medium text-blue-600 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-50'
-                                }
-                            >
-                                Voltar
-                            </button>
+                            <div className="flex gap-4 sm:flex">
+                                <button
+                                    onClick={handleBack}
+                                    disabled={currentStep === 1}
+                                    className={
+                                        currentStep === 1
+                                            ? 'hidden'
+                                            : 'cursor-pointer rounded-lg bg-blue-50 px-6 py-3 text-sm font-medium text-blue-600 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-50'
+                                    }
+                                >
+                                    Voltar
+                                </button>
 
-                            {currentStep < totalSteps ? (
-                                <button
-                                    onClick={handleNext}
-                                    className="flex-1 cursor-pointer rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
-                                >
-                                    {currentStep === 1 ? 'Iniciar questionário' : 'Próxima pergunta'}
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={createProfile}
-                                    className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
-                                >
-                                    <UserStar className="h-5 w-5" />
-                                    Veja seu perfil
-                                </button>
-                            )}
+                                {currentStep < totalSteps ? (
+                                    <button
+                                        onClick={handleNext}
+                                        className="flex-1 cursor-pointer rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
+                                    >
+                                        {currentStep === 1 ? 'Iniciar questionário' : 'Próxima pergunta'}
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={createProfile}
+                                        className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
+                                    >
+                                        <UserStar className="h-5 w-5" />
+                                        Veja seu perfil
+                                    </button>
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     <div className="absolute bottom-0 left-0 min-w-full border px-5 py-5">
                         <div className="relative mx-auto mb-4 max-w-2xl text-center">
