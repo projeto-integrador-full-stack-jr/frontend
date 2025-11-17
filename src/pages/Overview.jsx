@@ -10,7 +10,7 @@ import LoadingScreen from '../components/Loading';
 const Overview = () => {
     const [profile, setProfile] = useState(null);
     const { resumeData, setResumeData } = useResume();
-    const [loading, setLoading] = useState(false);
+    const [isCreatingSummary, setisCreatingSummary] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Overview = () => {
     }, []);
 
     const createResume = async () => {
-        setLoading(true);
+        setisCreatingSummary(true);
         try {
             const data = await UserServices.summaryService.createSummary();
             setResumeData(data);
@@ -36,12 +36,9 @@ const Overview = () => {
         } catch (error) {
             console.error('Erro ao gerar resumo:', error);
             toast.error('Falha ao gerar resumo');
+            setisCreatingSummary(false);
         }
     };
-
-    if (loading) {
-        return <LoadingScreen text={'Aguarde, estamos criando sua mentoria'} />;
-    }
 
     return (
         <div className="flex min-h-screen flex-col justify-between">
@@ -78,24 +75,34 @@ const Overview = () => {
                                 <p className="block">{profile?.objetivoPrincipal}</p>
                             </div>
 
-                            <div className="flex w-full flex-col items-center rounded-md bg-gray-100 p-[6px] sm:flex-row">
+                            <div className="flex w-full flex-col items-center rounded-md bg-gray-100 p-2 sm:flex-row">
                                 <button
                                     onClick={() => navigate('/criar-perfil')}
                                     type="button"
-                                    className="w-full cursor-pointer rounded-md py-2.5 text-center text-sm font-semibold transition-colors"
+                                    className={
+                                        isCreatingSummary
+                                            ? 'hidden'
+                                            : 'w-full cursor-pointer rounded-md py-2.5 text-center text-sm font-semibold transition-colors'
+                                    }
                                 >
                                     voltar
                                 </button>
 
-                                <button
-                                    onClick={async () => {
-                                        await createResume();
-                                    }}
-                                    type="button"
-                                    className="flex w-full cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
-                                >
-                                    Gerar mentoria com IA <Bot size={24} className="ml-2" />
-                                </button>
+                                {isCreatingSummary ? (
+                                    <div className="flex w-full items-center justify-center">
+                                        <LoadingScreen text={'Aguarde, estamos criando sua mentoria'} />
+                                    </div>
+                                ) : (
+                                    <button
+                                        onClick={async () => {
+                                            await createResume();
+                                        }}
+                                        type="button"
+                                        className="flex w-full cursor-pointer items-center justify-center rounded-md bg-blue-600 py-2.5 text-center text-sm font-semibold text-zinc-100 transition-colors"
+                                    >
+                                        Gerar mentoria com IA <Bot size={24} className="ml-2" />
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </article>
