@@ -14,15 +14,15 @@ const Mentoring = () => {
     const { refreshProfile } = useContext(AuthContext);
 
     const [resume, setResume] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [isLoadingSummaries, setIsLoadingSummaries] = useState(false);
 
     const fetchResume = async () => {
-        setLoading(true);
+        setIsLoadingSummaries(true);
         try {
             const profile = await refreshProfile();
 
             if (!profile) {
-                setLoading(false);
+                setIsLoadingSummaries(false);
                 return navigate('/criar-perfil');
             }
 
@@ -40,7 +40,7 @@ const Mentoring = () => {
         } catch (error) {
             console.error(error);
         } finally {
-            setLoading(false);
+            setIsLoadingSummaries(false);
         }
     };
 
@@ -48,22 +48,25 @@ const Mentoring = () => {
         fetchResume();
     }, [id]);
 
-    if (loading) return <LoadingScreen text={'Carregando resumo...'} />;
-
     return (
         <>
             <Header />
-            <div className="conteudo-mentoria">
-                {resume ? (
-                    <div
-                        className="prose prose-blue lg:prose-xl"
-                        dangerouslySetInnerHTML={{ __html: resume.conteudo }}
-                    />
-                ) : (
-                    <p>Nenhum resumo disponível.</p>
-                )}
-            </div>
-            <Footer />
+            {isLoadingSummaries ? (
+                <div className="flex min-h-screen w-full items-center justify-center">
+                    <LoadingScreen text={'Buscando resumo...'} />
+                </div>
+            ) : (
+                <div className="conteudo-mentoria">
+                    {resume ? (
+                        <div
+                            className="prose prose-blue lg:prose-xl"
+                            dangerouslySetInnerHTML={{ __html: resume.conteudo }}
+                        />
+                    ) : (
+                        <p>Nenhum resumo disponível.</p>
+                    )}
+                </div>
+            )}
         </>
     );
 };
