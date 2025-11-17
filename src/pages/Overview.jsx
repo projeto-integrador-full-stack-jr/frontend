@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import { Bot, CalendarClock, BriefcaseBusiness, CircleUserRound, Target } from 'lucide-react';
+import { Bot, FileUser, BriefcaseBusiness, CircleUserRound, Goal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useResume } from '../contexts/resume/ResumeContext';
 import { UserServices } from '@services';
@@ -49,42 +49,42 @@ const Overview = () => {
             <main className="flex-1">
                 <section className="relative">
                     <article className="p-4">
-                        <div className="mx-auto -mt-4 flex h-full w-full max-w-4xl flex-col gap-8 rounded-b-4xl bg-[#F4F7F9] p-6 text-[#6D7895] lg:p-10">
-                            <div className="flex justify-between pt-20">
-                                <div className="flex flex-col">
-                                    <div className="flex items-center justify-center">
-                                        <CircleUserRound className="mr-2 text-blue-600" />
-                                        <p className="text-xl font-bold text-[#2D3139]"> {profile?.nomeUsuario}</p>
+                        <div className="mx-auto -mt-4 flex h-full w-full max-w-2xl flex-col gap-8 rounded-b-2xl bg-white p-6 font-outfit text-[#6D7895] shadow lg:p-10">
+                            <div className="flex flex-col justify-between space-y-2 sm:flex-row">
+                                <div className="flex flex-col items-start space-y-2">
+                                    <div className="flex items-center justify-center gap-1 text-sm">
+                                        <p className="text-3xl font-bold text-zinc-800"> {profile?.nomeUsuario}</p>
                                     </div>
-                                    <div className="flex items-center justify-items-start">
-                                        <BriefcaseBusiness size={16} className="mr-2 text-blue-600" />
-                                        <p className="mr-1 font-bold">Carreira: </p>
-                                        <p className="">{profile?.carreira}</p>
+                                    <div className="flex flex-col">
+                                        <span className="font-semibold text-zinc-800">Cargo atual: </span>
+                                        <p className="text-sm text-zinc-500">{profile?.cargo}</p>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col items-start">
-                                    <div className="flex items-center justify-center text-center">
-                                        <CalendarClock size={16} className="mr-2 text-blue-600" />
-                                        <p className="text-sm break-words text-zinc-900">{profile?.experiencia}</p>
+                                <div className="flex flex-col items-start space-y-2">
+                                    <div className="flex flex-col">
+                                        <span className="font-semibold text-zinc-800">Tempo de experiência: </span>
+                                        <p className="text-sm text-zinc-500">{profile?.experiencia}</p>
                                     </div>
-                                    <div className="flex items-center justify-center">
-                                        <Target size={16} className="mr-2 text-blue-600" />
-                                        <p className="text-sm text-zinc-900">{profile?.cargo}</p>
+                                    <div className="flex flex-col items-start justify-center">
+                                        <span className="mr-1 font-semibold text-zinc-800">Carreira:</span>
+                                        <p className="text-sm text-zinc-500">{profile?.carreira}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="border-t-1 py-10">
+                            <div className="border-t-1 py-5">
+                                <span className="font-semibold text-zinc-800">Objetivo: </span>
                                 <p className="block">{profile?.objetivoPrincipal}</p>
                             </div>
 
-                            <div className="mb-6 w-full flex-col-reverse items-center rounded-lg bg-gray-100 p-1">
+                            <div className="flex w-full flex-col items-center rounded-md bg-gray-100 p-[6px] sm:flex-row">
                                 <button
+                                    onClick={() => navigate('/criar-perfil')}
                                     type="button"
                                     className="w-full cursor-pointer rounded-md py-2.5 text-center text-sm font-semibold transition-colors"
                                 >
-                                    Voltar
+                                    voltar
                                 </button>
 
                                 <button

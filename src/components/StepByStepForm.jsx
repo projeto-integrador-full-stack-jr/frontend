@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import Header from './Header';
-import { UserStar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { UserServices } from '@services';
 import LoadingScreen from './Loading';
 
-const styleLabel = 'mb-4 font-outfit block text-center text-2xl font-light text-zinc-950';
+const styleLabel = 'mb-4 font-outfit block text-left text-xl font-light mb-5 text-zinc-950';
 const styleInput =
-    'w-full rounded-lg border border-zinc-300 px-4 py-3 placeholder:text-sm placeholder:font-light placeholder:text-zinc-400 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:placeholder:text-zinc-300 text-zinc-500 text-sm';
+    'w-full rounded-md border border-zinc-300 px-4 py-3 placeholder:text-sm placeholder:font-normal placeholder:text-zinc-400 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:placeholder:text-zinc-300 text-zinc-500 text-sm';
 
 export default function StepByStepForm() {
     const navigate = useNavigate();
@@ -153,15 +152,15 @@ export default function StepByStepForm() {
                 return (
                     <div className="space-y-4">
                         <label className={styleLabel}>Quanto tempo de experiência você tem?</label>
-                        <div className="flex justify-center gap-4 text-center">
+                        <div className="flex w-full items-center justify-between gap-4">
                             {['0-3 anos', '3-5 anos', '5-10 anos', '+10 anos'].map((option) => (
                                 <button
                                     key={option}
                                     onClick={() => handleInputChange('experiencia', option)}
-                                    className={`cursor-pointer rounded-lg border px-6 py-2 text-sm font-normal transition-all ${
+                                    className={`w-full cursor-pointer rounded-md border px-6 py-2 text-sm font-normal transition-all ${
                                         formData.experiencia === option
-                                            ? 'border-blue-600 bg-blue-500 text-zinc-50'
-                                            : 'border-blue-500 bg-white text-blue-500 hover:border-blue-400'
+                                            ? 'border-blue-600 bg-blue-600 text-zinc-50'
+                                            : 'border-blue-500 bg-white text-blue-600 hover:border-blue-400'
                                     }`}
                                 >
                                     {option}
@@ -173,13 +172,13 @@ export default function StepByStepForm() {
             case 5:
                 return (
                     <div className="space-y-2">
-                        <label className={styleLabel}>Qual área de carreira você deseja seguir?</label>
+                        <label className={styleLabel}>Qual carreira você deseja seguir?</label>
 
                         <input
                             type="text"
                             value={formData.carreira}
                             onChange={(e) => handleInputChange('carreira', e.target.value)}
-                            placeholder="Ex: Front-end, Back-end, UI/UX, Mobile..."
+                            placeholder="Ex: Tecnologia, Administração, Logística..."
                             className={styleInput}
                         />
                     </div>
@@ -193,7 +192,7 @@ export default function StepByStepForm() {
                             value={formData.objetivoPrincipal}
                             onChange={(e) => handleInputChange('objetivoPrincipal', e.target.value)}
                             placeholder="Fale um pouco sobre onde deseja chegar..."
-                            className="min-h-[200px] w-full rounded-md border bg-zinc-50 p-4 text-sm text-zinc-500 placeholder:text-sm placeholder:font-light placeholder:text-zinc-400 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:placeholder:text-zinc-300"
+                            className="min-h-[200px] w-full rounded-md border bg-zinc-50 p-4 text-sm text-zinc-500 placeholder:text-sm placeholder:font-light placeholder:text-zinc-400 focus:ring-2 focus:ring-blue-600 focus:outline-none focus:placeholder:text-zinc-300"
                         />
                     </div>
                 );
@@ -216,35 +215,36 @@ export default function StepByStepForm() {
                     {loading ? (
                         <LoadingScreen />
                     ) : (
-                        <div className="mb-6 rounded-lg p-8">
-                            <div className="mb-8">{getStepContent()}</div>
+                        <div className="mb-6">
+                            <div className="0 mb-5">{getStepContent()}</div>
 
-                            <div className="flex gap-4 sm:flex">
+                            <div className="flex items-center justify-center gap-4 sm:flex">
                                 <button
                                     onClick={handleBack}
                                     disabled={currentStep === 1}
                                     className={
                                         currentStep === 1
                                             ? 'hidden'
-                                            : 'cursor-pointer rounded-lg bg-blue-50 px-6 py-3 text-sm font-medium text-blue-600 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-50'
+                                            : 'w-full cursor-pointer rounded-lg bg-blue-50 px-6 py-3 text-sm font-medium text-blue-600 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-50'
                                     }
                                 >
                                     Voltar
                                 </button>
 
                                 {currentStep < totalSteps ? (
-                                    <button
-                                        onClick={handleNext}
-                                        className="flex-1 cursor-pointer rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
-                                    >
-                                        {currentStep === 1 ? 'Iniciar questionário' : 'Próxima pergunta'}
-                                    </button>
+                                    <div className="flex w-full items-center justify-center">
+                                        <button
+                                            onClick={handleNext}
+                                            className="w-full cursor-pointer rounded-md bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
+                                        >
+                                            {currentStep === 1 ? 'Iniciar questionário' : 'Próxima pergunta'}
+                                        </button>
+                                    </div>
                                 ) : (
                                     <button
                                         onClick={createProfile}
-                                        className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white hover:bg-blue-700"
+                                        className="flex w-full cursor-pointer items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700"
                                     >
-                                        <UserStar className="h-5 w-5" />
                                         Veja seu perfil
                                     </button>
                                 )}
