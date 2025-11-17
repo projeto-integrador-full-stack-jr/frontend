@@ -45,7 +45,6 @@ const RegisterPage = ({ onSwitchPage }) => {
         } catch (error) {
             console.error(error);
             toast.error(error?.response?.data?.message || 'Erro ao criar conta. Tente novamente.');
-        } finally {
             setLoading(false);
         }
     };
