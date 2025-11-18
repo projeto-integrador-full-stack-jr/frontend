@@ -4,7 +4,7 @@ import { User2 } from 'lucide-react';
 import { useAuth } from '../contexts/auth/useAuth';
 import { UserServices } from '@services';
 import Button from '../components/Button';
-import ProfileMenu from '../components/ProfileMenu';
+import ProfileMenu from '../components/Sidebar';
 import InputField from '../components/InputField';
 import Header from '../components/Header';
 import Modal from '../components/Modal';

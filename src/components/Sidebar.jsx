@@ -3,6 +3,7 @@ import Button from './Button';
 import { NavLink } from 'react-router-dom';
 import { Settings, NotebookText, Goal, Album, CircleUserRound, ChevronLast, LogOut } from 'lucide-react';
 import logo from '../assets/logo.svg';
+import { useAuth } from '../contexts/auth/useAuth';
 
 const menuOptions = [
     { label: 'Mentorias', link: '/resumos', icon: <Album size={20} /> },
@@ -12,7 +13,8 @@ const menuOptions = [
     { label: 'Configurações', link: '/configuracoes', icon: <Settings size={20} /> },
 ];
 
-const ProfileMenu = () => {
+const Sidebar = () => {
+    const { user, setUser, logout } = useAuth();
     const [isOpen, setIsOpen] = useState(() => {
         const storedState = localStorage.getItem('sidebar_open');
         return storedState ? storedState === 'true' : true;
@@ -66,11 +68,12 @@ const ProfileMenu = () => {
                     />
                 </button>
             </div>
-            {/* Botão de Logout */}
+
             <div className="px-4">
                 <div className="mt-5 border-t border-zinc-200 pt-5">
                     <NavLink to="/logout">
                         <Button
+                            onClick={() => logout()}
                             label={isOpen ? 'Sair' : ''}
                             icon={<LogOut size={20} />}
                             variant="tertiary"
@@ -83,4 +86,4 @@ const ProfileMenu = () => {
     );
 };
 
-export default ProfileMenu;
+export default Sidebar;

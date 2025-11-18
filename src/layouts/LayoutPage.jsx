@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import ProfileMenu from '../components/ProfileMenu';
+import ProfileMenu from '../components/Sidebar';
 
 const LayoutPage = ({ children }) => {
     return (

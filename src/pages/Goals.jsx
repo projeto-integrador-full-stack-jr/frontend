@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Plus, PencilLine, Calendar, Loader, PlusIcon, Trash } from 'lucide-react';
 import Header from '../components/Header';
-import ProfileMenu from '../components/ProfileMenu';
+import ProfileMenu from '../components/Sidebar';
 import Button from '../components/Button';
 import { UserServices } from '@services';
 import { ToastContainer, toast } from 'react-toastify';
