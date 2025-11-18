@@ -20,7 +20,7 @@ const UserProfileDropdown = () => {
     ];
 
     return (
-        <div className="relative">
+        <div className="max-7xl relative flex w-full items-center justify-end">
             <div
                 onClick={toggleDropdown}
                 className="flex cursor-pointer items-center justify-center gap-2 rounded-md p-2"
@@ -33,7 +33,7 @@ const UserProfileDropdown = () => {
             </div>
 
             {isOpen && (
-                <div className="absolute right-0 z-50 mt-2 w-50 rounded-md border border-gray-200 bg-white shadow-lg">
+                <div className="absolute top-10 right-0 z-50 mt-2 w-50 rounded-md border border-gray-200 bg-white shadow-lg">
                     <ul className="flex flex-col">
                         {linksDropdown.map((link, index) => (
                             <li key={link.label}>

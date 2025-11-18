@@ -21,12 +21,17 @@ const Header = () => {
     const isHome = location.pathname === '/';
     const isAuthPage = location.pathname.startsWith('/auth');
 
+    const hideLogoRoutes = ['/configuracoes', '/editar-perfil', '/notas', '/metas', '/resumos'];
+    const shouldHideLogo = hideLogoRoutes.includes(location.pathname);
+
     return (
         <header className="flex w-full items-center border-b border-gray-200 px-5 py-4">
             <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
-                <Link to="/">
-                    <img src={logo} alt="Logo mentorIA" className="w-30 cursor-pointer lg:w-40" />
-                </Link>
+                {!shouldHideLogo && (
+                    <Link to="/">
+                        <img src={logo} alt="Logo mentorIA" className={!shouldHideLogo && 'w-30'} />
+                    </Link>
+                )}
 
                 {/* Paginá inicial */}
                 {isHome ? (

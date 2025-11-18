@@ -4,7 +4,7 @@ import ProfileMenu from '../components/ProfileMenu';
 
 const LayoutPage = ({ children }) => {
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-screen bg-zinc-50">
             <ProfileMenu />
             <div className="flex flex-1 flex-col">
                 <Header />
