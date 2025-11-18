@@ -33,7 +33,6 @@ const Header = () => {
                     </Link>
                 )}
 
-                {/* Paginá inicial */}
                 {isHome ? (
                     <>
                         <Navmenu />
@@ -49,7 +48,6 @@ const Header = () => {
                     </>
                 ) : (
                     <>
-                        {/* Se estiver em /auth → nunca mostrar dropdown */}
                         {isAuthPage ? (
                             <Link className={buttonStyles.secondary} to="/">
                                 voltar

@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
+import LayoutPage from '../layouts/LayoutPage';
 
 const style = {
     position: 'absolute',
@@ -114,12 +115,9 @@ const Goals = () => {
     }, []);
 
     return (
-        <>
-            <Header />
+        <LayoutPage>
             <div className="flex h-screen w-full">
-                <ProfileMenu />
-
-                <main className="overflow min-h-screen flex-1 p-6 py-30">
+                <div className="overflow min-h-screen flex-1 p-6 py-30">
                     <div className="mx-auto max-w-7xl">
                         <div className="mb-6 flex flex-col items-start justify-between space-y-10 md:flex-row">
                             <div>
@@ -222,7 +220,7 @@ const Goals = () => {
                             )}
                         </div>
                     </div>
-                </main>
+                </div>
             </div>
 
             <Modal
@@ -296,7 +294,7 @@ const Goals = () => {
                 draggable
                 pauseOnHover
             />
-        </>
+        </LayoutPage>
     );
 };
 

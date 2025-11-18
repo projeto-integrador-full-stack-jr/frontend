@@ -5,10 +5,10 @@ import { Settings, NotebookText, Goal, Album, CircleUserRound, ChevronLast, LogO
 import logo from '../assets/logo.svg';
 
 const menuOptions = [
-    { label: 'Metas', link: '/metas', icon: <Goal size={20} /> },
-    { label: 'Editar perfil', link: '/editar-perfil', icon: <CircleUserRound size={20} /> },
     { label: 'Mentorias', link: '/resumos', icon: <Album size={20} /> },
+    { label: 'Metas', link: '/metas', icon: <Goal size={20} /> },
     { label: 'Notas', link: '/notas', icon: <NotebookText size={20} /> },
+    { label: 'Editar perfil', link: '/editar-perfil', icon: <CircleUserRound size={20} /> },
     { label: 'Configurações', link: '/configuracoes', icon: <Settings size={20} /> },
 ];
 
