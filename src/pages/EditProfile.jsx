@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import ProfileMenu from '../components/ProfileMenu';
+
 import Button from '../components/Button';
 import Snackbar from '../components/Snackbar';
 import InputField from '../components/InputField';
