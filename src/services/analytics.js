@@ -5,10 +5,7 @@ export const initGA = () => {
 };
 
 export const trackPageView = (url) => {
-    ReactGA.send({
-        hitType: 'pageview',
-        page: url,
-    });
+    ReactGA.send({ hitType: 'pageview', page: url });
 };
 
 export const trackEvent = ({ action, category, label, value }) => {

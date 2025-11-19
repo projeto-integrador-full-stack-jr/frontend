@@ -17,42 +17,52 @@ import { BrowserRouter } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import PublicRoute from './routes/PublicRoute.jsx';
 import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { initGA, trackPageView } from './services/analytics';
 
 function App() {
+    const location = useLocation();
+
+    useEffect(() => {
+        initGA();
+    }, []);
+
+    useEffect(() => {
+        trackPageView(location.pathname + location.search);
+    }, [location.pathname, location.search]);
     return (
-        <BrowserRouter>
-            <AuthProvider>
-                <ResumeProvider>
-                    <Routes>
-                        {/* --->>> ROTAS PÚBLICA @ACESSO NULL <<<---  */}
-                        <Route element={<PublicRoute />}>
-                            <Route path="/auth" element={<PageLogin />} />
-                            <Route path="/" element={<LandingPage />} />
-                            <Route path="*" element={<Navigate to="/" replace />} />
-                        </Route>
+        <AuthProvider>
+            <ResumeProvider>
+                <Routes>
+                    {/* --->>> ROTAS PÚBLICA @ACESSO NULL <<<---  */}
+                    <Route element={<PublicRoute />}>
+                        <Route path="/auth" element={<PageLogin />} />
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                    </Route>
 
-                        {/* --->>> ROTAS PRIVADA @ACESSO USER <<<---  */}
-                        <Route element={<PrivateRoute roles={['USER']} />}>
-                            <Route path="/" element={<LandingPage />} />
-                            <Route path="/mentoria" element={<Mentoring />} />
-                            <Route path="/mentoria/:id" element={<Mentoring />} />
-                            <Route path="/configuracoes" element={<Settings />} />
-                            <Route path="/criar-perfil" element={<StepByStepForm />} />
-                            <Route path="/overview" element={<Overview />} />
-                            <Route path="/metas" element={<Goals />} />
-                            <Route path="/resumos" element={<ResumePages />} />
-                            <Route path="/editar-perfil" element={<EditProfile />} />
-                            <Route path="/notas" element={<NotesPage />} />
-                        </Route>
+                    {/* --->>> ROTAS PRIVADA @ACESSO USER <<<---  */}
+                    <Route element={<PrivateRoute roles={['USER']} />}>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/mentoria" element={<Mentoring />} />
+                        <Route path="/mentoria/:id" element={<Mentoring />} />
+                        <Route path="/configuracoes" element={<Settings />} />
+                        <Route path="/criar-perfil" element={<StepByStepForm />} />
+                        <Route path="/overview" element={<Overview />} />
+                        <Route path="/metas" element={<Goals />} />
+                        <Route path="/resumos" element={<ResumePages />} />
+                        <Route path="/editar-perfil" element={<EditProfile />} />
+                        <Route path="/notas" element={<NotesPage />} />
+                    </Route>
 
-                        {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
-                        <Route element={<PrivateRoute roles={['ADMIN']} />}>
-                            <Route path="/admin" element={<UserManagement />} />
-                        </Route>
-                    </Routes>
-                </ResumeProvider>
-            </AuthProvider>
-        </BrowserRouter>
+                    {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
+                    <Route element={<PrivateRoute roles={['ADMIN']} />}>
+                        <Route path="/admin" element={<UserManagement />} />
+                    </Route>
+                </Routes>
+            </ResumeProvider>
+        </AuthProvider>
     );
 }
 export default App;
