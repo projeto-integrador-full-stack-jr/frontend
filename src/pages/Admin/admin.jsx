@@ -14,6 +14,8 @@ export default function UserManagement() {
     useEffect(() => {
         if (user?.acesso === 'ADMIN') {
             fetchUsers();
+        } else {
+            console.log('Usuário não autorizado');
         }
     }, [user]);
 
@@ -32,15 +34,15 @@ export default function UserManagement() {
         }
     };
 
-    const handleDelete = async (userId) => {
+    const handleDelete = async (id) => {
         try {
-            setDeleting(userId);
-            await AdminServices.userService.deleteUser(userId);
-            setUsers((prev) => prev.filter((u) => u.id !== userId));
-            toast.success('Usuário excluído com sucesso!');
+            setDeleting(id);
+            await AdminServices.userService.deleteUser(id);
+            setUsers((prev) => prev.filter((u) => u.usuarioId !== id));
+            toast.error('Usuário excluído com sucesso!');
         } catch (error) {
             console.error('Erro ao excluir usuário:', error);
-            toast.success(`Erro ao excluír o usuário ${userId}`);
+            toast.success(`Erro ao excluír o usuário ${id}`);
         } finally {
             setDeleting(null);
         }
@@ -81,7 +83,7 @@ export default function UserManagement() {
                                 {users.length > 0 ? (
                                     users.map((u) => (
                                         <tr key={u.id} className="border-t hover:bg-gray-50">
-                                            <td className="px-6 py-3">{u.id}</td>
+                                            <td className="px-6 py-3">{u.usuarioId}</td>
                                             <td className="px-6 py-3">{u.email}</td>
                                             <td className="px-6 py-3">
                                                 <span
@@ -99,8 +101,8 @@ export default function UserManagement() {
                                                     <Eye size={16} />
                                                 </button>
                                                 <button
-                                                    onClick={() => handleDelete(u.id)}
-                                                    disabled={deleting === u.id}
+                                                    onClick={() => handleDelete(u.usuarioId)}
+                                                    disabled={deleting === u.usuarioId}
                                                     className="cursor-pointer rounded-md border border-red-500 px-3 py-1.5 text-xs font-medium text-red-500 transition-all hover:bg-red-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                                                 >
                                                     {deleting === u.id ? (
