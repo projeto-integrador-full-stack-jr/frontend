@@ -9,7 +9,7 @@ const HeroSection = () => {
                 <div className="space-y-4">
                     <h1 className="font-outfit text-5xl font-bold text-blue-600 md:text-7xl">
                         Mentoria objetiva para a sua{' '}
-                        <span className="relative !font-clash !font-normal italic">evolução profissional </span>
+                        <span className="relative -z-50 !font-clash !font-normal italic">evolução profissional </span>
                     </h1>
                     <p className="font-outfit font-light text-zinc-600">
                         Conte com orientação direta para alcançar seus objetivos profissionais.
