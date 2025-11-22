@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { NavLink } from 'react-router-dom';
-import { Settings, NotebookText, Goal, Album, CircleUserRound, ChevronLast, LogOut } from 'lucide-react';
+import { Settings, NotebookText, Goal, Album, CircleUserRound, ChevronLast, LogOut, Database } from 'lucide-react';
 import logo from '../assets/logo.svg';
 import { useAuth } from '../contexts/auth/useAuth';
 
-const menuOptions = [
-    { label: 'Mentorias', link: '/resumos', icon: <Album size={20} /> },
-    { label: 'Metas', link: '/metas', icon: <Goal size={20} /> },
-    { label: 'Notas', link: '/notas', icon: <NotebookText size={20} /> },
-    { label: 'Editar perfil', link: '/editar-perfil', icon: <CircleUserRound size={20} /> },
-    { label: 'Configurações', link: '/configuracoes', icon: <Settings size={20} /> },
-];
-
 const Sidebar = () => {
     const { user, setUser, logout } = useAuth();
+
+    let menuOptions = [
+        { label: 'Mentorias', link: '/resumos', icon: <Album size={20} /> },
+        { label: 'Metas', link: '/metas', icon: <Goal size={20} /> },
+        { label: 'Notas', link: '/notas', icon: <NotebookText size={20} /> },
+        { label: 'Editar perfil', link: '/editar-perfil', icon: <CircleUserRound size={20} /> },
+        { label: 'Configurações', link: '/configuracoes', icon: <Settings size={20} /> },
+        { label: 'Dashboard', link: '/admin', icon: <Database size={20} /> },
+    ];
+
     const [isOpen, setIsOpen] = useState(() => {
         const storedState = localStorage.getItem('sidebar_open');
         return storedState ? storedState === 'true' : true;
     });
-
+    if (user?.acesso === 'USER') {
+        menuOptions = menuOptions.filter((item) => item.link !== '/admin');
+    }
     useEffect(() => {
         localStorage.setItem('sidebar_open', isOpen);
     }, [isOpen]);

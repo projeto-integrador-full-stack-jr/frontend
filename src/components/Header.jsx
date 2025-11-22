@@ -25,6 +25,7 @@ const Header = () => {
 
     const hideLogoRoutes = ['/configuracoes', '/editar-perfil', '/notas', '/metas', '/resumos'];
     const shouldHideLogo = hideLogoRoutes.includes(location.pathname);
+    
 
     return (
         <header className="flex w-full items-center justify-between border-b border-gray-200 px-5 py-4">
