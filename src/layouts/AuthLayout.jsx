@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import LoginPage from './LoginPage.jsx';
-import RegisterPage from './RegisterPage';
-import Tabs from '../../components/Tabs';
-import Header from '../../components/Header';
-import Logo from '../../assets/logo.svg';
+import LoginPage from '../pages/login/LoginPage.jsx';
+import RegisterPage from '../pages/login/RegisterPage.jsx';
+import Tabs from '../components/Tabs.jsx';
+import Header from '../components/Header.jsx';
+import Logo from '../assets/logo.svg';
 import { Link } from 'react-router-dom';
-import video from '../../assets/videos/video.mp4';
+import video from '../assets/videos/video.mp4';
 
 const AuthLayout = () => {
     const [currentPage, setCurrentPage] = useState('login');

@@ -23,9 +23,8 @@ const Header = () => {
     const isHome = location.pathname === '/';
     const isAuthPage = location.pathname.startsWith('/auth');
 
-    const hideLogoRoutes = ['/configuracoes', '/editar-perfil', '/notas', '/metas', '/resumos'];
+    const hideLogoRoutes = ['/configuracoes', '/editar-perfil', '/notas', '/metas', '/resumos', '/admin'];
     const shouldHideLogo = hideLogoRoutes.includes(location.pathname);
-    
 
     return (
         <header className="flex w-full items-center justify-between border-b border-gray-200 px-5 py-4">

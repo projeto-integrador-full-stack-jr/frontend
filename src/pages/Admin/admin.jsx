@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import { AdminServices } from '../../services';
 import LayoutPage from '../../layouts/LayoutPage';
+import { Link } from 'react-router-dom';
 
 export default function UserManagement() {
     const { user } = useAuth();
@@ -96,10 +97,13 @@ export default function UserManagement() {
                                                     {u.acesso}
                                                 </span>
                                             </td>
-                                            <td className="space-x-1 px-6 py-3 text-center">
-                                                <button className="hover:text-zinc-700disabled:cursor-not-allowed cursor-pointer rounded-md border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:cursor-not-allowed hover:bg-zinc-200 disabled:opacity-50">
+                                            <td className="flex space-x-1 px-6 py-3 text-center">
+                                                <Link
+                                                    to={`/admin/usuario/${u.usuarioId}`}
+                                                    className="hover:text-zinc-700disabled:cursor-not-allowed block cursor-pointer rounded-md border border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition-all hover:bg-zinc-200 disabled:opacity-50"
+                                                >
                                                     <Eye size={16} />
-                                                </button>
+                                                </Link>
                                                 <button
                                                     onClick={() => handleDelete(u.usuarioId)}
                                                     disabled={deleting === u.usuarioId}

@@ -1,6 +1,6 @@
 import './main.css';
 import LandingPage from './pages/Index.jsx';
-import PageLogin from './pages/login/AuthLayout.jsx';
+import PageLogin from './layouts/AuthLayout.jsx';
 import Settings from './pages/Settings.jsx';
 import Mentoring from './pages/Mentoring.jsx';
 import Overview from './pages/Overview.jsx';
@@ -9,6 +9,7 @@ import ResumePages from './pages/SummarysPage.jsx';
 import EditProfile from './pages/EditProfile.jsx';
 import NotesPage from './pages/NotesPage.jsx';
 import UserManagement from './pages/Admin/admin.jsx';
+import UserPage from './pages/Admin/userPage.jsx';
 import { Routes, Route } from 'react-router-dom';
 import StepByStepForm from './components/StepByStepForm.jsx';
 import { AuthProvider } from './contexts/auth/AuthProvider.jsx';
@@ -59,6 +60,7 @@ function App() {
                     {/* --->>> ROTAS PRIVADA @ACESSO ADMIN <<<---  */}
                     <Route element={<PrivateRoute roles={['ADMIN']} />}>
                         <Route path="/admin" element={<UserManagement />} />
+                        <Route path="/admin/usuario/:id" element={<UserPage />} />
                     </Route>
                 </Routes>
             </ResumeProvider>
