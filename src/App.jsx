@@ -49,7 +49,7 @@ function App() {
                         <Route path="/mentoria/:id" element={<Mentoring />} />
                         <Route path="/configuracoes" element={<Settings />} />
                         <Route path="/criar-perfil" element={<StepByStepForm />} />
-                        <Route path="/overview" element={<Overview />} />
+                        <Route path="/meu-perfil" element={<Overview />} />
                         <Route path="/metas" element={<Goals />} />
                         <Route path="/resumos" element={<ResumePages />} />
                         <Route path="/editar-perfil" element={<EditProfile />} />

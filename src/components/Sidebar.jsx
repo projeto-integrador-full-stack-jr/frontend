@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import { NavLink } from 'react-router-dom';
-import { Settings, NotebookText, Goal, Album, CircleUserRound, ChevronLast, LogOut, Database } from 'lucide-react';
+import {
+    Settings,
+    NotebookText,
+    Goal,
+    Album,
+    FileUser,
+    CircleUserRound,
+    ChevronLast,
+    LogOut,
+    Database,
+} from 'lucide-react';
 import logo from '../assets/logo.svg';
 import { useAuth } from '../contexts/auth/useAuth';
 
@@ -9,6 +19,7 @@ const Sidebar = () => {
     const { user, setUser, logout } = useAuth();
 
     let menuOptions = [
+        { label: 'Meu perfil', link: '/meu-perfil', icon: <FileUser size={20} /> },
         { label: 'Mentorias', link: '/resumos', icon: <Album size={20} /> },
         { label: 'Metas', link: '/metas', icon: <Goal size={20} /> },
         { label: 'Notas', link: '/notas', icon: <NotebookText size={20} /> },
