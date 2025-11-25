@@ -4,6 +4,7 @@ import { Trash2, Loader2, Eye } from 'lucide-react';
 import Header from '../../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import { AdminServices } from '../../services';
+import LayoutPage from '../../layouts/LayoutPage';
 
 export default function UserManagement() {
     const { user } = useAuth();
@@ -59,8 +60,7 @@ export default function UserManagement() {
     }
 
     return (
-        <>
-            <Header />
+        <LayoutPage>
             <div className="mx-auto min-h-screen max-w-7xl p-8">
                 <h1 className="my-10 text-center text-3xl font-bold text-gray-800">Gerenciamento de Usuários</h1>
 
@@ -137,6 +137,6 @@ export default function UserManagement() {
                 draggable
                 pauseOnHover
             />
-        </>
+        </LayoutPage>
     );
 }
